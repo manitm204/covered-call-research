@@ -13,6 +13,7 @@ import argparse
 import json
 import logging
 import sys
+from datetime import date
 from pathlib import Path
 
 from xsp_research.config import EXECUTION_SCENARIOS, load_strategy_config
@@ -138,6 +139,88 @@ def _cmd_ingest(args: argparse.Namespace) -> int:
     return 0
 
 
+def _load_bundle(args: argparse.Namespace, start, end):
+    """Bundle from --synthetic or from a --bundle-dir of <SYMBOL>.parquet files."""
+    if args.synthetic:
+        from xsp_research.ingestion.synthetic import (
+            SyntheticConfig,
+            SyntheticMarket,
+            research_bundle,
+        )
+
+        print(SYNTHETIC_BANNER, file=sys.stderr)
+        market = SyntheticMarket(SyntheticConfig(start=start, end=end, seed=args.seed))
+        return market, research_bundle(market, seed=args.seed)
+
+    import polars as pl
+
+    from xsp_research.features.registry import MarketDataBundle
+
+    if not args.bundle_dir:
+        print("error: need --synthetic or --bundle-dir", file=sys.stderr)
+        raise SystemExit(2)
+    series = {}
+    for p in sorted(Path(args.bundle_dir).glob("*.parquet")):
+        series[p.stem] = pl.read_parquet(p).select(["date", "close"])
+    sectors = tuple(s.strip() for s in args.sectors.split(",") if s.strip()) if args.sectors else ()
+    return None, MarketDataBundle(series=series, sector_symbols=sectors)
+
+
+def _cmd_build_features(args: argparse.Namespace) -> int:
+    from xsp_research.features import build_features
+
+    _, bundle = _load_bundle(args, args.start, args.end)
+    built = build_features(bundle, families=args.families.split(",") if args.families else None)
+    out = Path(args.output)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    built.frame.write_parquet(out)
+    manifest_path = out.with_suffix(".manifest.json")
+    manifest_path.write_text(json.dumps(built.manifest(), indent=2))
+    print(
+        json.dumps(
+            {
+                "features_built": len(built.used),
+                "skipped": built.skipped,
+                "rows": built.frame.height,
+                "output": str(out),
+                "manifest": str(manifest_path),
+            },
+            indent=2,
+        )
+    )
+    return 0
+
+
+def _cmd_run_experiment(args: argparse.Namespace) -> int:
+    from xsp_research.experiments.runner import load_experiment_config, run_experiment
+
+    exp = load_experiment_config(args.config)
+    if not args.synthetic:
+        print(
+            "error: real-data experiment runs arrive with the data providers; "
+            "use --synthetic for software validation",
+            file=sys.stderr,
+        )
+        return 2
+    from xsp_research.config import load_strategy_config
+
+    scfg = load_strategy_config(exp.strategy_config)
+    market, bundle = _load_bundle(args, scfg.backtest.start, scfg.backtest.end)
+    run = run_experiment(exp, market, market, market, bundle, out_root=args.output_root)
+    print(
+        json.dumps(
+            {
+                "experiment_id": run.experiment_id,
+                "out_dir": str(run.out_dir),
+                "scenarios_completed": sorted(run.summaries),
+                "errors": run.errors,
+            },
+            indent=2,
+        )
+    )
+    return 0 if not run.errors else 1
+
+
 def _cmd_validate_data(args: argparse.Namespace) -> int:
     import polars as pl
 
@@ -203,6 +286,26 @@ def main(argv: list[str] | None = None) -> int:
     p_val = sub.add_parser("validate-data", help="run the full data-quality report on a dataset")
     p_val.add_argument("--options", required=True)
     p_val.set_defaults(func=_cmd_validate_data)
+
+    p_feat = sub.add_parser("build-features", help="build the daily feature frame + manifest")
+    p_feat.add_argument("--synthetic", action="store_true")
+    p_feat.add_argument("--seed", type=int, default=7)
+    p_feat.add_argument("--bundle-dir", help="directory of <SYMBOL>.parquet (date, close) files")
+    p_feat.add_argument("--sectors", help="comma-separated sector symbols within the bundle dir")
+    p_feat.add_argument("--start", type=date.fromisoformat, default=date(2023, 1, 2))
+    p_feat.add_argument("--end", type=date.fromisoformat, default=date(2024, 12, 31))
+    p_feat.add_argument("--families", help="comma-separated feature families (default: all)")
+    p_feat.add_argument("-o", "--output", required=True, help="output parquet path")
+    p_feat.set_defaults(func=_cmd_build_features)
+
+    p_exp = sub.add_parser("run-experiment", help="run a tracked, config-driven experiment")
+    p_exp.add_argument("-c", "--config", required=True, help="experiment YAML")
+    p_exp.add_argument("--synthetic", action="store_true")
+    p_exp.add_argument("--seed", type=int, default=7)
+    p_exp.add_argument("--bundle-dir")
+    p_exp.add_argument("--sectors")
+    p_exp.add_argument("--output-root", default="reports/experiments")
+    p_exp.set_defaults(func=_cmd_run_experiment)
 
     p_info = sub.add_parser("info")
     p_info.set_defaults(func=_cmd_info)

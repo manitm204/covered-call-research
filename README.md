@@ -27,7 +27,16 @@ below-intrinsic, abnormal spreads, stale quotes, underlying misalignment, strike
 gaps, put-call-parity dispersion), portfolio overlay (stock-only vs overlay vs combined,
 margin-overlay and carve-out capital models, downside beta/capture/CVaR), stress-window
 reporting (Q4-2018, COVID, rebounds, 2022 bear — uncovered windows reported, never
-skipped), and Markdown/JSON/chart report generation. 157 tests.
+skipped), and Markdown/JSON/chart report generation.
+
+**Phase 3 complete**: feature registry (39 daily features across volatility/trend/
+breadth/cross-asset/PCA-regime families, each with definition, sources, mandatory
+lag >= 1 session, missing-value policy), snapshot-exact options-surface features,
+empirical leakage validation (prefix-consistency: removing future data must never
+change past feature values — enforced in CI for every registered feature),
+declarative entry filters, and a tracked experiment runner (`xsp run-experiment`)
+producing config snapshots, feature manifests, git/data provenance, and per-scenario
+trade-level research datasets. 204 tests.
 
 **No real market data is bundled.** Runs against synthetic data are for software
 validation only and are labeled as such in every output. Historical XSP/SPX options data

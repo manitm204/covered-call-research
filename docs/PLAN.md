@@ -145,9 +145,15 @@ SHA-256 hashes, row counts, date coverage, ingestion timestamp, adapter version.
   baseline reporting (`evaluation/stress_tests.py`, `evaluation/reporting.py`).
   Overlay capital model note: margin_overlay credits NO cash interest to the overlay
   (capital is fully invested in stock); carve_out reserves a cash sleeve that does.
-- **Phase 3**: feature registry with lag/leakage metadata; volatility, trend, breadth,
-  cross-asset, PCA-regime, surface features; config-driven experiment runner with
-  manifest + config + commit-hash tracking.
+- **Phase 3 (done)**: feature registry with per-feature lag/missing-policy/availability
+  metadata (`features/registry.py`); 39 daily features across volatility, trend,
+  breadth, cross-asset, and PCA-regime families plus snapshot-based surface features
+  (`features/surface.py`); empirical leakage validation via prefix-consistency checks
+  (`features/leakage.py`); declarative entry filters and a tracked experiment runner
+  (`experiments/`) writing config snapshots, feature manifests, provenance (git commit,
+  config hash, data-source labels), and per-scenario research datasets.
+  Timestamp convention: daily features carry a mandatory lag >= 1 session (the 15:30 ET
+  decision precedes that day's close); surface features are lag-0 snapshot-exact.
 - **Phase 4**: walk-forward with purge/embargo for overlapping 30-day labels; base-rate
   and logistic benchmarks; calibration reports; expected-P&L and MAE regression targets;
   ablations.

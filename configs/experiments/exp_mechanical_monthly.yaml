@@ -1,0 +1,8 @@
+# Experiment 1 (research brief section 15): mechanical monthly entry, no filter.
+# This is the always-trade baseline every filtered/model-driven variant must beat.
+name: mechanical_monthly
+strategy_config: configs/strategy_baseline.yaml
+scenarios: [optimistic, base, conservative]
+feature_families: [volatility, trend, breadth, cross_asset, pca_regime]
+entry_filters: []
+capture_entry_features: true

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import dataclasses
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import date, datetime, time
 from typing import Any
@@ -81,6 +82,14 @@ class TradeRecord:
     days_in_trade: int
 
 
+# Optional engine hooks (used by the experiment runner):
+# entry gate:   session -> (allow, reason); blocks scheduled entries pre-selection.
+# feature hook: (session, snap_ts, chain, selection, spot, rate) -> feature dict,
+#               captured per trade_id at fill time. Both see only current-time data.
+EntryGate = Callable[[date], tuple[bool, str]]
+EntryFeatureHook = Callable[[date, datetime, pl.DataFrame, Any, float, float], dict[str, Any]]
+
+
 @dataclass(slots=True)
 class BacktestResult:
     data_source: str
@@ -91,11 +100,18 @@ class BacktestResult:
     entry_attempts: list[EntryAttempt]
     ledger: Ledger
     positions: list[SpreadPosition]
+    entry_features: dict[str, dict[str, Any]] = dataclasses.field(default_factory=dict)
 
     def trades_frame(self) -> pl.DataFrame:
         if not self.trades:
             return pl.DataFrame()
         return pl.DataFrame([dataclasses.asdict(t) for t in self.trades])
+
+    def entry_features_frame(self) -> pl.DataFrame:
+        if not self.entry_features:
+            return pl.DataFrame()
+        rows = [{"trade_id": tid, **feats} for tid, feats in self.entry_features.items()]
+        return pl.DataFrame(rows)
 
 
 class BacktestEngine:
@@ -106,12 +122,18 @@ class BacktestEngine:
         underlying: UnderlyingProvider,
         rates: RatesProvider,
         execution_scenario: str = "custom",
+        *,
+        entry_gate: EntryGate | None = None,
+        entry_feature_hook: EntryFeatureHook | None = None,
     ) -> None:
         self.cfg = config
         self.options = options
         self.underlying = underlying
         self.rates = rates
         self.scenario = execution_scenario
+        self.entry_gate = entry_gate
+        self.entry_feature_hook = entry_feature_hook
+        self._entry_features: dict[str, dict[str, Any]] = {}
         self._ledger = Ledger()
         self._accruer = InterestAccruer(config.interest, rates)
         self._open: list[SpreadPosition] = []
@@ -173,6 +195,7 @@ class BacktestEngine:
             entry_attempts=self._attempts,
             ledger=self._ledger,
             positions=self._closed + self._open,
+            entry_features=self._entry_features,
         )
 
     # ------------------------------------------------------------- internals
@@ -277,6 +300,11 @@ class BacktestEngine:
     def _try_entry(
         self, session: date, snap_ts: datetime, chain: pl.DataFrame, spot: float
     ) -> None:
+        if self.entry_gate is not None:
+            allowed, why = self.entry_gate(session)
+            if not allowed:
+                self._attempts.append(EntryAttempt(session, False, False, f"filtered: {why}"))
+                return
         if chain.is_empty():
             self._attempts.append(EntryAttempt(session, False, False, "no chain data"))
             return
@@ -319,6 +347,14 @@ class BacktestEngine:
         }
         self._ledger.open_spread(snap_ts, trade_id, credit_dollars, report.fees_dollars)
         self._attempts.append(EntryAttempt(session, True, True, f"filled {trade_id}"))
+        if self.entry_feature_hook is not None:
+            try:
+                self._entry_features[trade_id] = self.entry_feature_hook(
+                    session, snap_ts, chain, sel, spot, rate
+                )
+            except Exception as exc:  # feature capture must never kill a backtest
+                logger.warning("entry feature hook failed for %s: %s", trade_id, exc)
+                self._entry_features[trade_id] = {"feature_error": str(exc)}
 
     def _settle_expiring(self, session: date) -> None:
         close_ts = self._session_ts(session, time(16, 0))

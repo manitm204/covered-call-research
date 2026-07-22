@@ -173,3 +173,58 @@ def _chain_schema() -> dict[str, pl.DataType]:
     from xsp_research.ingestion.base import CHAIN_SCHEMA
 
     return dict(CHAIN_SCHEMA)
+
+
+def research_bundle(market: SyntheticMarket, seed: int = 11):
+    """SYNTHETIC research universe for feature/experiment testing only.
+
+    Builds ETF/VIX/rate proxies deterministically from the market's underlying
+    path via a one-factor model (market beta + seeded idiosyncratic noise).
+    Every series is simulated; results derived from it are software validation,
+    never research evidence.
+    """
+    from xsp_research.features.registry import MarketDataBundle
+
+    rng = np.random.default_rng(seed)
+    dates = market._dates
+    closes = np.array([market._close[d] for d in dates])
+    mkt_ret = np.diff(np.log(closes), prepend=np.log(closes[0]))
+    mkt_ret[0] = 0.0
+    n = len(dates)
+
+    def factor_series(beta: float, idio: float, s0: float = 100.0) -> pl.DataFrame:
+        rets = beta * mkt_ret + idio * rng.standard_normal(n)
+        rets[0] = 0.0
+        return pl.DataFrame({"date": dates, "close": s0 * np.exp(np.cumsum(rets))})
+
+    # Trailing realized vol (annualized) drives the synthetic VIX level.
+    rv = np.full(n, market.cfg.base_iv)
+    for i in range(20, n):
+        rv[i] = float(np.std(mkt_ret[i - 19 : i + 1], ddof=1) * math.sqrt(252.0))
+    vix = np.clip(100.0 * rv * 1.15 + rng.normal(0.0, 0.6, n), 9.0, 90.0)
+    vix9d = np.clip(vix * (0.97 + 0.06 * rng.standard_normal(n) * 0.1), 8.0, 95.0)
+    vvix = np.clip(
+        85.0 + 4.0 * (vix - vix.mean()) / max(vix.std(), 1e-9) + rng.normal(0.0, 2.0, n),
+        60.0,
+        180.0,
+    )
+    rate = np.clip(market.cfg.rate + np.cumsum(rng.normal(0.0, 1e-4, n)), 0.0, 0.10)
+
+    series: dict[str, pl.DataFrame] = {
+        "UNDERLYING": pl.DataFrame({"date": dates, "close": closes}),
+        "SPY": factor_series(1.0, 0.0005, 450.0),
+        "RSP": factor_series(0.95, 0.002, 150.0),
+        "QQQ": factor_series(1.15, 0.004, 380.0),
+        "IWM": factor_series(1.05, 0.006, 190.0),
+        "HYG": factor_series(0.30, 0.002, 75.0),
+        "LQD": factor_series(0.10, 0.003, 105.0),
+        "VIX": pl.DataFrame({"date": dates, "close": vix}),
+        "VIX9D": pl.DataFrame({"date": dates, "close": vix9d}),
+        "VVIX": pl.DataFrame({"date": dates, "close": vvix}),
+        "RATE_3M": pl.DataFrame({"date": dates, "close": rate}),
+    }
+    sector_symbols = tuple(f"SEC{i}" for i in range(1, 9))
+    betas = np.linspace(0.7, 1.3, len(sector_symbols))
+    for sym, beta in zip(sector_symbols, betas, strict=True):
+        series[sym] = factor_series(float(beta), 0.008)
+    return MarketDataBundle(series=series, sector_symbols=sector_symbols)
