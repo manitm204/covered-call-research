@@ -221,6 +221,37 @@ def _cmd_run_experiment(args: argparse.Namespace) -> int:
     return 0 if not run.errors else 1
 
 
+def _cmd_evaluate_model(args: argparse.Namespace) -> int:
+    """Walk-forward benchmark-model evaluation on a research dataset."""
+    import polars as pl
+
+    from xsp_research.models.evaluate import run_family_ablation, run_walkforward
+    from xsp_research.models.walkforward import WalkForwardConfig
+
+    dataset = pl.read_parquet(args.research_dataset)
+    wf_cfg = WalkForwardConfig(
+        n_folds=args.folds,
+        embargo_days=args.embargo_days,
+        final_test_start=args.final_test_start,
+    )
+    if args.ablation:
+        result = run_family_ablation(dataset, args.label, wf_cfg, model_name=args.model)
+    else:
+        from xsp_research.models.evaluate import feature_family_columns
+
+        fams = feature_family_columns(dataset)
+        if args.families:
+            wanted = set(args.families.split(","))
+            fams = {k: v for k, v in fams.items() if k in wanted}
+        cols = sorted({c for cols in fams.values() for c in cols})
+        result = run_walkforward(dataset, cols, args.label, wf_cfg)
+    print(json.dumps(result, indent=2, default=str))
+    if args.output:
+        Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.output).write_text(json.dumps(result, indent=2, default=str))
+    return 0 if "error" not in result else 1
+
+
 def _cmd_validate_data(args: argparse.Namespace) -> int:
     import polars as pl
 
@@ -306,6 +337,31 @@ def main(argv: list[str] | None = None) -> int:
     p_exp.add_argument("--sectors")
     p_exp.add_argument("--output-root", default="reports/experiments")
     p_exp.set_defaults(func=_cmd_run_experiment)
+
+    p_eval = sub.add_parser(
+        "evaluate-model", help="walk-forward benchmark models on a research dataset"
+    )
+    p_eval.add_argument("--research-dataset", required=True, help="research_dataset.parquet path")
+    p_eval.add_argument(
+        "--label",
+        default="label_expire_itm",
+        help="target column (label_expire_itm, label_touch, label_net_pnl, label_mae, ...)",
+    )
+    p_eval.add_argument("--folds", type=int, default=4)
+    p_eval.add_argument("--embargo-days", type=int, default=5)
+    p_eval.add_argument(
+        "--final-test-start",
+        type=date.fromisoformat,
+        default=None,
+        help="samples whose label window reaches this date are excluded (untouched final test)",
+    )
+    p_eval.add_argument("--families", help="comma-separated feature families to use")
+    p_eval.add_argument(
+        "--ablation", action="store_true", help="run the feature-family ablation grid"
+    )
+    p_eval.add_argument("--model", default="logistic", help="model for --ablation runs")
+    p_eval.add_argument("-o", "--output", help="write result JSON here")
+    p_eval.set_defaults(func=_cmd_evaluate_model)
 
     p_info = sub.add_parser("info")
     p_info.set_defaults(func=_cmd_info)

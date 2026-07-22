@@ -72,9 +72,14 @@ def _git_commit() -> str | None:
         return None
 
 
-def build_research_dataset(result: BacktestResult, features: pl.DataFrame) -> pl.DataFrame:
+def build_research_dataset(
+    result: BacktestResult,
+    features: pl.DataFrame,
+    underlying: UnderlyingProvider | None = None,
+) -> pl.DataFrame:
     """Trade-level modeling table: outcomes + entry-date daily features + surface
-    features. This is the input for Phase 4 label/model work."""
+    features + (when an underlying provider is given) label_* target columns.
+    Labels are model targets only — never features."""
     trades = result.trades_frame()
     if trades.is_empty():
         return pl.DataFrame()
@@ -84,6 +89,12 @@ def build_research_dataset(result: BacktestResult, features: pl.DataFrame) -> pl
     surf = result.entry_features_frame()
     if not surf.is_empty():
         out = out.join(surf, on="trade_id", how="left")
+    if underlying is not None:
+        from xsp_research.models.labels import build_labels
+
+        labels = build_labels(result, underlying)
+        if not labels.is_empty():
+            out = out.join(labels, on="trade_id", how="left")
     return out
 
 
@@ -177,7 +188,7 @@ def run_experiment(
             trades = result.trades_frame()
             if not trades.is_empty():
                 trades.write_parquet(scen_dir / "trades.parquet")
-            research = build_research_dataset(result, built.frame)
+            research = build_research_dataset(result, built.frame, underlying)
             if not research.is_empty():
                 research.write_parquet(scen_dir / "research_dataset.parquet")
         except Exception as exc:  # log-and-continue: one scenario must not kill the rest

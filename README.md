@@ -36,7 +36,16 @@ empirical leakage validation (prefix-consistency: removing future data must neve
 change past feature values — enforced in CI for every registered feature),
 declarative entry filters, and a tracked experiment runner (`xsp run-experiment`)
 producing config snapshots, feature manifests, git/data provenance, and per-scenario
-trade-level research datasets. 204 tests.
+trade-level research datasets.
+
+**Phase 4 complete**: economically meaningful labels (expiration-ITM, close-based
+touch, net P&L, max adverse excursion — each with a `label_end` purge window);
+purged/embargoed forward-chaining walk-forward splits with an untouched final-test
+guard; the mandated benchmark-model ladder (base rate first, then logistic, L1,
+shallow tree — fold-local preprocessing only); calibration diagnostics (Brier, log
+loss, reliability tables, calibration slope/intercept, ECE) plus realized-P&L-by-
+predicted-decile tables; and the required feature-family ablation grid
+(`xsp evaluate-model [--ablation]`). 250 tests.
 
 **No real market data is bundled.** Runs against synthetic data are for software
 validation only and are labeled as such in every output. Historical XSP/SPX options data

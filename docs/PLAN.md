@@ -154,9 +154,17 @@ SHA-256 hashes, row counts, date coverage, ingestion timestamp, adapter version.
   config hash, data-source labels), and per-scenario research datasets.
   Timestamp convention: daily features carry a mandatory lag >= 1 session (the 15:30 ET
   decision precedes that day's close); surface features are lag-0 snapshot-exact.
-- **Phase 4**: walk-forward with purge/embargo for overlapping 30-day labels; base-rate
-  and logistic benchmarks; calibration reports; expected-P&L and MAE regression targets;
-  ablations.
+- **Phase 4 (done)**: label construction (`models/labels.py`: expiration-ITM, close-based
+  touch, net-P&L, MAE, credit-capture; each row carries `label_end` for purging);
+  purged/embargoed forward-chaining walk-forward with an untouched final-test guard
+  (`models/walkforward.py`); benchmark model ladder — base rate, logistic, L1 logistic,
+  shallow tree; train-mean, ridge, shallow tree for regression — with fold-local
+  imputation/scaling only; calibration diagnostics (Brier, log loss, reliability,
+  slope/intercept, ECE) and realized-P&L-by-predicted-decile economic value tables;
+  walk-forward evaluation + the required feature-family ablation grid
+  (`models/evaluate.py`); labels embedded in experiment research datasets;
+  `xsp evaluate-model` CLI. Validation note: on synthetic GBM data (no true signal)
+  the base-rate model beats all fitted models out-of-sample, as it should.
 - **Phase 5**: SVI surface with arbitrage diagnostics; gradient boosting with nested
   tuning; final untouched 2025+ evaluation; research conclusions.
 

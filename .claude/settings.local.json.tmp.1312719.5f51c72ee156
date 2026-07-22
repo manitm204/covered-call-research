@@ -15,7 +15,8 @@
       "Bash(git add *)",
       "Bash(git -c user.name=manit -c user.email=manitm204@gmail.com commit -q -m 'Phase 2: vendor ingestion with manifests, data-quality validation suite, portfolio overlay, stress-window and report generation *)",
       "Bash(xsp build-features *)",
-      "Bash(git -c user.name=manit -c user.email=manitm204@gmail.com commit -q -m 'Phase 3: feature registry with leakage validation, filter-driven entries, tracked experiment runner *)"
+      "Bash(git -c user.name=manit -c user.email=manitm204@gmail.com commit -q -m 'Phase 3: feature registry with leakage validation, filter-driven entries, tracked experiment runner *)",
+      "Bash(git -c user.name=manit -c user.email=manitm204@gmail.com commit -q -m 'Phase 4: labels, purged walk-forward, benchmark models, calibration, ablations *)"
     ]
   }
 }

@@ -1,1 +1,1 @@
-"""xsp_research package."""
+"""Predictive models: labels, walk-forward splits, benchmarks, calibration."""
