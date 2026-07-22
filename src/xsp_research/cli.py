@@ -186,6 +186,65 @@ def _cmd_ingest_aux(args: argparse.Namespace) -> int:
     return 0 if not manifest["errors"] else 1
 
 
+def _cmd_terminal_start(args: argparse.Namespace) -> int:
+    from xsp_research.ingestion.thetadata import launch_terminal, terminal_running
+
+    if terminal_running():
+        print("Theta Terminal already running.")
+        return 0
+    proc = launch_terminal()
+    print(f"Theta Terminal started (pid {proc.pid}) and answering.")
+    return 0
+
+
+def _cmd_pull_thetadata(args: argparse.Namespace) -> int:
+    from xsp_research.ingestion.thetadata import (
+        TerminalNotRunningError,
+        ThetaDataClient,
+        pull_chain_history,
+        terminal_running,
+    )
+
+    if not terminal_running():
+        print(TerminalNotRunningError(ThetaDataClient().base_url), file=sys.stderr)
+        return 2
+    client = ThetaDataClient()
+    manifest = pull_chain_history(
+        client,
+        symbol=args.symbol,
+        start=args.start,
+        end=args.end,
+        out_dir=args.output,
+        snapshot_et=args.snapshot,
+        max_dte=args.max_dte,
+        with_open_interest=not args.no_oi,
+        refresh=args.refresh,
+        progress=lambda msg: print(msg, file=sys.stderr),
+    )
+    from xsp_research.ingestion.thetadata import pull_underlying_eod
+
+    eod_path = Path(args.output) / "underlying_eod.parquet"
+    try:
+        eod = pull_underlying_eod(client, args.symbol, args.start, args.end, eod_path)
+        print(f"underlying EOD closes: {eod.height} rows -> {eod_path}", file=sys.stderr)
+    except Exception as exc:
+        print(f"warning: underlying EOD pull failed: {exc}", file=sys.stderr)
+    print(
+        json.dumps(
+            {
+                "months_written": len(manifest["months_written"]),
+                "months_skipped_existing": len(manifest["months_skipped_existing"]),
+                "empty_sessions": len(manifest["empty_sessions"]),
+                "session_errors": manifest["session_errors"],
+                "underlying_price_methods": manifest["underlying_price_methods"],
+                "out_dir": str(args.output),
+            },
+            indent=2,
+        )
+    )
+    return 0 if not manifest["session_errors"] else 1
+
+
 def _cmd_build_features(args: argparse.Namespace) -> int:
     from xsp_research.features import build_features
 
@@ -398,6 +457,22 @@ def main(argv: list[str] | None = None) -> int:
     p_aux.add_argument("--manifest-dir", default="data/manifests")
     p_aux.add_argument("--only", help="comma-separated symbols to (re)fetch, merging the manifest")
     p_aux.set_defaults(func=_cmd_ingest_aux)
+
+    p_term = sub.add_parser("terminal-start", help="download/launch the ThetaData terminal")
+    p_term.set_defaults(func=_cmd_terminal_start)
+
+    p_pull = sub.add_parser(
+        "pull-thetadata", help="pull daily option-chain snapshots from ThetaData"
+    )
+    p_pull.add_argument("--symbol", default="SPY")
+    p_pull.add_argument("--start", type=date.fromisoformat, required=True)
+    p_pull.add_argument("--end", type=date.fromisoformat, required=True)
+    p_pull.add_argument("--snapshot", default="15:30:00", help="ET snapshot time HH:MM:SS")
+    p_pull.add_argument("--max-dte", type=int, default=70)
+    p_pull.add_argument("--no-oi", action="store_true", help="skip open-interest requests")
+    p_pull.add_argument("--refresh", action="store_true", help="re-pull existing months")
+    p_pull.add_argument("-o", "--output", default="data/normalized/options/spy")
+    p_pull.set_defaults(func=_cmd_pull_thetadata)
 
     p_feat = sub.add_parser("build-features", help="build the daily feature frame + manifest")
     p_feat.add_argument("--synthetic", action="store_true")

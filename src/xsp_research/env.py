@@ -42,4 +42,4 @@ def thetadata_api_key(dotenv_path: str | Path = ".env") -> str | None:
 
 def thetadata_base_url(dotenv_path: str | Path = ".env") -> str:
     load_dotenv(dotenv_path)
-    return os.environ.get("THETADATA_BASE_URL", "http://127.0.0.1:25510").rstrip("/")
+    return os.environ.get("THETADATA_BASE_URL", "http://127.0.0.1:25503").rstrip("/")
