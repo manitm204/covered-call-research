@@ -1,0 +1,299 @@
+{
+  "created_utc": "2026-07-22T21:07:15+00:00",
+  "out_dir": "data/normalized/aux",
+  "start_filter": "2016-01-01",
+  "sector_symbols": [
+    "XLK",
+    "XLF",
+    "XLE",
+    "XLV",
+    "XLI",
+    "XLP",
+    "XLY",
+    "XLU",
+    "XLB"
+  ],
+  "series": {
+    "UNDERLYING": {
+      "source": "yahoo",
+      "source_id": "^GSPC",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1=820454400&period2=4102444800&interval=1d",
+      "description": "XSP level (SPX/10 by definition)",
+      "scale": 0.1,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "82ad39a76684d35dcbb34d0011d3a4b6b4036c79cc71401b2344023b31c49399"
+    },
+    "SPX": {
+      "source": "yahoo",
+      "source_id": "^GSPC",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1=820454400&period2=4102444800&interval=1d",
+      "description": "S&P 500 index close",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "cefb3e3b8279a16ec46ddc786ad57d6c1236567b5635052c71f558ff3e312fdc"
+    },
+    "SPY": {
+      "source": "yahoo",
+      "source_id": "SPY",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR S&P 500 ETF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "849c8c963cd02f96ce4788a94f51b0db9b348915be255a34f67006b37dee3919"
+    },
+    "RSP": {
+      "source": "yahoo",
+      "source_id": "RSP",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/RSP?period1=820454400&period2=4102444800&interval=1d",
+      "description": "Invesco equal-weight S&P 500 ETF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "d79c6742396686aeca884cd3a6665dcfedda77e4d5af142896b2de491b08c993"
+    },
+    "QQQ": {
+      "source": "yahoo",
+      "source_id": "QQQ",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/QQQ?period1=820454400&period2=4102444800&interval=1d",
+      "description": "Invesco Nasdaq-100 ETF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "fd31bf9afab1af536c8d95456634bbf367631fe83c58550ab2e19bab51b92093"
+    },
+    "IWM": {
+      "source": "yahoo",
+      "source_id": "IWM",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/IWM?period1=820454400&period2=4102444800&interval=1d",
+      "description": "iShares Russell 2000 ETF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "e1adaad4d222d57079f067e717f9dde22098b439a2d39369ca884c8826beccb5"
+    },
+    "HYG": {
+      "source": "yahoo",
+      "source_id": "HYG",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/HYG?period1=820454400&period2=4102444800&interval=1d",
+      "description": "iShares high-yield bond ETF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "3dc240c362a98b64e94e0c1532937f57d8293225ba9360fdec307a694651a7e6"
+    },
+    "LQD": {
+      "source": "yahoo",
+      "source_id": "LQD",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/LQD?period1=820454400&period2=4102444800&interval=1d",
+      "description": "iShares inv-grade bond ETF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "7e8b04643c438acc7ce4e4cc756b6e1a4a1217b486d45d247e43a20d68cf77ce"
+    },
+    "GLD": {
+      "source": "yahoo",
+      "source_id": "GLD",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/GLD?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR gold ETF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "5cc9e0fc66f833634365b3db4ca82b80b9ca70c2eb1f021b4e2c29ec50b255f2"
+    },
+    "USO": {
+      "source": "yahoo",
+      "source_id": "USO",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/USO?period1=820454400&period2=4102444800&interval=1d",
+      "description": "US oil fund (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "b88f82d47c43ede3789369e7d5fe1dcc0dec84302a9a97998d7a88b848f424fb"
+    },
+    "UUP": {
+      "source": "yahoo",
+      "source_id": "UUP",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/UUP?period1=820454400&period2=4102444800&interval=1d",
+      "description": "Invesco dollar index fund (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "df73d9d31313f9d385d6b142ca11ecdd0ece0fe27bc5f640739fe20b043a4ee9"
+    },
+    "DBC": {
+      "source": "yahoo",
+      "source_id": "DBC",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/DBC?period1=820454400&period2=4102444800&interval=1d",
+      "description": "Invesco broad commodity fund (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "bdc235996867e5e58d5931f014187b0cc57e8fa35e001d287768b2a88c625973"
+    },
+    "XLK": {
+      "source": "yahoo",
+      "source_id": "XLK",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLK?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLK (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "0741e6e67cea514a88a91f0433fd917bc75093bb44ec93c71db35aba48453ccd"
+    },
+    "XLF": {
+      "source": "yahoo",
+      "source_id": "XLF",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLF?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLF (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "684dde9b4bd52dae4490d7d33e528aff0b83c8f9694dbb19e245c87df78ff75e"
+    },
+    "XLE": {
+      "source": "yahoo",
+      "source_id": "XLE",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLE?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLE (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "4b32a6ad6ad242c9b2939a6673d89aa04d8d83b2635333e91a2ccf2e22a7d41a"
+    },
+    "XLV": {
+      "source": "yahoo",
+      "source_id": "XLV",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLV?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLV (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "0b3c236c7d66ce4b771c348c86d306e648e2aa6efff816ba4a04e95a0dffc972"
+    },
+    "XLI": {
+      "source": "yahoo",
+      "source_id": "XLI",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLI?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLI (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "9a98c4bde0b00474bfb6beb4dc48361f5f96198682c43b78eef87c82d4899d98"
+    },
+    "XLP": {
+      "source": "yahoo",
+      "source_id": "XLP",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLP?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLP (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "d87d3e7f5c241f441296c8141ccb48ed9953abc3ba4d8ade8b38e1f7fbe27a2a"
+    },
+    "XLY": {
+      "source": "yahoo",
+      "source_id": "XLY",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLY?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLY (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "67b96a8461852a7379ca35ae706a6a56e05e248769dceabcd5ae3d7675f5edce"
+    },
+    "XLU": {
+      "source": "yahoo",
+      "source_id": "XLU",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLU?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLU (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "7fbe18f6564c5c3c683a79721a9433b5982932b83e42a534beaf7cfe807a438a"
+    },
+    "XLB": {
+      "source": "yahoo",
+      "source_id": "XLB",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLB?period1=820454400&period2=4102444800&interval=1d",
+      "description": "SPDR sector ETF XLB (adjusted close)",
+      "scale": 1.0,
+      "rows": 2652,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-22",
+      "sha256": "5dfa37ef85ef80337f3211dfbb5381a94f76cc6b4e23b12c41fec260ec6d679b"
+    },
+    "VIX9D": {
+      "source": "cboe_index",
+      "source_id": "VIX9D",
+      "source_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX9D_History.csv",
+      "description": "CBOE 9-day VIX close (points)",
+      "scale": 1.0,
+      "rows": 2651,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-21",
+      "sha256": "8498b5a509acd5389116024afefff9c9dd77b854b7aedde2faae914d54d8832b"
+    },
+    "VVIX": {
+      "source": "cboe_index",
+      "source_id": "VVIX",
+      "source_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VVIX_History.csv",
+      "description": "CBOE VVIX close (points)",
+      "scale": 1.0,
+      "rows": 2651,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-21",
+      "sha256": "d96863e3066805e798eec9056f25519074d14b72bf94a710162b6a596b616e2f"
+    },
+    "VIX": {
+      "source": "cboe_index",
+      "source_id": "VIX",
+      "source_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
+      "description": "CBOE VIX close (points)",
+      "scale": 1.0,
+      "rows": 2683,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-21",
+      "sha256": "8d0d1648e8c34d5a495df299042fd650de2b859b3151cd26c26b4a86160fc57d"
+    },
+    "RATE_3M": {
+      "source": "fred",
+      "source_id": "DTB4WK",
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTB4WK",
+      "description": "4-week T-bill discount yield (decimal)",
+      "scale": 0.01,
+      "rows": 2637,
+      "date_min": "2016-01-04",
+      "date_max": "2026-07-21",
+      "sha256": "88b8e95ab222a6b58cc799438046d95e34d76d136e87951fa00719ea90ddd3ac",
+      "note": "fetched successfully in the first ingest run; restored from that artifact after FRED became unreachable for later runs",
+      "also_written": "data/normalized/rates/tbill_4w.parquet"
+    }
+  },
+  "errors": {
+    "SOFR": "FRED unreachable (repeated timeouts, likely IP rate-limit); optional series \u2014 retry later with: xsp ingest-aux --only SOFR"
+  },
+  "license_note": "FRED public series; Yahoo Finance chart API (personal research use); Cboe public index histories. Do not redistribute; not committed to git."
+}

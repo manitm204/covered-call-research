@@ -152,18 +152,38 @@ def _load_bundle(args: argparse.Namespace, start, end):
         market = SyntheticMarket(SyntheticConfig(start=start, end=end, seed=args.seed))
         return market, research_bundle(market, seed=args.seed)
 
-    import polars as pl
-
-    from xsp_research.features.registry import MarketDataBundle
-
     if not args.bundle_dir:
         print("error: need --synthetic or --bundle-dir", file=sys.stderr)
         raise SystemExit(2)
-    series = {}
-    for p in sorted(Path(args.bundle_dir).glob("*.parquet")):
-        series[p.stem] = pl.read_parquet(p).select(["date", "close"])
-    sectors = tuple(s.strip() for s in args.sectors.split(",") if s.strip()) if args.sectors else ()
-    return None, MarketDataBundle(series=series, sector_symbols=sectors)
+    from xsp_research.ingestion.aux_data import load_aux_bundle
+
+    bundle = load_aux_bundle(args.bundle_dir)
+    if args.sectors:  # explicit override of the auto-detected sector list
+        from xsp_research.features.registry import MarketDataBundle
+
+        sectors = tuple(s.strip() for s in args.sectors.split(",") if s.strip())
+        bundle = MarketDataBundle(series=bundle.series, sector_symbols=sectors)
+    return None, bundle
+
+
+def _cmd_ingest_aux(args: argparse.Namespace) -> int:
+    """Download the free FRED/Stooq/Cboe auxiliary bundle + write manifest."""
+    from xsp_research.ingestion.aux_data import DEFAULT_UNIVERSE, ingest_aux_bundle
+
+    only = tuple(s.strip() for s in args.only.split(",")) if args.only else None
+    manifest = ingest_aux_bundle(
+        args.output, DEFAULT_UNIVERSE, start=args.start, manifest_dir=args.manifest_dir, only=only
+    )
+    summary = {
+        "series_ok": len(manifest["series"]),
+        "series_failed": len(manifest["errors"]),
+        "errors": manifest["errors"],
+        "sectors_detected": manifest["sector_symbols"],
+        "out_dir": manifest["out_dir"],
+        "manifest": str(Path(args.manifest_dir) / "aux_bundle.manifest.json"),
+    }
+    print(json.dumps(summary, indent=2))
+    return 0 if not manifest["errors"] else 1
 
 
 def _cmd_build_features(args: argparse.Namespace) -> int:
@@ -371,6 +391,13 @@ def main(argv: list[str] | None = None) -> int:
     p_val = sub.add_parser("validate-data", help="run the full data-quality report on a dataset")
     p_val.add_argument("--options", required=True)
     p_val.set_defaults(func=_cmd_validate_data)
+
+    p_aux = sub.add_parser("ingest-aux", help="download the free FRED/Stooq/Cboe auxiliary bundle")
+    p_aux.add_argument("-o", "--output", default="data/normalized/aux")
+    p_aux.add_argument("--start", type=date.fromisoformat, default=date(2016, 1, 1))
+    p_aux.add_argument("--manifest-dir", default="data/manifests")
+    p_aux.add_argument("--only", help="comma-separated symbols to (re)fetch, merging the manifest")
+    p_aux.set_defaults(func=_cmd_ingest_aux)
 
     p_feat = sub.add_parser("build-features", help="build the daily feature frame + manifest")
     p_feat.add_argument("--synthetic", action="store_true")

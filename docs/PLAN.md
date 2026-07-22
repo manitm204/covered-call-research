@@ -89,8 +89,20 @@ PM-settled per Cboe spec — verified against contract specs before real-data ru
 `date, tenor, rate` — annualized decimal. Baseline: 4-week T-bill (FRED DTB4WK) or SOFR.
 Used for (a) discounting/forwards, (b) cash interest accrual. Both configurable separately.
 
-### 3.4 Auxiliary series (Phase 2+)
-VIX family, credit ETFs, commodities, dollar — `date, symbol, value`.
+### 3.4 Auxiliary series (INGESTED — free sources, 2016-present)
+`data/normalized/aux/<SYMBOL>.parquet`, one (date, close) frame per symbol, pulled by
+`xsp ingest-aux` with provenance in `data/manifests/aux_bundle.manifest.json`:
+- Yahoo Finance chart API: SPX (and UNDERLYING = SPX/10, the XSP index definition),
+  SPY/RSP/QQQ/IWM, 9 SPDR sectors, HYG/LQD, GLD/USO/UUP/DBC — ETFs as ADJUSTED
+  closes (total return). Fetched with explicit period1/period2 (range=max silently
+  degrades to monthly bars).
+- Cboe public index histories: VIX, VIX9D, VVIX (daily closes; two CSV layouts and
+  mixed date formats handled).
+- FRED: RATE_3M (DTB4WK, stored as decimal; also written to
+  data/normalized/rates/tbill_4w.parquet for the backtester), SOFR (optional;
+  retry with `xsp ingest-aux --only SOFR` if a run records an error).
+All 39 daily features build on this bundle with zero skips and pass
+prefix-consistency leakage checks on the real data.
 
 ### 3.5 Manifests
 Every normalized dataset gets `data/manifests/<name>.json`: source, license note, file

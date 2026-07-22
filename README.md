@@ -73,6 +73,11 @@ pytest                        # run the full test suite
 ## Usage
 
 ```bash
+# Download the free auxiliary bundle (ETFs/VIX family/rates; FRED+Yahoo+Cboe):
+xsp ingest-aux -o data/normalized/aux --start 2016-01-01
+# Build all 39 daily features from it:
+xsp build-features --bundle-dir data/normalized/aux -o data/features/daily_features.parquet
+
 # Software-validation run on labeled synthetic data:
 xsp run-backtest -c configs/strategy_baseline.yaml --synthetic --scenario base -o reports/dev
 
