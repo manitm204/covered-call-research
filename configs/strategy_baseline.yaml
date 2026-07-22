@@ -1,0 +1,54 @@
+# Baseline XSP bear call credit spread configuration.
+# Every value here materially affects results; see docs/PLAN.md sections 4 and 8.
+name: baseline_xsp_bear_call
+
+selection:
+  root: XSP
+  target_dte: 30
+  min_dte: 25
+  max_dte: 35
+  short_delta_target: 0.15
+  width_method: fixed_width
+  fixed_width: 5.0
+  min_short_bid: 0.05
+  max_leg_rel_spread: 0.50
+
+# Rules evaluated in order; first trigger wins.
+exits:
+  - kind: profit_target
+    profit_target_pct: 0.50        # close at 50% of max profit
+  - kind: stop_loss
+    stop_loss_multiple: 2.0        # close when cost-to-close >= 2x entry credit
+  # - kind: dte
+  #   dte_threshold: 7
+  # - kind: delta_stop
+  #   delta_threshold: 0.50
+
+execution:
+  fill_model: pct_between
+  fill_pct: 0.5                    # halfway between natural and midpoint
+  slippage_per_spread: 0.0
+  max_leg_rel_spread: 0.50
+  min_credit: 0.05
+
+costs:
+  commission_per_contract: 0.65
+  fees_per_contract: 0.60          # Cboe proprietary index product + regulatory (verify w/ broker)
+  settlement_fee_per_contract: 0.0
+
+interest:
+  mode: free_cash_only             # collateral does NOT earn interest by default
+  rate_source: provider            # T-bill/SOFR proxy from the rates provider
+  spread_bps: -25                  # brokerage core position typically lags the benchmark
+
+sizing:
+  contracts_per_entry: 1
+  max_open_positions: 2            # 30-day holds with monthly entries can overlap
+
+backtest:
+  start: 2023-01-02
+  end: 2024-12-31
+  initial_cash: 100000.0
+  entry_frequency: monthly
+  entry_time_et: "15:30:00"
+  mark_time_et: "15:30:00"

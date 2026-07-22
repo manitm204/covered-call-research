@@ -1,0 +1,33 @@
+# Data is never committed; it is licensed and large. Manifests describe it instead.
+data/raw/
+data/normalized/
+data/features/
+*.parquet
+*.duckdb
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets
+.env
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Reports are regenerated from configs + manifests
+reports/*.html
+reports/*.png
+
+# Local tool caches / local settings
+.pytest_cache/
+.ruff_cache/
+.claude/settings.local.json
+reports/dev/
