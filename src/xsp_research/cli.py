@@ -236,6 +236,16 @@ def _cmd_evaluate_model(args: argparse.Namespace) -> int:
     )
     if args.ablation:
         result = run_family_ablation(dataset, args.label, wf_cfg, model_name=args.model)
+    elif args.nested_boosting:
+        from xsp_research.models.boosting import nested_boosting_walkforward
+        from xsp_research.models.evaluate import feature_family_columns
+
+        fams = feature_family_columns(dataset)
+        if args.families:
+            wanted = set(args.families.split(","))
+            fams = {k: v for k, v in fams.items() if k in wanted}
+        cols = sorted({c for cols in fams.values() for c in cols})
+        result = nested_boosting_walkforward(dataset, cols, args.label, wf_cfg)
     else:
         from xsp_research.models.evaluate import feature_family_columns
 
@@ -250,6 +260,50 @@ def _cmd_evaluate_model(args: argparse.Namespace) -> int:
         Path(args.output).parent.mkdir(parents=True, exist_ok=True)
         Path(args.output).write_text(json.dumps(result, indent=2, default=str))
     return 0 if "error" not in result else 1
+
+
+def _cmd_fit_surface(args: argparse.Namespace) -> int:
+    """Fit SVI slices to one snapshot and print arbitrage/fit diagnostics."""
+    from datetime import timedelta
+
+    from xsp_research.options.svi_surface import fit_surface_from_chain
+
+    if args.synthetic:
+        from xsp_research.ingestion.synthetic import SyntheticConfig, SyntheticMarket
+
+        print(SYNTHETIC_BANNER, file=sys.stderr)
+        market = SyntheticMarket(
+            SyntheticConfig(
+                start=args.session - timedelta(days=5),
+                end=args.session + timedelta(days=90),
+                seed=args.seed,
+            )
+        )
+        session = next(
+            (d for d in market.trading_dates(args.session, args.session + timedelta(days=7))),
+            None,
+        )
+        if session is None:
+            print("error: no synthetic session near that date", file=sys.stderr)
+            return 2
+        chain = market.chain(market._snapshot_ts(session))
+    elif args.options_data:
+        import polars as pl
+
+        df = pl.read_parquet(args.options_data)
+        chain = df.filter(pl.col("ts").dt.date() == args.session)
+        session = args.session
+        if chain.is_empty():
+            print(f"error: no rows for session {args.session}", file=sys.stderr)
+            return 2
+    else:
+        print("error: need --synthetic or --options-data", file=sys.stderr)
+        return 2
+
+    spot = float(chain["underlying_price"][0])
+    surface = fit_surface_from_chain(chain, spot, args.rate, args.div_yield, session)
+    print(json.dumps(surface.diagnostics(), indent=2))
+    return 0
 
 
 def _cmd_validate_data(args: argparse.Namespace) -> int:
@@ -270,7 +324,7 @@ def _cmd_validate_data(args: argparse.Namespace) -> int:
 
 
 def _cmd_info(args: argparse.Namespace) -> int:
-    print("xsp-research: XSP bear call credit spread research framework (Phase 2)")
+    print("xsp-research: XSP bear call credit spread research framework (all 5 phases complete)")
     print("See docs/PLAN.md for architecture, assumptions, and P&L definitions.")
     return 0
 
@@ -359,9 +413,23 @@ def main(argv: list[str] | None = None) -> int:
     p_eval.add_argument(
         "--ablation", action="store_true", help="run the feature-family ablation grid"
     )
+    p_eval.add_argument(
+        "--nested-boosting",
+        action="store_true",
+        help="tuned XGBoost with nested inner splits + benchmark admission comparison",
+    )
     p_eval.add_argument("--model", default="logistic", help="model for --ablation runs")
     p_eval.add_argument("-o", "--output", help="write result JSON here")
     p_eval.set_defaults(func=_cmd_evaluate_model)
+
+    p_surf = sub.add_parser("fit-surface", help="fit SVI slices to a chain snapshot + diagnostics")
+    p_surf.add_argument("--synthetic", action="store_true")
+    p_surf.add_argument("--seed", type=int, default=7)
+    p_surf.add_argument("--options-data", help="canonical chain parquet")
+    p_surf.add_argument("--session", type=date.fromisoformat, required=True)
+    p_surf.add_argument("--rate", type=float, default=0.045)
+    p_surf.add_argument("--div-yield", type=float, default=0.015)
+    p_surf.set_defaults(func=_cmd_fit_surface)
 
     p_info = sub.add_parser("info")
     p_info.set_defaults(func=_cmd_info)

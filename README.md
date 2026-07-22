@@ -45,7 +45,18 @@ guard; the mandated benchmark-model ladder (base rate first, then logistic, L1,
 shallow tree — fold-local preprocessing only); calibration diagnostics (Brier, log
 loss, reliability tables, calibration slope/intercept, ECE) plus realized-P&L-by-
 predicted-decile tables; and the required feature-family ablation grid
-(`xsp evaluate-model [--ablation]`). 250 tests.
+(`xsp evaluate-model [--ablation]`).
+
+**Phase 5 complete**: raw-SVI surface fitting with butterfly/calendar arbitrage
+diagnostics (`xsp fit-surface`); nested-tuned XGBoost with per-fold inner purged
+splits and an explicit admission rule against simpler benchmarks
+(`xsp evaluate-model --nested-boosting`); robustness suite (block-bootstrap CIs for
+trade expectancy and Sharpe, short-delta × width grid re-runs); a single-use
+final-test evaluator with an on-disk usage guard; and pre-registered research
+conclusions / go-no-go gates in `docs/CONCLUSIONS.md`. 285 tests.
+
+All five phases of the framework are built and verified. The single remaining
+blocker for real research results is licensed XSP/SPX options history.
 
 **No real market data is bundled.** Runs against synthetic data are for software
 validation only and are labeled as such in every output. Historical XSP/SPX options data

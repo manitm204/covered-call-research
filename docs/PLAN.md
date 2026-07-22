@@ -165,8 +165,15 @@ SHA-256 hashes, row counts, date coverage, ingestion timestamp, adapter version.
   (`models/evaluate.py`); labels embedded in experiment research datasets;
   `xsp evaluate-model` CLI. Validation note: on synthetic GBM data (no true signal)
   the base-rate model beats all fitted models out-of-sample, as it should.
-- **Phase 5**: SVI surface with arbitrage diagnostics; gradient boosting with nested
-  tuning; final untouched 2025+ evaluation; research conclusions.
+- **Phase 5 (done)**: raw-SVI slice fitting with butterfly (Gatheral g(k)) and
+  calendar diagnostics (`options/svi_surface.py`); nested-tuned XGBoost with per-fold
+  inner purged splits and an explicit admission rule vs simpler benchmarks
+  (`models/boosting.py`); robustness suite — block-bootstrap CIs for expectancy and
+  Sharpe, short-delta x width grid re-runs (`evaluation/robustness.py`); single-use
+  final-test machinery with an on-disk usage guard (`evaluation/final_test.py`);
+  research conclusions and pre-registered go/no-go gates in docs/CONCLUSIONS.md.
+  Validation: on no-signal synthetic data the tuner selects the simplest settings,
+  ties the base rate, and boosting is refused admission — the guardrail guards.
 
 Chronological research design (adjusted once real data coverage is known):
 2018-2021 development/training → 2022 first OOS regime → 2023-2024 rolling validation →
