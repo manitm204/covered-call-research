@@ -18,7 +18,16 @@ authoritative definitions of every P&L and performance calculation.
 **Phase 1 complete**: configuration system, validated domain models, provider interfaces,
 Black-Scholes/IV/Greeks, deterministic audited contract selection, execution-cost model,
 double-entry ledger with collateral and interest accrual, daily backtest engine, metrics,
-CLI, and a 112-test suite.
+CLI.
+
+**Phase 2 complete**: vendor-file ingestion (declarative column mappings, Cboe DataShop
+preset, explicit opt-in SPX→XSP `/10` proxy transform labeled `*_PROXY`, SHA-256
+manifests), full data-quality validation suite (duplicates, crossed/locked, zero-bid,
+below-intrinsic, abnormal spreads, stale quotes, underlying misalignment, strike/session
+gaps, put-call-parity dispersion), portfolio overlay (stock-only vs overlay vs combined,
+margin-overlay and carve-out capital models, downside beta/capture/CVaR), stress-window
+reporting (Q4-2018, COVID, rebounds, 2022 bear — uncovered windows reported, never
+skipped), and Markdown/JSON/chart report generation. 157 tests.
 
 **No real market data is bundled.** Runs against synthetic data are for software
 validation only and are labeled as such in every output. Historical XSP/SPX options data

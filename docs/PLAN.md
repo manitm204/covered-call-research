@@ -137,10 +137,14 @@ SHA-256 hashes, row counts, date coverage, ingestion timestamp, adapter version.
 - **Phase 1 (this build)**: architecture, configs, domain, provider interfaces,
   synthetic fixtures, BS/IV/Greeks, selection, execution model, ledger, daily engine,
   metrics, CLI, tests.
-- **Phase 2**: real provider adapter(s) (ThetaData / Polygon / Cboe DataShop / user
-  Parquet), data-validation reports (crossed/locked/zero-bid/stale/parity diagnostics),
-  full cash-collateral configurations, portfolio overlay vs SPY / user returns,
-  baseline + stress-period reporting.
+- **Phase 2 (done)**: vendor-file ingestion with declarative mappings + manifests
+  (`ingestion/vendors.py`; live REST clients deferred until a vendor is licensed),
+  data-validation reports (crossed/locked/zero-bid/below-intrinsic/stale/parity/gap
+  diagnostics in `ingestion/validation.py`), portfolio overlay with margin-overlay and
+  carve-out capital models (`backtest/portfolio_overlay.py`), stress-window and
+  baseline reporting (`evaluation/stress_tests.py`, `evaluation/reporting.py`).
+  Overlay capital model note: margin_overlay credits NO cash interest to the overlay
+  (capital is fully invested in stock); carve_out reserves a cash sleeve that does.
 - **Phase 3**: feature registry with lag/leakage metadata; volatility, trend, breadth,
   cross-asset, PCA-regime, surface features; config-driven experiment runner with
   manifest + config + commit-hash tracking.

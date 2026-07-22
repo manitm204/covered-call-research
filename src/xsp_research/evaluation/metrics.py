@@ -59,6 +59,62 @@ def equity_metrics(equity_curve: pl.DataFrame, rf_annual: float = 0.0) -> dict[s
     }
 
 
+def tail_metrics(equity_curve: pl.DataFrame) -> dict[str, Any]:
+    """Tail and calendar-bucket risk measures from a daily (date, equity) curve."""
+    eq = equity_curve["equity"].to_numpy()
+    if len(eq) < 20:
+        return {"error": "too few observations for tail metrics"}
+    rets = np.diff(eq) / eq[:-1]
+    var_95 = float(np.quantile(rets, 0.05))
+    cvar_95 = float(rets[rets <= var_95].mean()) if (rets <= var_95).any() else var_95
+    monthly = (
+        equity_curve.with_columns(pl.col("date").dt.strftime("%Y-%m").alias("month"))
+        .group_by("month", maintain_order=True)
+        .agg(pl.col("equity").last())
+        .with_columns((pl.col("equity") / pl.col("equity").shift(1) - 1.0).alias("ret"))
+        .drop_nulls("ret")
+    )
+    worst_day_idx = int(np.argmin(rets))
+    return {
+        "var_95_daily": var_95,
+        "cvar_95_daily": cvar_95,
+        "worst_day_return": float(rets.min()),
+        "worst_day_date": str(equity_curve["date"][worst_day_idx + 1]),
+        "worst_month_return": float(monthly["ret"].min()) if not monthly.is_empty() else None,
+        "worst_month": (
+            monthly.sort("ret").head(1)["month"][0] if not monthly.is_empty() else None
+        ),
+    }
+
+
+def benchmark_relative_metrics(port_rets: np.ndarray, bench_rets: np.ndarray) -> dict[str, Any]:
+    """Beta, downside beta, capture ratios, correlation vs a benchmark return series."""
+    if len(port_rets) != len(bench_rets) or len(port_rets) < 20:
+        return {"error": "return series unaligned or too short"}
+    var_b = float(np.var(bench_rets, ddof=1))
+    beta = float(np.cov(port_rets, bench_rets, ddof=1)[0, 1] / var_b) if var_b > 0 else None
+    down = bench_rets < 0
+    up = bench_rets > 0
+    downside_beta = None
+    if down.sum() >= 10 and np.var(bench_rets[down], ddof=1) > 0:
+        downside_beta = float(
+            np.cov(port_rets[down], bench_rets[down], ddof=1)[0, 1]
+            / np.var(bench_rets[down], ddof=1)
+        )
+    up_capture = float(port_rets[up].mean() / bench_rets[up].mean()) if up.sum() >= 10 else None
+    down_capture = (
+        float(port_rets[down].mean() / bench_rets[down].mean()) if down.sum() >= 10 else None
+    )
+    corr = float(np.corrcoef(port_rets, bench_rets)[0, 1])
+    return {
+        "beta": beta,
+        "downside_beta": downside_beta,
+        "upside_capture": up_capture,
+        "downside_capture": down_capture,
+        "correlation": corr,
+    }
+
+
 def trade_metrics(trades: pl.DataFrame) -> dict[str, Any]:
     """Metrics from the per-trade record frame (realized_net etc.)."""
     if trades.is_empty():
