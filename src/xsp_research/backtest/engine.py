@@ -25,6 +25,11 @@ from zoneinfo import ZoneInfo
 import polars as pl
 
 from xsp_research.backtest import execution
+from xsp_research.backtest.american import (
+    DividendCalendar,
+    assignment_exit_debit,
+    early_assignment_triggered,
+)
 from xsp_research.backtest.ledger import Account, InterestAccruer, Ledger
 from xsp_research.config import StrategyConfig
 from xsp_research.domain import (
@@ -125,6 +130,7 @@ class BacktestEngine:
         *,
         entry_gate: EntryGate | None = None,
         entry_feature_hook: EntryFeatureHook | None = None,
+        dividends: DividendCalendar | None = None,
     ) -> None:
         self.cfg = config
         self.options = options
@@ -133,6 +139,17 @@ class BacktestEngine:
         self.scenario = execution_scenario
         self.entry_gate = entry_gate
         self.entry_feature_hook = entry_feature_hook
+        self.dividends = dividends
+        self._is_american = config.selection.exercise_style == "american"
+        self._is_physical = config.selection.settlement == "physical"
+        if config.selection.settlement == "AM":
+            raise ValueError("AM settlement is not supported (not needed for XSP/SPY)")
+        if self._is_american and dividends is None:
+            raise ValueError(
+                "American-exercise modeling requires a dividend calendar "
+                "(early assignment is dividend-driven for calls); pass dividends= "
+                "or ingest one via `xsp ingest-aux`"
+            )
         self._entry_features: dict[str, dict[str, Any]] = {}
         self._ledger = Ledger()
         self._accruer = InterestAccruer(config.interest, rates)
@@ -163,8 +180,11 @@ class BacktestEngine:
             spot = self._spot_from_chain(chain) or self.underlying.close(session)
 
             # 1. Mark open positions and evaluate exits at the snapshot.
+            #    (For American/physical contracts this also handles the
+            #    dividend-assignment hazard and expiry-day forced closes.)
+            next_session = sessions[i + 1] if i + 1 < len(sessions) else None
             if spot is not None:
-                self._mark_and_exit(session, snap_ts, chain, spot)
+                self._mark_and_exit(session, snap_ts, chain, spot, next_session)
 
             # 2. Scheduled entries.
             if session in entry_sessions and spot is not None:
@@ -256,17 +276,39 @@ class BacktestEngine:
         return SpreadQuote(short_quote=sq, long_quote=lq)
 
     def _mark_and_exit(
-        self, session: date, snap_ts: datetime, chain: pl.DataFrame, spot: float
+        self,
+        session: date,
+        snap_ts: datetime,
+        chain: pl.DataFrame,
+        spot: float,
+        next_session: date | None = None,
     ) -> None:
         rate = self.rates.rate(session)
         for position in list(self._open):
-            if position.spread.expiration <= session:
-                continue  # settles at today's close instead
+            expiring_today = position.spread.expiration <= session
+            if expiring_today and not self._is_physical:
+                continue  # European: cash-settles at today's close instead
             sq = self._position_quote(chain, position)
             if sq is None:
-                logger.warning(
-                    "no quotes for %s at %s; mark is stale", position.position_id, session
-                )
+                if expiring_today:
+                    # Physical settlement with no expiry-day quotes: close at
+                    # intrinsic from spot (documented approximation, warned).
+                    logger.warning(
+                        "%s expires today with no quotes; closing at intrinsic",
+                        position.position_id,
+                    )
+                    self._close_position(
+                        position,
+                        snap_ts,
+                        position.spread.settlement_value(spot),
+                        0.0,
+                        ExitReason.EXPIRY_CLOSE,
+                        "expiry close (intrinsic)",
+                    )
+                else:
+                    logger.warning(
+                        "no quotes for %s at %s; mark is stale", position.position_id, session
+                    )
                 continue
             mark = min(max(sq.close_debit_mid, 0.0), position.spread.width)
             position.record_mark(snap_ts, mark)
@@ -275,6 +317,23 @@ class BacktestEngine:
                 snap_ts, position.position_id, self._booked_mtm[position.position_id], mark_dollars
             )
             self._booked_mtm[position.position_id] = mark_dollars
+
+            # Physical settlement: force-close on expiry day at real quotes —
+            # holding through expiration would mean share delivery.
+            if expiring_today:
+                report = execution.close_spread(
+                    sq, position.qty, self.cfg.execution, self.cfg.costs
+                )
+                price = report.price if report.filled else mark
+                fees = report.fees_dollars if report.filled else 0.0
+                self._close_position(
+                    position, snap_ts, price, fees, ExitReason.EXPIRY_CLOSE, "expiry close"
+                )
+                continue
+
+            # American calls: dividend-driven assignment hazard on ex-div eve.
+            if self._check_early_assignment(position, sq, spot, snap_ts, next_session):
+                continue
 
             greeks = spread_greeks(sq, spot, rate, 0.0, session)
             ctx = ExitContext(
@@ -296,6 +355,42 @@ class BacktestEngine:
             self._close_position(
                 position, snap_ts, report.price, report.fees_dollars, reason, "close"
             )
+
+    def _check_early_assignment(
+        self,
+        position: SpreadPosition,
+        sq: SpreadQuote,
+        spot: float,
+        snap_ts: datetime,
+        next_session: date | None,
+    ) -> bool:
+        """Close the position as assigned when the rational-exercise boundary
+        is crossed on the eve of an ex-dividend date. Returns True if closed."""
+        if not (self._is_american and self.dividends and next_session):
+            return False
+        dividend = self.dividends.amount_on(next_session)
+        if dividend is None:
+            return False
+        short = position.spread.short_leg
+        if not early_assignment_triggered(spot, short.strike, sq.short_quote.mid, dividend):
+            return False
+        debit = assignment_exit_debit(
+            spot, short.strike, sq.short_quote.mid, dividend, sq.long_quote.bid
+        )
+        debit = min(debit, position.spread.width)  # defined-risk cap still holds
+        # No commission on being assigned; the long leg is sold (one leg's costs).
+        fees = 0.5 * self.cfg.costs.per_spread() * position.qty
+        logger.info(
+            "%s assigned on ex-div eve (div %.2f, spot %.2f > K %.2f)",
+            position.position_id,
+            dividend,
+            spot,
+            short.strike,
+        )
+        self._close_position(
+            position, snap_ts, debit, fees, ExitReason.EARLY_ASSIGNMENT, "assignment"
+        )
+        return True
 
     def _try_entry(
         self, session: date, snap_ts: datetime, chain: pl.DataFrame, spot: float
@@ -365,6 +460,18 @@ class BacktestEngine:
             if settle_price is None:
                 raise ValueError(f"no settlement price for {session}")
             settle_value = position.spread.settlement_value(settle_price)
+            if self._is_physical:
+                # Should have been force-closed at the snapshot; reaching here
+                # means the snapshot was unusable. Close at intrinsic of the
+                # official close — an approximation of the delivery unwind.
+                logger.warning(
+                    "%s reached physical expiration unclosed; using intrinsic at close",
+                    position.position_id,
+                )
+                self._close_position(
+                    position, close_ts, settle_value, 0.0, ExitReason.EXPIRY_CLOSE, "expiry close"
+                )
+                continue
             fees = execution.settlement_fees(position.qty, self.cfg.costs)
             self._close_position(
                 position, close_ts, settle_value, fees, ExitReason.EXPIRY_SETTLEMENT, "settle"

@@ -144,6 +144,30 @@ SHA-256 hashes, row counts, date coverage, ingestion timestamp, adapter version.
 9. **Calendar**: trading calendar = dates present in the underlying dataset (no invented
    sessions). Interest accrues on calendar days (ACT/365).
 
+## 4b. Instrument switch: SPY (decided 2026-07-22)
+
+The traded instrument is now SPY options (user decision): penny-wide native quotes
+across the full 2018-present history beat XSP's post-2022-only liquidity, at the cost
+of American mechanics. Contract mechanics are config-driven
+(`selection.exercise_style` / `selection.settlement`); the XSP European path remains
+fully supported and default.
+
+American/physical modeling (`backtest/american.py`, engine-integrated):
+1. **Early assignment** — deterministic rational-exercise boundary: on the session
+   before an ex-dividend date, any short call with S > K and extrinsic < dividend is
+   assigned. Event P&L: short settled at intrinsic + (dividend − extrinsic) transfer,
+   long leg sold at its bid, capped at spread width. Real assignment is probabilistic
+   near the boundary; the deterministic rule is the conservative modeling choice for
+   a seller. Requires the SPY dividend calendar (`SPY_DIVIDENDS.parquet`, Yahoo
+   events=div, ingested by `xsp ingest-aux`); the engine REFUSES to run American
+   configs without it.
+2. **Physical settlement** — positions are force-closed on expiration day at the
+   15:30 snapshot quotes (`EXPIRY_CLOSE`), never cash-settled; the residual 30-minute
+   pin risk is a documented conservatism. AM settlement raises.
+3. **Costs** — SPY options carry no proprietary index fee (fees_per_contract 0.10 in
+   the SPY baseline vs 0.60 for XSP).
+4. Tax note (outside the model): SPY options lack XSP's Section 1256 60/40 treatment.
+
 ## 5. Phased implementation plan
 
 - **Phase 1 (this build)**: architecture, configs, domain, provider interfaces,

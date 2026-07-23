@@ -9,7 +9,7 @@ from __future__ import annotations
 import enum
 from datetime import date, time
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import yaml
 from pydantic import BaseModel, Field, model_validator
@@ -46,6 +46,11 @@ class SelectionConfig(BaseModel):
     """Deterministic contract selection parameters (research brief section 6)."""
 
     root: str = "XSP"
+    # Contract mechanics: default is XSP-style European/PM-cash-settled.
+    # SPY requires american + physical, which activates the engine's
+    # early-assignment hazard and expiry-day forced close (backtest/american.py).
+    exercise_style: Literal["european", "american"] = "european"
+    settlement: Literal["PM", "AM", "physical"] = "PM"  # AM parses but the engine rejects it
     target_dte: int = 30
     min_dte: int = 25
     max_dte: int = 35

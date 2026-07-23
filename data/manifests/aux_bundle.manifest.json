@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-07-22T21:07:15+00:00",
+  "created_utc": "2026-07-23T01:26:34+00:00",
   "out_dir": "data/normalized/aux",
   "start_filter": "2016-01-01",
   "sector_symbols": [
@@ -290,6 +290,15 @@
       "sha256": "88b8e95ab222a6b58cc799438046d95e34d76d136e87951fa00719ea90ddd3ac",
       "note": "fetched successfully in the first ingest run; restored from that artifact after FRED became unreachable for later runs",
       "also_written": "data/normalized/rates/tbill_4w.parquet"
+    },
+    "SPY_DIVIDENDS": {
+      "source": "yahoo",
+      "source_id": "SPY events=div",
+      "description": "SPY ex-dividend dates and amounts",
+      "rows": 42,
+      "date_min": "2016-03-18",
+      "date_max": "2026-06-18",
+      "sha256": "193aa9586a08f84ddaa91d99f519c68fc55549cf758f4d5e27d3043760d6bb27"
     }
   },
   "errors": {

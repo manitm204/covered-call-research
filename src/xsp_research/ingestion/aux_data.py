@@ -134,6 +134,36 @@ def parse_yahoo_chart_json(text: str) -> pl.DataFrame:
     )
 
 
+def parse_yahoo_dividends_json(text: str) -> pl.DataFrame:
+    """Yahoo chart JSON with events=div -> (ex_date, amount)."""
+    payload = json.loads(text)
+    result = payload.get("chart", {}).get("result")
+    if not result:
+        raise ValueError(f"Yahoo chart error: {payload.get('chart', {}).get('error')}")
+    events = (result[0].get("events") or {}).get("dividends") or {}
+    rows = [
+        (datetime.fromtimestamp(int(e["date"]), tz=UTC).date(), float(e["amount"]))
+        for e in events.values()
+        if e.get("amount") is not None
+    ]
+    if not rows:
+        raise ValueError("Yahoo response contains no dividend events")
+    return (
+        pl.DataFrame(rows, schema={"ex_date": pl.Date, "amount": pl.Float64}, orient="row")
+        .unique(subset="ex_date", keep="last")
+        .sort("ex_date")
+    )
+
+
+def fetch_yahoo_dividends(symbol: str) -> pl.DataFrame:
+    url = (
+        "https://query1.finance.yahoo.com/v8/finance/chart/"
+        f"{urllib.parse.quote(symbol)}"
+        f"?period1={_YAHOO_PERIOD1}&period2={_YAHOO_PERIOD2}&interval=1d&events=div"
+    )
+    return parse_yahoo_dividends_json(_http_get(url))
+
+
 def _parse_flexible_dates(col: pl.Expr) -> pl.Expr:
     """Cboe files mix ISO (2023-01-03) and US (01/03/2023) date formats."""
     return pl.coalesce(
@@ -229,6 +259,8 @@ def ingest_aux_bundle(
     manifest_dir: str | Path = "data/manifests",
     fetcher=fetch_series,
     only: tuple[str, ...] | None = None,
+    dividend_symbols: tuple[str, ...] = ("SPY",),
+    dividend_fetcher=fetch_yahoo_dividends,
 ) -> dict[str, Any]:
     """Download every series, write <SYMBOL>.parquet + one bundle manifest.
 
@@ -272,6 +304,28 @@ def ingest_aux_bundle(
         except Exception as exc:  # record and continue: partial bundles are usable
             errors[spec.symbol] = f"{type(exc).__name__}: {exc}"
 
+    # Dividend calendars (ex-date, amount) for American-exercise modeling.
+    if only is None or any(f"{s}_DIVIDENDS" in only for s in dividend_symbols):
+        for sym in dividend_symbols:
+            try:
+                divs = dividend_fetcher(sym)
+                if start is not None:
+                    divs = divs.filter(pl.col("ex_date") >= start)
+                path = out / f"{sym}_DIVIDENDS.parquet"
+                divs.write_parquet(path)
+                series_meta[f"{sym}_DIVIDENDS"] = {
+                    "source": "yahoo",
+                    "source_id": f"{sym} events=div",
+                    "description": f"{sym} ex-dividend dates and amounts",
+                    "rows": divs.height,
+                    "date_min": str(divs["ex_date"].min()),
+                    "date_max": str(divs["ex_date"].max()),
+                    "sha256": _sha256(path),
+                }
+                errors.pop(f"{sym}_DIVIDENDS", None)
+            except Exception as exc:
+                errors[f"{sym}_DIVIDENDS"] = f"{type(exc).__name__}: {exc}"
+
     # Rates file for the backtester's SeriesRatesProvider (date, rate).
     if "RATE_3M" in series_meta:
         rates = pl.read_parquet(out / "RATE_3M.parquet").rename({"close": "rate"})
@@ -303,7 +357,11 @@ def load_aux_bundle(bundle_dir: str | Path):
     from xsp_research.features.registry import MarketDataBundle
 
     d = Path(bundle_dir)
-    series = {p.stem: pl.read_parquet(p).select(["date", "close"]) for p in d.glob("*.parquet")}
+    series = {
+        p.stem: pl.read_parquet(p).select(["date", "close"])
+        for p in d.glob("*.parquet")
+        if not p.stem.endswith("_DIVIDENDS")  # different schema (ex_date, amount)
+    }
     if "UNDERLYING" not in series:
         raise ValueError(f"{d} has no UNDERLYING.parquet; run `xsp ingest-aux` first")
     sectors = tuple(s for s in SECTOR_SYMBOLS if s in series)

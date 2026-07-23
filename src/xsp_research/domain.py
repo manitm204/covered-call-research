@@ -22,8 +22,9 @@ class ExerciseStyle(enum.StrEnum):
 
 
 class SettlementStyle(enum.StrEnum):
-    AM = "AM"
-    PM = "PM"
+    AM = "AM"  # a.m. cash settlement (standard SPX 3rd Friday) — unsupported
+    PM = "PM"  # p.m. cash settlement (XSP, SPXW)
+    PHYSICAL = "physical"  # share delivery (SPY): engine force-closes before expiry
 
 
 class PositionStatus(enum.StrEnum):
@@ -33,7 +34,9 @@ class PositionStatus(enum.StrEnum):
 
 
 class ExitReason(enum.StrEnum):
-    EXPIRY_SETTLEMENT = "expiry_settlement"
+    EXPIRY_SETTLEMENT = "expiry_settlement"  # cash settlement (European PM)
+    EXPIRY_CLOSE = "expiry_close"  # forced close on expiry day (physical settlement)
+    EARLY_ASSIGNMENT = "early_assignment"  # dividend-driven assignment (American)
     PROFIT_TARGET = "profit_target"
     STOP_LOSS = "stop_loss"
     DTE = "dte"

@@ -112,6 +112,10 @@ class TestSourceUrls:
             source_url(AuxSeriesSpec("X", "nope", "x", ""))
 
 
+def fake_dividend_fetcher(symbol: str) -> pl.DataFrame:
+    return pl.DataFrame({"ex_date": [date(2023, 3, 17)], "amount": [1.51]})
+
+
 def fake_fetcher(spec: AuxSeriesSpec) -> pl.DataFrame:
     """Deterministic fake series; applies spec.scale like the real fetcher."""
     df = pl.DataFrame(
@@ -133,9 +137,10 @@ class TestIngestBundle:
             start=date(2023, 1, 1),
             manifest_dir=tmp_path / "manifests",
             fetcher=fake_fetcher,
+            dividend_fetcher=fake_dividend_fetcher,
         )
         assert manifest["errors"] == {}
-        assert len(manifest["series"]) == len(DEFAULT_UNIVERSE)
+        assert len(manifest["series"]) == len(DEFAULT_UNIVERSE) + 1  # + SPY_DIVIDENDS
         # start filter applied
         assert manifest["series"]["SPY"]["date_min"] == "2023-01-03"
         # scaling recorded and applied: UNDERLYING = SPX/10
@@ -154,6 +159,7 @@ class TestIngestBundle:
             DEFAULT_UNIVERSE,
             manifest_dir=tmp_path / "manifests",
             fetcher=fake_fetcher,
+            dividend_fetcher=fake_dividend_fetcher,
         )
         rates = pl.read_parquet(tmp_path / "rates" / "tbill_4w.parquet")
         assert rates.columns == ["date", "rate"]
@@ -169,6 +175,7 @@ class TestIngestBundle:
             DEFAULT_UNIVERSE,
             manifest_dir=tmp_path / "manifests",
             fetcher=flaky,
+            dividend_fetcher=fake_dividend_fetcher,
         )
         assert "VVIX" in manifest["errors"]
         assert "VIX" in manifest["series"]  # others unaffected
@@ -182,6 +189,7 @@ class TestLoadBundle:
             DEFAULT_UNIVERSE,
             manifest_dir=tmp_path / "manifests",
             fetcher=fake_fetcher,
+            dividend_fetcher=fake_dividend_fetcher,
         )
         bundle = load_aux_bundle(tmp_path / "aux")
         assert bundle.has("UNDERLYING", "VIX", "SPY", "RSP", "RATE_3M")

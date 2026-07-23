@@ -66,8 +66,29 @@ def _cmd_run_backtest(args: argparse.Namespace) -> int:
                 cfg.backtest.start, cfg.backtest.end
             )
 
+    dividends = None
+    if cfg.selection.exercise_style == "american":
+        from xsp_research.backtest.american import DividendCalendar
+
+        div_path = Path(
+            args.dividends_data or f"data/normalized/aux/{cfg.selection.root}_DIVIDENDS.parquet"
+        )
+        if not div_path.exists():
+            print(
+                f"error: American exercise needs a dividend calendar; {div_path} not found "
+                "(run `xsp ingest-aux` or pass --dividends-data)",
+                file=sys.stderr,
+            )
+            return 2
+        dividends = DividendCalendar.from_parquet(div_path, cfg.selection.root)
+
     engine = BacktestEngine(
-        cfg, options, underlying, rates, execution_scenario=args.scenario or "config"
+        cfg,
+        options,
+        underlying,
+        rates,
+        execution_scenario=args.scenario or "config",
+        dividends=dividends,
     )
     result = engine.run()
     summary = summarize(result)
@@ -423,6 +444,9 @@ def main(argv: list[str] | None = None) -> int:
     p_run.add_argument("--rates-data", help="path to (date, rate) file")
     p_run.add_argument(
         "--stock-data", help="path to stock-portfolio (date, close) file for overlay"
+    )
+    p_run.add_argument(
+        "--dividends-data", help="(ex_date, amount) parquet for American-exercise modeling"
     )
     p_run.add_argument("-o", "--output", help="directory for result artifacts")
     p_run.add_argument(

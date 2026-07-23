@@ -13,7 +13,14 @@ from datetime import date, datetime
 import polars as pl
 
 from xsp_research.config import SelectionConfig, WidthMethod
-from xsp_research.domain import OptionContract, OptionQuote, OptionType, SpreadQuote
+from xsp_research.domain import (
+    ExerciseStyle,
+    OptionContract,
+    OptionQuote,
+    OptionType,
+    SettlementStyle,
+    SpreadQuote,
+)
 from xsp_research.options.black_scholes import bs_greeks, year_fraction
 from xsp_research.options.implied_vol import implied_vol
 
@@ -157,7 +164,13 @@ def select_bear_call_spread(
 
     candidates: list[_CallCandidate] = []
     for row in calls.iter_rows(named=True):
-        quote = _row_to_quote(row, {})
+        quote = _row_to_quote(
+            row,
+            {
+                "exercise_style": ExerciseStyle(cfg.exercise_style),
+                "settlement": SettlementStyle(cfg.settlement),
+            },
+        )
         iv = implied_vol(quote.mid, spot, quote.contract.strike, t, r, q_yield, OptionType.CALL)
         if iv is None:
             continue  # unrecoverable IV: not audited per-strike to keep audits readable
