@@ -78,3 +78,48 @@ XSP size and will be a, possibly the, deciding factor.
    three execution scenarios; publish gross/net, CI'd expectancy, overlay panel,
    stress windows.
 4. Only then: features → filters → models, in the mandated complexity order.
+
+---
+
+# Real-data results — SPY (2026-07-23)
+
+Instrument switched to SPY by user decision (American exercise, physical
+settlement, dividend assignment hazard modeled). Data: ThetaData 15:30 ET NBBO
+snapshots, 2018-08-01 → 2026-07-22, 1,990 sessions, 8.98M quotes, underlying via
+put-call-parity implied (validated against known history; stock tier blocked).
+
+## Data gate: PASS (with noted caveats)
+
+`validate-data` over all 96 monthly files: 1,213 crossed quotes (0.014% of rows,
+engine rejects them at selection), 748 locked (rejected likewise), 892k zero-bid
+rows (deep OTM, untradable shorts — excluded by min_short_bid), 7 session gaps
+(all holiday weeks). No structural failures in the traded DTE range.
+
+## Strategy gate (question 1): FAIL — the unconditional strategy loses money
+
+Pre-registered mechanical baseline (0.15Δ short, $5 wide, ~30 DTE, monthly,
+50% profit target / 2x stop), 96 trades over 8 years:
+
+| scenario     | net expectancy/spread | block-bootstrap 95% CI | win rate | profit factor |
+|--------------|----------------------|------------------------|----------|---------------|
+| optimistic   | −$18.40              | [−$29.78, −$8.71]      | 55%      | 0.50          |
+| base         | −$21.17              | [−$32.91, −$10.98]     | 53%      | 0.45          |
+| conservative | −$24.46              | [−$35.51, −$15.09]     | 52%      | 0.38          |
+
+The CI excludes zero in the WRONG direction under every scenario, including
+optimistic mid fills — this is not an execution-cost artifact; the gross edge
+itself is negative. Per-year: negative in 8 of 9 years; only 2022 (the bear
+year) was positive (+$44). Worst year 2020 (−$842, 17% win rate) — the V-rebound,
+exactly the structural risk flagged in §4.1. Standing risk §4.4 (thin call skew)
+is confirmed: median credit $0.57 on a $5 width does not pay for the drift.
+Early assignment never triggered (stops fire long before shorts go deep ITM);
+interest on collateral (+$20.7k on $100k) dwarfs trading P&L (−$2.0k base) —
+standing risk §4.3 realized.
+
+**Conclusion (honest, as pre-registered): selling unconditional 15-delta SPY
+call spreads at monthly cadence has significantly negative expectancy after
+costs. "Do nothing and hold T-bills" dominates. The remaining research question
+is question 3: can a conditioning model identify the subset of regimes (e.g.
+2022-style downtrends) where the trade pays — and beat the always-trade AND
+never-trade baselines on purged walk-forward? The never-trade baseline is now
+the one to beat.**
