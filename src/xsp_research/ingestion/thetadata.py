@@ -138,19 +138,30 @@ class ThetaDataClient:
     base_url: str = field(default_factory=thetadata_base_url)
     http_get: HttpGet = _default_http_get
 
+    retry_attempts: int = 4
+    retry_wait_s: float = 15.0
+
     def _get(self, path: str, **params: Any) -> str:
         query = urllib.parse.urlencode({k: v for k, v in params.items() if v is not None})
         url = f"{self.base_url}{path}?{query}"
-        try:
-            return self.http_get(url)
-        except Exception as exc:
-            # An HTTP status error means the terminal IS answering (e.g. 403 =
-            # subscription tier); only connection-level failures warrant the
-            # is-the-terminal-even-running probe.
-            http_level = isinstance(exc, urllib.error.HTTPError) or "HTTP Error" in str(exc)
-            if not http_level and not terminal_running(self.base_url):
-                raise TerminalNotRunningError(self.base_url) from exc
-            raise ThetaDataError(f"request failed: {path}: {exc}") from exc
+        last_exc: Exception | None = None
+        for attempt in range(self.retry_attempts):
+            try:
+                return self.http_get(url)
+            except Exception as exc:
+                # An HTTP status error means the terminal IS answering (e.g. 403 =
+                # subscription tier) — never retried. Connection-level failures
+                # (timeouts, refused) are usually the terminal's periodic
+                # upstream reconnect, so wait and retry before giving up.
+                http_level = isinstance(exc, urllib.error.HTTPError) or "HTTP Error" in str(exc)
+                if http_level:
+                    raise ThetaDataError(f"request failed: {path}: {exc}") from exc
+                last_exc = exc
+                if attempt < self.retry_attempts - 1:
+                    time.sleep(self.retry_wait_s)
+        if not terminal_running(self.base_url):
+            raise TerminalNotRunningError(self.base_url) from last_exc
+        raise ThetaDataError(f"request failed: {path}: {last_exc}") from last_exc
 
     def option_quote_snapshot(
         self,

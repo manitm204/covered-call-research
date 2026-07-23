@@ -1,6 +1,7 @@
 """ThetaData adapter: parsing, normalization, and pull orchestration — all
 offline via an injected http_get. Live behavior is exercised by the CLI."""
 
+import urllib.error
 from datetime import date
 
 import polars as pl
@@ -180,6 +181,47 @@ class TestClient:
         client = ThetaDataClient(base_url="http://test", http_get=fake)
         assert client.stock_quote_mid("SPY", SESSION) == pytest.approx(547.11)
 
+    def test_transient_timeout_retried_then_succeeds(self):
+        """Terminal reconnect stalls must not kill a multi-hour pull."""
+        attempts: list[int] = []
+
+        def flaky_get(url: str) -> str:
+            attempts.append(1)
+            if len(attempts) < 3:
+                raise TimeoutError("timed out")
+            return QUOTE_CSV
+
+        client = ThetaDataClient(base_url="http://test", http_get=flaky_get, retry_wait_s=0.0)
+        df = client.option_quote_snapshot("SPY", SESSION)
+        assert df.height == 3
+        assert len(attempts) == 3
+
+    def test_http_error_never_retried(self):
+        """403 (subscription tier) is a definitive answer, not a transient."""
+        attempts: list[int] = []
+
+        def forbidden_get(url: str) -> str:
+            attempts.append(1)
+            raise urllib.error.HTTPError(url, 403, "Forbidden", None, None)  # type: ignore[arg-type]
+
+        client = ThetaDataClient(base_url="http://test", http_get=forbidden_get, retry_wait_s=0.0)
+        with pytest.raises(ThetaDataError, match="403"):
+            client.option_quote_snapshot("SPY", SESSION)
+        assert len(attempts) == 1
+
+    def test_persistent_timeout_exhausts_retries(self):
+        attempts: list[int] = []
+
+        def dead_get(url: str) -> str:
+            attempts.append(1)
+            raise TimeoutError("timed out")
+
+        # base_url port 1 → the terminal_running probe fails fast too.
+        client = ThetaDataClient(base_url="http://127.0.0.1:1", http_get=dead_get, retry_wait_s=0.0)
+        with pytest.raises(ThetaDataError):
+            client.option_quote_snapshot("SPY", SESSION)
+        assert len(attempts) == 4
+
 
 class TestPullOrchestration:
     def _client(self):
@@ -323,7 +365,11 @@ class TestPartialMonthHealing:
         partial.write_parquet(tmp_path / "chain_2024-06.parquet")
 
         manifest = pull_chain_history(
-            client, "SPY", date(2024, 6, 3), date(2024, 6, 28), tmp_path,
+            client,
+            "SPY",
+            date(2024, 6, 3),
+            date(2024, 6, 28),
+            tmp_path,
             progress=lambda m: None,
         )
         assert "2024-06" not in manifest["months_skipped_existing"]
@@ -341,12 +387,20 @@ class TestPartialMonthHealing:
         )
         client = ThetaDataClient(base_url="http://test", http_get=fake)
         pull_chain_history(
-            client, "SPY", date(2024, 6, 3), date(2024, 7, 5), tmp_path,
+            client,
+            "SPY",
+            date(2024, 6, 3),
+            date(2024, 7, 5),
+            tmp_path,
             progress=lambda m: None,
         )
         n_before = len(calls)
         manifest = pull_chain_history(
-            client, "SPY", date(2024, 6, 3), date(2024, 7, 5), tmp_path,
+            client,
+            "SPY",
+            date(2024, 6, 3),
+            date(2024, 7, 5),
+            tmp_path,
             progress=lambda m: None,
         )
         assert "2024-06" in manifest["months_skipped_existing"]
