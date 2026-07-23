@@ -297,3 +297,58 @@ class TestPullOrchestration:
             progress=lambda m: None,
         )
         assert len(manifest["empty_sessions"]) == 2
+
+
+class TestPartialMonthHealing:
+    def test_partial_month_repulled_on_resume(self, tmp_path):
+        """A month file with far fewer sessions than weekdays (interrupted
+        pull) must NOT be skipped by the resume."""
+        fake, calls = make_fake_http(
+            {
+                "/v3/option/history/quote": QUOTE_CSV,
+                "/v3/option/history/open_interest": OI_CSV,
+                "/v3/stock/history/quote": STOCK_CSV,
+            }
+        )
+        client = ThetaDataClient(base_url="http://test", http_get=fake)
+        # Seed a partial June file: one session only.
+        partial = normalize_snapshot(
+            parse_option_quote_csv(QUOTE_CSV),
+            parse_open_interest_csv(OI_CSV),
+            547.11,
+            date(2024, 6, 3),
+            "15:30:00",
+            "SPY",
+        )
+        partial.write_parquet(tmp_path / "chain_2024-06.parquet")
+
+        manifest = pull_chain_history(
+            client, "SPY", date(2024, 6, 3), date(2024, 6, 28), tmp_path,
+            progress=lambda m: None,
+        )
+        assert "2024-06" not in manifest["months_skipped_existing"]
+        assert "2024-06" in manifest["months_written"]
+        healed = pl.read_parquet(tmp_path / "chain_2024-06.parquet")
+        assert healed["ts"].dt.date().n_unique() == 20  # all June weekdays
+
+    def test_complete_month_still_skipped(self, tmp_path):
+        fake, calls = make_fake_http(
+            {
+                "/v3/option/history/quote": QUOTE_CSV,
+                "/v3/option/history/open_interest": OI_CSV,
+                "/v3/stock/history/quote": STOCK_CSV,
+            }
+        )
+        client = ThetaDataClient(base_url="http://test", http_get=fake)
+        pull_chain_history(
+            client, "SPY", date(2024, 6, 3), date(2024, 7, 5), tmp_path,
+            progress=lambda m: None,
+        )
+        n_before = len(calls)
+        manifest = pull_chain_history(
+            client, "SPY", date(2024, 6, 3), date(2024, 7, 5), tmp_path,
+            progress=lambda m: None,
+        )
+        assert "2024-06" in manifest["months_skipped_existing"]
+        # Only the current end month (July) is re-pulled; June cost zero requests.
+        assert len(calls) < n_before * 2

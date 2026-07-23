@@ -407,6 +407,16 @@ def _month_key(d: date) -> str:
     return f"{d.year:04d}-{d.month:02d}"
 
 
+def _month_file_complete(path: Path, n_weekdays: int) -> bool:
+    """A month file interrupted mid-pull (network errors) must not be treated
+    as done: require sessions >= weekdays minus a holiday margin."""
+    try:
+        have = pl.read_parquet(path, columns=["ts"])["ts"].dt.date().n_unique()
+    except Exception:
+        return False  # unreadable file: re-pull it
+    return have >= n_weekdays - 4
+
+
 def _weekdays(start: date, end: date) -> list[date]:
     return [
         start + timedelta(days=i)
@@ -453,7 +463,12 @@ def pull_chain_history(
     for month, sessions in sorted(sessions_by_month.items()):
         path = out / f"chain_{month}.parquet"
         is_current_month = month == _month_key(end)
-        if path.exists() and not refresh and not is_current_month:
+        if (
+            path.exists()
+            and not refresh
+            and not is_current_month
+            and _month_file_complete(path, len(sessions))
+        ):
             skipped_months.append(month)
             continue
         frames: list[pl.DataFrame] = []
