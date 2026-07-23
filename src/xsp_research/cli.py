@@ -24,6 +24,25 @@ SYNTHETIC_BANNER = (
 )
 
 
+def _load_dividends(cfg, dividends_data: str | None):
+    """Dividend calendar for American-exercise configs (None for European)."""
+    if cfg.selection.exercise_style != "american":
+        return None
+    from xsp_research.backtest.american import DividendCalendar
+
+    div_path = Path(
+        dividends_data or f"data/normalized/aux/{cfg.selection.root}_DIVIDENDS.parquet"
+    )
+    if not div_path.exists():
+        print(
+            f"error: American exercise needs a dividend calendar; {div_path} not found "
+            "(run `xsp ingest-aux` or pass --dividends-data)",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+    return DividendCalendar.from_parquet(div_path, cfg.selection.root)
+
+
 def _cmd_run_backtest(args: argparse.Namespace) -> int:
     from xsp_research.backtest.engine import BacktestEngine
     from xsp_research.evaluation.metrics import summarize
@@ -66,21 +85,7 @@ def _cmd_run_backtest(args: argparse.Namespace) -> int:
                 cfg.backtest.start, cfg.backtest.end
             )
 
-    dividends = None
-    if cfg.selection.exercise_style == "american":
-        from xsp_research.backtest.american import DividendCalendar
-
-        div_path = Path(
-            args.dividends_data or f"data/normalized/aux/{cfg.selection.root}_DIVIDENDS.parquet"
-        )
-        if not div_path.exists():
-            print(
-                f"error: American exercise needs a dividend calendar; {div_path} not found "
-                "(run `xsp ingest-aux` or pass --dividends-data)",
-                file=sys.stderr,
-            )
-            return 2
-        dividends = DividendCalendar.from_parquet(div_path, cfg.selection.root)
+    dividends = _load_dividends(cfg, getattr(args, "dividends_data", None))
 
     engine = BacktestEngine(
         cfg,
@@ -292,21 +297,39 @@ def _cmd_build_features(args: argparse.Namespace) -> int:
 
 
 def _cmd_run_experiment(args: argparse.Namespace) -> int:
+    from xsp_research.config import load_strategy_config
     from xsp_research.experiments.runner import load_experiment_config, run_experiment
 
     exp = load_experiment_config(args.config)
-    if not args.synthetic:
-        print(
-            "error: real-data experiment runs arrive with the data providers; "
-            "use --synthetic for software validation",
-            file=sys.stderr,
-        )
-        return 2
-    from xsp_research.config import load_strategy_config
-
     scfg = load_strategy_config(exp.strategy_config)
-    market, bundle = _load_bundle(args, scfg.backtest.start, scfg.backtest.end)
-    run = run_experiment(exp, market, market, market, bundle, out_root=args.output_root)
+    dividends = None
+    if args.synthetic:
+        market, bundle = _load_bundle(args, scfg.backtest.start, scfg.backtest.end)
+        options = underlying = rates = market
+    else:
+        if not (
+            args.options_data and args.underlying_data and args.rates_data and args.bundle_dir
+        ):
+            print(
+                "error: real-data experiments need --options-data, --underlying-data, "
+                "--rates-data and --bundle-dir (or use --synthetic)",
+                file=sys.stderr,
+            )
+            return 2
+        from xsp_research.ingestion.file_provider import (
+            ParquetOptionsProvider,
+            ParquetUnderlyingProvider,
+            SeriesRatesProvider,
+        )
+
+        options = ParquetOptionsProvider(args.options_data, scfg.selection.root)
+        underlying = ParquetUnderlyingProvider(args.underlying_data, scfg.selection.root)
+        rates = SeriesRatesProvider(args.rates_data)
+        _, bundle = _load_bundle(args, scfg.backtest.start, scfg.backtest.end)
+        dividends = _load_dividends(scfg, args.dividends_data)
+    run = run_experiment(
+        exp, options, underlying, rates, bundle, out_root=args.output_root, dividends=dividends
+    )
     print(
         json.dumps(
             {
@@ -515,6 +538,12 @@ def main(argv: list[str] | None = None) -> int:
     p_exp.add_argument("--seed", type=int, default=7)
     p_exp.add_argument("--bundle-dir")
     p_exp.add_argument("--sectors")
+    p_exp.add_argument("--options-data", help="path to canonical options parquet dataset")
+    p_exp.add_argument("--underlying-data", help="path to (date, close) file")
+    p_exp.add_argument("--rates-data", help="path to (date, rate) file")
+    p_exp.add_argument(
+        "--dividends-data", help="(ex_date, amount) parquet for American-exercise modeling"
+    )
     p_exp.add_argument("--output-root", default="reports/experiments")
     p_exp.set_defaults(func=_cmd_run_experiment)
 

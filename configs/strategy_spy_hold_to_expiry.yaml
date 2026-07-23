@@ -1,0 +1,41 @@
+# SPY hold-to-expiration variant used for label generation: weekly entries, no
+# management exits, higher position capacity so overlapping weekly spreads fit.
+# Labels (expiration/touch outcomes) are untruncated by exits; American
+# mechanics still apply (early assignment + physical expiry close are real
+# outcomes, not exits, and belong in the labels).
+name: spy_hold_to_expiry_weekly
+selection:
+  root: SPY
+  exercise_style: american
+  settlement: physical
+  target_dte: 30
+  min_dte: 25
+  max_dte: 35
+  short_delta_target: 0.15
+  width_method: fixed_width
+  fixed_width: 5.0
+  min_short_bid: 0.05
+  max_leg_rel_spread: 0.50
+exits: []                       # settlement only: labels are untruncated
+execution:
+  fill_model: pct_between
+  fill_pct: 0.5
+  max_leg_rel_spread: 0.50
+  min_credit: 0.05
+costs:
+  commission_per_contract: 0.65
+  fees_per_contract: 0.10       # SPY options: ORF/OCC/SEC only, no index-product fee
+interest:
+  mode: free_cash_only
+  rate_source: provider
+  spread_bps: -25
+sizing:
+  contracts_per_entry: 1
+  max_open_positions: 6         # ~5 overlapping 30-day weekly spreads
+backtest:
+  start: 2018-08-01
+  end: 2026-07-22
+  initial_cash: 100000.0
+  entry_frequency: weekly
+  entry_time_et: "15:30:00"
+  mark_time_et: "15:30:00"

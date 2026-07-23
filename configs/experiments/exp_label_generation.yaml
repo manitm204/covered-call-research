@@ -2,8 +2,8 @@
 # management. This produces the cleanest Model A/B labels (expiration and
 # touch outcomes untruncated by exits) for walk-forward model research.
 # NOTE: strategy_config must point at a hold-to-expiry variant (exits: []).
-name: label_generation_weekly
-strategy_config: configs/strategy_hold_to_expiry.yaml
+name: spy_label_generation_weekly
+strategy_config: configs/strategy_spy_hold_to_expiry.yaml
 scenarios: [base]
 feature_families: [volatility, trend, breadth, cross_asset, pca_regime]
 entry_filters: []

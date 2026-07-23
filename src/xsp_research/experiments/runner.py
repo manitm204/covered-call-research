@@ -113,6 +113,7 @@ def run_experiment(
     rates: RatesProvider,
     bundle: MarketDataBundle,
     out_root: str | Path = "reports/experiments",
+    dividends: Any | None = None,
 ) -> ExperimentRun:
     run_ts = datetime.now(UTC)
     experiment_id = f"{exp.name}-{run_ts:%Y%m%d-%H%M%S}-{exp.content_hash()[:8]}"
@@ -180,6 +181,7 @@ def run_experiment(
                 execution_scenario=scenario,
                 entry_gate=gate,
                 entry_feature_hook=hook,
+                dividends=dividends,
             )
             result = engine.run()
             summary = summarize(result)

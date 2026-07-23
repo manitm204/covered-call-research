@@ -141,7 +141,7 @@ class TestFilteredExperiment:
 
 def test_load_experiment_config_yaml():
     exp = load_experiment_config("configs/experiments/exp_vix_filter.yaml")
-    assert exp.name == "vix_below_20"
+    assert exp.name == "spy_vix_below_20"
     assert exp.entry_filters[0].feature == "vix_level"
     assert exp.scenarios == ["base", "conservative"]
 

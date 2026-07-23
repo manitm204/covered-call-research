@@ -1,8 +1,8 @@
 # Experiment 3 (research brief section 15): VIX-level entry filter.
 # Hypothesis under test (not assumed): entering only in calm regimes changes
 # the net-of-cost expectancy vs the mechanical baseline.
-name: vix_below_20
-strategy_config: configs/strategy_baseline.yaml
+name: spy_vix_below_20
+strategy_config: configs/strategy_spy_baseline.yaml
 scenarios: [base, conservative]
 feature_families: [volatility, trend, breadth, cross_asset, pca_regime]
 entry_filters:
