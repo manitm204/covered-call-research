@@ -123,3 +123,49 @@ is question 3: can a conditioning model identify the subset of regimes (e.g.
 2022-style downtrends) where the trade pays — and beat the always-trade AND
 never-trade baselines on purged walk-forward? The never-trade baseline is now
 the one to beat.**
+
+## Filter & model gates (run 2026-07-23, real data): FAIL — study concludes NO-GO
+
+**VIX<20 filter (pre-registered experiment 3).** Improves expectancy but does
+not rescue it: base −$9.14/spread (95% CI [−$21.69, +$1.32]), conservative
+−$13.40 (CI [−$26.01, −$2.88]), n=62. Calm-regime selection removes some
+losses; the conservative CI still excludes zero on the wrong side.
+
+**Label generation (417 weekly hold-to-expiry trades, 2018–2026).** American
+mechanics fired for real: 7 early assignments on ex-div eves, 4 intrinsic
+expiry closes. Win rate 77% but expectancy −$26.67/spread (CI [−$48.89,
+−$6.26]) — tail losses dominate, the classic short-premium profile.
+
+**Model gate (purged walk-forward, 4 folds, 5-day embargo, 2025+ excluded as
+the untouched final window; 263 OOS samples).** On BOTH pre-registered labels:
+
+| model (label_expire_itm) | Brier | ECE |
+|---|---|---|
+| base rate | **0.1757** | **0.028** |
+| logistic | 0.2983 | 0.296 |
+| logistic L1 | 0.3319 | 0.330 |
+| shallow tree | 0.2410 | 0.210 |
+| nested-tuned XGBoost | 0.1924 | 0.107 |
+
+Boosting refused admission (rule: must beat every simpler benchmark; it does
+not). Same ordering on label_touch (base rate 0.2295; every fitted model
+worse; boosting 0.2475, refused). The family ablation is monotone in the
+wrong direction — baseline-only (3 features) 0.2043, all 54 features 0.2983,
+and NO feature set beats the base rate. This is precisely the no-signal
+signature the framework was validated to produce on synthetic GBM noise.
+
+**Final test: NOT RUN, by protocol.** The 2025+ window remains untouched. The
+final test exists to confirm a configuration that passed the gates; nothing
+passed. Running it anyway would be result-shopping.
+
+**Overall verdict (question-by-question):**
+1. Standalone expectancy after costs: NO — significantly negative in all
+   execution scenarios.
+2. Conditioning/filters: VIX filtering shrinks losses but stays ≤ 0;
+   no admissible model finds a tradable subset on 39 daily + 15 surface
+   features across 8 years including two bear markets.
+3. The honest recommendation from this study: do not trade this strategy.
+   The collateral earns more in T-bills. A future study could revisit with
+   (a) put-side spreads (where the variance risk premium actually lives),
+   (b) intraday/0DTE structures, or (c) different underlyings — each would
+   need its own pre-registration under this same framework.

@@ -1,0 +1,257 @@
+{
+  "label": "label_expire_itm",
+  "kind": "classification",
+  "n_samples": 407,
+  "n_folds": 4,
+  "chosen_params_per_fold": [
+    {
+      "fold": 1,
+      "max_depth": 2,
+      "n_estimators": 150,
+      "learning_rate": 0.1
+    },
+    {
+      "fold": 2,
+      "max_depth": 2,
+      "n_estimators": 50,
+      "learning_rate": 0.05
+    },
+    {
+      "fold": 3,
+      "max_depth": 2,
+      "n_estimators": 50,
+      "learning_rate": 0.05
+    },
+    {
+      "fold": 4,
+      "max_depth": 3,
+      "n_estimators": 50,
+      "learning_rate": 0.05
+    }
+  ],
+  "param_stability": {
+    "max_depth": {
+      "values": [
+        2,
+        2,
+        2,
+        3
+      ],
+      "n_unique": 2
+    },
+    "n_estimators": {
+      "values": [
+        150,
+        50,
+        50,
+        50
+      ],
+      "n_unique": 2
+    },
+    "learning_rate": {
+      "values": [
+        0.1,
+        0.05,
+        0.05,
+        0.05
+      ],
+      "n_unique": 2
+    }
+  },
+  "boosting": {
+    "n": 263,
+    "base_rate": 0.22433460076045628,
+    "mean_predicted": 0.19390133623841144,
+    "brier": 0.19239376903269106,
+    "log_loss": 0.5890749707370286,
+    "ece": 0.10692866696151036,
+    "calibration": {
+      "slope": -0.24532398534343722,
+      "intercept": -1.6252554053069737
+    },
+    "reliability": [
+      {
+        "bin": "[0.0,0.1)",
+        "n": 41,
+        "mean_predicted": 0.082969787280734,
+        "observed_rate": 0.2682926829268293
+      },
+      {
+        "bin": "[0.1,0.2)",
+        "n": 150,
+        "mean_predicted": 0.1583062802751859,
+        "observed_rate": 0.22666666666666666
+      },
+      {
+        "bin": "[0.2,0.3)",
+        "n": 37,
+        "mean_predicted": 0.23754601865201383,
+        "observed_rate": 0.24324324324324326
+      },
+      {
+        "bin": "[0.3,0.4)",
+        "n": 15,
+        "mean_predicted": 0.35810989936192833,
+        "observed_rate": 0.13333333333333333
+      },
+      {
+        "bin": "[0.4,0.5)",
+        "n": 12,
+        "mean_predicted": 0.4520225003361702,
+        "observed_rate": 0.08333333333333333
+      },
+      {
+        "bin": "[0.5,0.6)",
+        "n": 8,
+        "mean_predicted": 0.532903365790844,
+        "observed_rate": 0.25
+      }
+    ],
+    "pnl_by_predicted_decile": [
+      {
+        "decile": 1,
+        "n": 53,
+        "mean_predicted": 0.08812530690206671,
+        "mean_outcome": -11.391509433962264,
+        "total_outcome": -603.75
+      },
+      {
+        "decile": 2,
+        "n": 53,
+        "mean_predicted": 0.1341008446970076,
+        "mean_outcome": -35.075471698113205,
+        "total_outcome": -1859.0
+      },
+      {
+        "decile": 3,
+        "n": 53,
+        "mean_predicted": 0.1786519373362919,
+        "mean_outcome": -24.406603773584823,
+        "total_outcome": -1293.5499999999956
+      },
+      {
+        "decile": 4,
+        "n": 52,
+        "mean_predicted": 0.19702059374405786,
+        "mean_outcome": -21.58173076923077,
+        "total_outcome": -1122.25
+      },
+      {
+        "decile": 5,
+        "n": 52,
+        "mean_predicted": 0.37508542004686135,
+        "mean_outcome": -11.10576923076923,
+        "total_outcome": -577.5
+      }
+    ]
+  },
+  "benchmarks": {
+    "base_rate": {
+      "n": 263,
+      "base_rate": 0.22433460076045628,
+      "mean_predicted": 0.22135257735270117,
+      "brier": 0.1756765774902835,
+      "log_loss": 0.5373037450419137,
+      "ece": 0.02806994110428545,
+      "calibration": {
+        "slope": -0.8433840241099848,
+        "intercept": -2.310444599378564
+      },
+      "reliability": [
+        {
+          "bin": "[0.1,0.2)",
+          "n": 65,
+          "mean_predicted": 0.18333333333333332,
+          "observed_rate": 0.24615384615384617
+        },
+        {
+          "bin": "[0.2,0.3)",
+          "n": 198,
+          "mean_predicted": 0.23383364230855425,
+          "observed_rate": 0.21717171717171718
+        }
+      ]
+    },
+    "logistic": {
+      "n": 263,
+      "base_rate": 0.22433460076045628,
+      "mean_predicted": 0.287856779404354,
+      "brier": 0.29826496854049533,
+      "log_loss": 1.2544445136095415,
+      "ece": 0.295731558026392,
+      "calibration": {
+        "slope": 0.055629259876713355,
+        "intercept": -1.144566448174863
+      },
+      "reliability": [
+        {
+          "bin": "[0.0,0.1)",
+          "n": 144,
+          "mean_predicted": 0.020611319371797457,
+          "observed_rate": 0.2222222222222222
+        },
+        {
+          "bin": "[0.1,0.2)",
+          "n": 18,
+          "mean_predicted": 0.14943056821683576,
+          "observed_rate": 0.2222222222222222
+        },
+        {
+          "bin": "[0.2,0.3)",
+          "n": 16,
+          "mean_predicted": 0.23791789961000812,
+          "observed_rate": 0.25
+        },
+        {
+          "bin": "[0.3,0.4)",
+          "n": 6,
+          "mean_predicted": 0.34402223573361085,
+          "observed_rate": 0.0
+        },
+        {
+          "bin": "[0.4,0.5)",
+          "n": 11,
+          "mean_predicted": 0.4412228283580142,
+          "observed_rate": 0.09090909090909091
+        },
+        {
+          "bin": "[0.5,0.6)",
+          "n": 3,
+          "mean_predicted": 0.5231151123938117,
+          "observed_rate": 0.0
+        },
+        {
+          "bin": "[0.6,0.7)",
+          "n": 6,
+          "mean_predicted": 0.6412986721541384,
+          "observed_rate": 0.16666666666666666
+        },
+        {
+          "bin": "[0.7,0.8)",
+          "n": 11,
+          "mean_predicted": 0.7544777699148747,
+          "observed_rate": 0.18181818181818182
+        },
+        {
+          "bin": "[0.8,0.9)",
+          "n": 10,
+          "mean_predicted": 0.8536221682242454,
+          "observed_rate": 0.4
+        },
+        {
+          "bin": "[0.9,1.0)",
+          "n": 38,
+          "mean_predicted": 0.97557019274713,
+          "observed_rate": 0.2894736842105263
+        }
+      ]
+    }
+  },
+  "admission": {
+    "metric": "brier",
+    "boosting": 0.19239376903269106,
+    "best_benchmark": 0.1756765774902835,
+    "boosting_beats_benchmarks": false,
+    "rule": "adopt boosting ONLY if it beats every simpler benchmark on this metric"
+  }
+}
