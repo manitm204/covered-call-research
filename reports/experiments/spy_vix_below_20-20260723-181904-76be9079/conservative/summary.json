@@ -1,0 +1,185 @@
+{
+  "data_source": "user_parquet:SPY:data/normalized/options/spy/chain_*.parquet",
+  "execution_scenario": "conservative",
+  "equity": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "total_return": 0.2007796884296722,
+    "cagr": 0.023215303435911716,
+    "annualized_vol": 0.0022563322079119288,
+    "sharpe": 10.275733023233428,
+    "sortino": 13.38333887024694,
+    "max_drawdown": -0.0057375914653048365,
+    "calmar": 4.0461757474882,
+    "final_equity": 120076.16767343457
+  },
+  "trades": {
+    "n_trades": 62,
+    "win_rate": 0.6129032258064516,
+    "avg_win": 26.894736842105264,
+    "avg_loss": -77.20833333333333,
+    "profit_factor": 0.5515380464112251,
+    "expectancy_net_per_spread": -13.403225806451612,
+    "total_net_pnl": -831.0,
+    "total_gross_pnl": -648.0,
+    "total_fees": 183.0,
+    "fees_pct_of_gross_profit": 0.17906066536203522,
+    "avg_return_on_max_risk": -0.02989573611592582,
+    "avg_pct_credit_captured": -0.1919244874544057,
+    "worst_trade_net": -143.99999999999997,
+    "best_trade_net": 47.0,
+    "avg_days_in_trade": 7.564516129032258,
+    "avg_mae": -33.056451612903224,
+    "avg_mfe": 22.06451612903226,
+    "exit_reason_counts": {
+      "profit_target": 36,
+      "expiry_close": 2,
+      "stop_loss": 24
+    }
+  },
+  "interest_income_total": 20907.167673434393,
+  "realized_trading_pnl_gross": -648.0,
+  "total_fees": 183.0,
+  "entry_attempts": {
+    "attempted": 96,
+    "filled": 62,
+    "rejected": [
+      {
+        "session": "2018-11-01",
+        "reason": "filtered: vix_level=21.23 fails vix_level < 20"
+      },
+      {
+        "session": "2019-01-02",
+        "reason": "filtered: vix_level=25.42 fails vix_level < 20"
+      },
+      {
+        "session": "2020-03-02",
+        "reason": "filtered: vix_level=40.11 fails vix_level < 20"
+      },
+      {
+        "session": "2020-04-01",
+        "reason": "filtered: vix_level=53.54 fails vix_level < 20"
+      },
+      {
+        "session": "2020-05-01",
+        "reason": "filtered: vix_level=34.15 fails vix_level < 20"
+      },
+      {
+        "session": "2020-06-01",
+        "reason": "filtered: vix_level=27.51 fails vix_level < 20"
+      },
+      {
+        "session": "2020-07-01",
+        "reason": "filtered: vix_level=30.43 fails vix_level < 20"
+      },
+      {
+        "session": "2020-08-03",
+        "reason": "filtered: vix_level=24.46 fails vix_level < 20"
+      },
+      {
+        "session": "2020-09-01",
+        "reason": "filtered: vix_level=26.41 fails vix_level < 20"
+      },
+      {
+        "session": "2020-10-01",
+        "reason": "filtered: vix_level=26.37 fails vix_level < 20"
+      },
+      {
+        "session": "2020-11-02",
+        "reason": "filtered: vix_level=38.02 fails vix_level < 20"
+      },
+      {
+        "session": "2020-12-01",
+        "reason": "filtered: vix_level=20.57 fails vix_level < 20"
+      },
+      {
+        "session": "2021-01-04",
+        "reason": "filtered: vix_level=22.75 fails vix_level < 20"
+      },
+      {
+        "session": "2021-02-01",
+        "reason": "filtered: vix_level=33.09 fails vix_level < 20"
+      },
+      {
+        "session": "2021-03-01",
+        "reason": "filtered: vix_level=27.95 fails vix_level < 20"
+      },
+      {
+        "session": "2021-10-01",
+        "reason": "filtered: vix_level=23.14 fails vix_level < 20"
+      },
+      {
+        "session": "2021-12-01",
+        "reason": "filtered: vix_level=27.19 fails vix_level < 20"
+      },
+      {
+        "session": "2022-02-01",
+        "reason": "filtered: vix_level=24.83 fails vix_level < 20"
+      },
+      {
+        "session": "2022-03-01",
+        "reason": "filtered: vix_level=30.15 fails vix_level < 20"
+      },
+      {
+        "session": "2022-04-01",
+        "reason": "filtered: vix_level=20.56 fails vix_level < 20"
+      },
+      {
+        "session": "2022-05-02",
+        "reason": "filtered: vix_level=33.4 fails vix_level < 20"
+      },
+      {
+        "session": "2022-06-01",
+        "reason": "filtered: vix_level=26.19 fails vix_level < 20"
+      },
+      {
+        "session": "2022-07-01",
+        "reason": "filtered: vix_level=28.71 fails vix_level < 20"
+      },
+      {
+        "session": "2022-08-01",
+        "reason": "filtered: vix_level=21.33 fails vix_level < 20"
+      },
+      {
+        "session": "2022-09-01",
+        "reason": "filtered: vix_level=25.87 fails vix_level < 20"
+      },
+      {
+        "session": "2022-10-03",
+        "reason": "filtered: vix_level=31.62 fails vix_level < 20"
+      },
+      {
+        "session": "2022-11-01",
+        "reason": "filtered: vix_level=25.88 fails vix_level < 20"
+      },
+      {
+        "session": "2022-12-01",
+        "reason": "filtered: vix_level=20.58 fails vix_level < 20"
+      },
+      {
+        "session": "2023-01-03",
+        "reason": "filtered: vix_level=21.67 fails vix_level < 20"
+      },
+      {
+        "session": "2023-03-01",
+        "reason": "filtered: vix_level=20.7 fails vix_level < 20"
+      },
+      {
+        "session": "2024-11-01",
+        "reason": "filtered: vix_level=23.16 fails vix_level < 20"
+      },
+      {
+        "session": "2025-04-01",
+        "reason": "filtered: vix_level=22.28 fails vix_level < 20"
+      },
+      {
+        "session": "2025-05-01",
+        "reason": "filtered: vix_level=24.7 fails vix_level < 20"
+      },
+      {
+        "session": "2026-04-01",
+        "reason": "filtered: vix_level=25.25 fails vix_level < 20"
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "data_source": "user_parquet:SPY:data/normalized/options/spy/chain_*.parquet",
+  "execution_scenario": "config",
+  "equity": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "total_return": 0.15166968990173801,
+    "cagr": 0.0178700074939655,
+    "annualized_vol": 0.00561669602285717,
+    "sharpe": 3.188283223018306,
+    "sortino": 3.4733150227339973,
+    "max_drawdown": -0.02433599032802003,
+    "calmar": 0.7343036898478008,
+    "final_equity": 115165.24148563895
+  },
+  "trades": {
+    "n_trades": 417,
+    "win_rate": 0.6139088729016786,
+    "avg_win": 33.29296875,
+    "avg_loss": -83.71583850931677,
+    "profit_factor": 0.6323521228646152,
+    "expectancy_net_per_spread": -11.883093525179856,
+    "total_net_pnl": -4955.25,
+    "total_gross_pnl": -3707.25,
+    "total_fees": 1248.0,
+    "fees_pct_of_gross_profit": 0.14642731432594158,
+    "avg_return_on_max_risk": -0.02915592068201559,
+    "avg_pct_credit_captured": -0.17627495289220071,
+    "worst_trade_net": -168.75000000000003,
+    "best_trade_net": 79.5,
+    "avg_days_in_trade": 7.0647482014388485,
+    "avg_mae": -38.639088729016784,
+    "avg_mfe": 25.3015587529976,
+    "exit_reason_counts": {
+      "expiry_close": 2,
+      "stop_loss": 160,
+      "profit_target": 254,
+      "end_of_backtest": 1
+    }
+  },
+  "interest_income_total": 20120.491485638733,
+  "realized_trading_pnl_gross": -3707.25,
+  "total_fees": 1248.0,
+  "entry_attempts": {
+    "attempted": 417,
+    "filled": 417,
+    "rejected": []
+  }
+}

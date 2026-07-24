@@ -1,0 +1,17 @@
+# Exploratory follow-up to the 2000-config sweep (NOT pre-registered; found by
+# in-sample conditioning on the 417-trade label run — treat results as a
+# hypothesis needing fresh out-of-sample confirmation).
+# Regime: correlation concentration (absorption ratio) falling + calm VIX.
+name: spy_regime_absorb_falling_vix25
+strategy_config: configs/strategy_spy_hold_to_expiry.yaml
+scenarios: [base, conservative]
+feature_families: [volatility, trend, breadth, cross_asset, pca_regime]
+entry_filters:
+  - feature: absorption_chg_20d
+    op: "<"
+    value: 0.0
+  - feature: vix_level
+    op: "<"
+    value: 25.0
+allow_entry_on_missing_feature: false
+capture_entry_features: true

@@ -1,0 +1,68 @@
+{
+  "name": "sweep_d0.15_w10",
+  "selection": {
+    "root": "SPY",
+    "exercise_style": "american",
+    "settlement": "physical",
+    "target_dte": 30,
+    "min_dte": 25,
+    "max_dte": 35,
+    "short_delta_target": 0.15,
+    "width_method": "fixed_width",
+    "fixed_width": 10.0,
+    "long_delta_target": null,
+    "pct_underlying": null,
+    "expected_move_fraction": null,
+    "max_loss_budget": null,
+    "min_short_bid": 0.05,
+    "max_leg_rel_spread": 0.5,
+    "min_open_interest": null,
+    "min_quote_size": null
+  },
+  "exits": [
+    {
+      "kind": "profit_target",
+      "profit_target_pct": 0.5,
+      "stop_loss_multiple": null,
+      "dte_threshold": null,
+      "delta_threshold": null
+    },
+    {
+      "kind": "stop_loss",
+      "profit_target_pct": null,
+      "stop_loss_multiple": 2.0,
+      "dte_threshold": null,
+      "delta_threshold": null
+    }
+  ],
+  "execution": {
+    "fill_model": "pct_between",
+    "fill_pct": 0.5,
+    "slippage_per_spread": 0.0,
+    "max_leg_rel_spread": 0.5,
+    "min_credit": 0.05
+  },
+  "costs": {
+    "commission_per_contract": 0.65,
+    "fees_per_contract": 0.1,
+    "settlement_fee_per_contract": 0.0
+  },
+  "interest": {
+    "mode": "free_cash_only",
+    "rate_source": "provider",
+    "fixed_rate": 0.0,
+    "spread_bps": -25.0
+  },
+  "sizing": {
+    "contracts_per_entry": 1,
+    "max_open_positions": 6
+  },
+  "backtest": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "initial_cash": 100000.0,
+    "entry_frequency": "weekly",
+    "entry_time_et": "15:30:00",
+    "mark_time_et": "15:30:00"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "experiment_id": "spy_vix_below_20-20260723-181904-76be9079",
+  "run_ts_utc": "2026-07-23T18:19:04+00:00",
+  "git_commit": "7f8f5840a0713a33154b6882a7c7ab9b537e31fe",
+  "config_hash": "76be90797dd2a632c25634adc3dad06ed82576ce57a7f148635baea50efbde65",
+  "data_sources": {
+    "options": "user_parquet:SPY:data/normalized/options/spy/chain_*.parquet",
+    "underlying": "user_file:SPY",
+    "rates": "user_file:rates:data/normalized/rates/tbill_4w.parquet"
+  }
+}

@@ -169,3 +169,64 @@ passed. Running it anyway would be result-shopping.
    (a) put-side spreads (where the variance risk premium actually lives),
    (b) intraday/0DTE structures, or (c) different underlyings — each would
    need its own pre-registration under this same framework.
+
+---
+
+## Addendum (2026-07-23/24): exhaustive structure sweep + exploratory regime study
+
+Everything in this addendum is EXPLORATORY — thresholds and combinations were
+chosen while looking at the same 2018–2026 data (including the 2025+ window
+the original protocol reserved). Nothing here upgrades the NO-GO verdict on
+the unconditional strategy; the regime rule at the end is a pre-registrable
+HYPOTHESIS, not a validated strategy.
+
+### Full 2,000-config structure ablation (`scripts/full_ablation_sweep.py`)
+
+8 short-deltas (0.05–0.30) x 5 widths ($1–$10) x 5 DTEs (7–45) x
+{weekly, monthly} x 5 exit styles, base scenario, real SPY data
+(results/ablation_full/SUMMARY.md). Verdict: the NO-GO is global, not a
+bad-parameter artifact. 10/2000 configs positive (4 CIs above zero vs ~50
+expected by chance under a no-edge null); expectancy worsens monotonically in
+BOTH delta (−$6 mean at 0.05Δ → −$28 at 0.30Δ) and width (−$10 at $1 →
+−$26 at $10). The only "winners" are 0.05Δ/$1-wide configs earning ~$5–8 per
+spread — sub-T-bill, sitting on the $0.05 min-bid floor, fill-model artifacts.
+
+### Regime conditioning (the interesting part)
+
+Conditioning the 417-trade weekly hold-to-expiry panel on entry-date features
+(and confirming with gated engine runs, base AND conservative scenarios):
+
+- Bad regimes: IV<RV (−$97/spread), deep below 200d MA (−$89), post-selloff
+  (−$87), rising absorption ratio (−$85), VIX>30 (−$80), backwardated VIX
+  term structure (−$54). Selling "fat premium into fear" is where the
+  catastrophic losses live.
+- Good regimes: RSI(14)>70 (+$12), falling absorption (+$20 tercile), sector
+  average pairwise correlation <0.45 (+$13), IV>RV as a veto. Calm,
+  overbought, internally-diversified grinds are the only profitable habitat.
+- Signal audit on the locked structure (0.15Δ/$8-wide/30 DTE/weekly/hold,
+  unfiltered −$34/spread): RSI>70 is the one orthogonal, all-subperiod-
+  consistent signal; {absorption, sector-corr, SPY-RSP-corr} form one
+  redundant cluster (phi ~0.4–0.5); {VIX, 200d MA, IV-RV} form a second
+  veto-ish cluster; RSP/SPY breadth EMA and QQQ-beta are standalone noise.
+- Structure under good gates inverts the unconditional findings: edge scales
+  WITH width, 30 DTE is the sweet spot, and hold-to-expiry beats
+  profit-target/stop management (the gate is the risk management).
+- Overlap honesty: trades cluster into ~25 regime episodes over 8 years
+  (~3/yr). The strict gate survives episode-level scrutiny (23/25 episodes
+  positive); k-of-n voting's apparent extra edge was mostly stacking size on
+  the same episodes and degrades under a 2-position cap.
+
+### The resulting hypothesis (fully specified, ready to pre-register)
+
+Enter weekly when RSI(14)>70 AND at least 2 of {IV>RV20, sector_avg_corr_20
+< 0.45, absorption_chg_20d < 0}; short 0.15Δ SPY call spread, $8 wide,
+~30 DTE; hold to expiry; max 2 open positions. On 2018–2026 SPY (base
+fills): n=53 (6.6/yr), +$46.27/spread, bootstrap 95% CI [+22.94, +72.83],
+92% win, worst trade −$787, total +$2,452. Conservative fills degrade the
+strict variant by only ~$3/spread. Effective sample ~25 independent
+episodes. Every gate variant shares the same −$787 worst trade (2022): the
+tail is irreducible at this width.
+
+Required next step before any capital: pre-register this exact rule and test
+on unmined data — other underlyings (QQQ/IWM/XSP chains) or forward paper
+trading. The thresholds must not move during that test.

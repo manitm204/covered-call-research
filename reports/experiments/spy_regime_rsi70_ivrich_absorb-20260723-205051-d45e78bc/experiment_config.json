@@ -1,0 +1,34 @@
+{
+  "name": "spy_regime_rsi70_ivrich_absorb",
+  "strategy_config": "configs/strategy_spy_hold_to_expiry.yaml",
+  "scenarios": [
+    "base",
+    "conservative"
+  ],
+  "feature_families": [
+    "volatility",
+    "trend",
+    "breadth",
+    "cross_asset",
+    "pca_regime"
+  ],
+  "entry_filters": [
+    {
+      "feature": "rsi_14",
+      "op": ">",
+      "value": 70.0
+    },
+    {
+      "feature": "iv_minus_rv20",
+      "op": ">",
+      "value": 0.0
+    },
+    {
+      "feature": "absorption_chg_20d",
+      "op": "<",
+      "value": 0.0
+    }
+  ],
+  "allow_entry_on_missing_feature": false,
+  "capture_entry_features": true
+}

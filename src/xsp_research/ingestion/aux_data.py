@@ -360,7 +360,8 @@ def load_aux_bundle(bundle_dir: str | Path):
     series = {
         p.stem: pl.read_parquet(p).select(["date", "close"])
         for p in d.glob("*.parquet")
-        if not p.stem.endswith("_DIVIDENDS")  # different schema (ex_date, amount)
+        # skip non-series schemas: dividends (ex_date, amount), raw macro pulls (date, value)
+        if {"date", "close"} <= set(pl.read_parquet_schema(p))
     }
     if "UNDERLYING" not in series:
         raise ValueError(f"{d} has no UNDERLYING.parquet; run `xsp ingest-aux` first")

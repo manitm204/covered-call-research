@@ -1,0 +1,450 @@
+{
+  "features": [
+    {
+      "name": "absorption_chg_20d",
+      "family": "pca_regime",
+      "definition": "20-session change in absorption ratio",
+      "source_symbols": [
+        "__SECTORS__"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "absorption_ratio",
+      "family": "pca_regime",
+      "definition": "share of sector-return correlation explained by the first eigenvalue (120-session rolling window)",
+      "source_symbols": [
+        "__SECTORS__"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": "needs 120+ sessions of sector history"
+    },
+    {
+      "name": "dist_from_ath",
+      "family": "trend",
+      "definition": "close / running all-time high - 1 (within sample)",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "dist_ma200",
+      "family": "trend",
+      "definition": "close / 200-session MA - 1",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "dist_ma50",
+      "family": "trend",
+      "definition": "close / 50-session MA - 1",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "eqw_capw_vol_ratio_20",
+      "family": "breadth",
+      "definition": "RSP 20-session realized vol / SPY 20-session realized vol",
+      "source_symbols": [
+        "SPY",
+        "RSP"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "expected_move_30d",
+      "family": "volatility",
+      "definition": "UNDERLYING * VIX/100 * sqrt(30/365): 30-day expected move in points",
+      "source_symbols": [
+        "VIX",
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "hyg_lqd_ret20_diff",
+      "family": "cross_asset",
+      "definition": "HYG 20-session return minus LQD (credit risk appetite)",
+      "source_symbols": [
+        "HYG",
+        "LQD"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "iv_minus_rv20",
+      "family": "volatility",
+      "definition": "VIX/100 minus 20-session realized vol (variance-risk-premium proxy)",
+      "source_symbols": [
+        "VIX",
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "iwm_spy_ret20_diff",
+      "family": "cross_asset",
+      "definition": "IWM 20-session return minus SPY",
+      "source_symbols": [
+        "IWM",
+        "SPY"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ma50_slope_20d",
+      "family": "trend",
+      "definition": "20-session change of the 50-session MA (relative)",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ncomp_80pct",
+      "family": "pca_regime",
+      "definition": "number of eigen-components explaining 80% of sector correlation variance",
+      "source_symbols": [
+        "__SECTORS__"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "pc1_loading_dispersion",
+      "family": "pca_regime",
+      "definition": "std of |first-eigenvector loadings| (uniformity of the market factor)",
+      "source_symbols": [
+        "__SECTORS__"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "qqq_spy_ret20_diff",
+      "family": "cross_asset",
+      "definition": "QQQ 20-session return minus SPY",
+      "source_symbols": [
+        "QQQ",
+        "SPY"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "rate_3m_chg_20d",
+      "family": "cross_asset",
+      "definition": "20-session change in the 3-month rate",
+      "source_symbols": [
+        "RATE_3M"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "rate_3m_level",
+      "family": "cross_asset",
+      "definition": "3-month rate level (RATE_3M series close)",
+      "source_symbols": [
+        "RATE_3M"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": "uses only rates observable at the session (no revised data)"
+    },
+    {
+      "name": "rebound_from_20d_low",
+      "family": "trend",
+      "definition": "close / 20-session rolling low - 1 (rebound-risk gauge for call spreads)",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ret_120d",
+      "family": "trend",
+      "definition": "120-session simple return of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ret_1d",
+      "family": "trend",
+      "definition": "1-session simple return of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ret_20d",
+      "family": "trend",
+      "definition": "20-session simple return of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ret_5d",
+      "family": "trend",
+      "definition": "5-session simple return of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ret_60d",
+      "family": "trend",
+      "definition": "60-session simple return of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "ret_accel_5_20",
+      "family": "trend",
+      "definition": "5-session return minus 20-session return/4 (acceleration)",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "rsi_14",
+      "family": "trend",
+      "definition": "14-session RSI (simple-mean variant)",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "rv_10",
+      "family": "volatility",
+      "definition": "10-session annualized realized vol of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "rv_20",
+      "family": "volatility",
+      "definition": "20-session annualized realized vol of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "rv_5",
+      "family": "volatility",
+      "definition": "5-session annualized realized vol of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "rv_60",
+      "family": "volatility",
+      "definition": "60-session annualized realized vol of UNDERLYING",
+      "source_symbols": [
+        "UNDERLYING"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "spy_lqd_corr_60",
+      "family": "cross_asset",
+      "definition": "60-session rolling correlation of SPY and LQD log returns (bond-equity link)",
+      "source_symbols": [
+        "SPY",
+        "LQD"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "spy_rsp_ratio_z60",
+      "family": "breadth",
+      "definition": "z-score of SPY/RSP ratio over trailing 60 sessions (concentration trend)",
+      "source_symbols": [
+        "SPY",
+        "RSP"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "spy_rsp_ret20_diff",
+      "family": "breadth",
+      "definition": "SPY 20-session return minus RSP (cap>eq-weight)",
+      "source_symbols": [
+        "SPY",
+        "RSP"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "spy_rsp_ret60_diff",
+      "family": "breadth",
+      "definition": "SPY 60-session return minus RSP",
+      "source_symbols": [
+        "SPY",
+        "RSP"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "vix9d_vix_ratio",
+      "family": "volatility",
+      "definition": "VIX9D / VIX (term-structure inversion gauge)",
+      "source_symbols": [
+        "VIX9D",
+        "VIX"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "vix_chg_20d",
+      "family": "volatility",
+      "definition": "20-session change in VIX close (points)",
+      "source_symbols": [
+        "VIX"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "vix_chg_5d",
+      "family": "volatility",
+      "definition": "5-session change in VIX close (points)",
+      "source_symbols": [
+        "VIX"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "vix_level",
+      "family": "volatility",
+      "definition": "VIX close level",
+      "source_symbols": [
+        "VIX"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "vix_pct_252",
+      "family": "volatility",
+      "definition": "trailing 252-session percentile of VIX close",
+      "source_symbols": [
+        "VIX"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": "needs 252 sessions of VIX history"
+    },
+    {
+      "name": "vol_of_vol_20",
+      "family": "volatility",
+      "definition": "20-session annualized vol of VIX log changes",
+      "source_symbols": [
+        "VIX"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    },
+    {
+      "name": "vvix_level",
+      "family": "volatility",
+      "definition": "VVIX close level (vol-of-vol)",
+      "source_symbols": [
+        "VVIX"
+      ],
+      "required_lag_sessions": 1,
+      "missing_policy": "asof_5",
+      "availability_note": ""
+    }
+  ],
+  "skipped": {},
+  "n_rows": 2652,
+  "date_range": [
+    "2016-01-04",
+    "2026-07-22"
+  ]
+}

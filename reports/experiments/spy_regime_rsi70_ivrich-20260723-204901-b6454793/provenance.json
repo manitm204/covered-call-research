@@ -1,0 +1,11 @@
+{
+  "experiment_id": "spy_regime_rsi70_ivrich-20260723-204901-b6454793",
+  "run_ts_utc": "2026-07-23T20:49:01+00:00",
+  "git_commit": "7c2ce422812ec34bd6495cd75165fb0fcec1161b",
+  "config_hash": "b6454793e5e66c8c652485c3c7a448f10ebd8daffd002d60d556a10f43cac41e",
+  "data_sources": {
+    "options": "user_parquet:SPY:data/normalized/options/spy/chain_*.parquet",
+    "underlying": "user_file:SPY",
+    "rates": "user_file:rates:data/normalized/rates/tbill_4w.parquet"
+  }
+}

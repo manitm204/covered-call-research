@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-07-23T01:26:34+00:00",
+  "created_utc": "2026-07-23T17:50:58+00:00",
   "out_dir": "data/normalized/aux",
   "start_filter": "2016-01-01",
   "sector_symbols": [
@@ -302,7 +302,7 @@
     }
   },
   "errors": {
-    "SOFR": "FRED unreachable (repeated timeouts, likely IP rate-limit); optional series \u2014 retry later with: xsp ingest-aux --only SOFR"
+    "SOFR": "TimeoutError: The read operation timed out"
   },
   "license_note": "FRED public series; Yahoo Finance chart API (personal research use); Cboe public index histories. Do not redistribute; not committed to git."
 }

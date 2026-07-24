@@ -1,0 +1,889 @@
+{
+  "data_source": "user_parquet:SPY:data/normalized/options/spy/chain_*.parquet",
+  "execution_scenario": "base",
+  "equity": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "total_return": 0.2436362716451761,
+    "cagr": 0.027725944932489144,
+    "annualized_vol": 0.010636654456551847,
+    "sharpe": 2.602600479911725,
+    "sortino": 2.5969803907162303,
+    "max_drawdown": -0.015351960652405072,
+    "calmar": 1.8060198016561184,
+    "final_equity": 124361.76171011014
+  },
+  "trades": {
+    "n_trades": 207,
+    "win_rate": 0.8695652173913043,
+    "avg_win": 53.455555555555556,
+    "avg_loss": -233.59079964664292,
+    "profit_factor": 1.5256181789242484,
+    "expectancy_net_per_spread": 16.01472661613836,
+    "total_net_pnl": 3315.048409540641,
+    "total_gross_pnl": 3647.298409540641,
+    "total_fees": 332.25,
+    "fees_pct_of_gross_profit": 0.034530243192683434,
+    "avg_return_on_max_risk": 0.03869357400439854,
+    "avg_pct_credit_captured": 0.2847684612672336,
+    "worst_trade_net": -544.75,
+    "best_trade_net": 89.75,
+    "avg_days_in_trade": 30.415458937198068,
+    "avg_mae": -79.69444444444444,
+    "avg_mfe": 50.94806763285024,
+    "exit_reason_counts": {
+      "early_assignment": 3,
+      "end_of_backtest": 5,
+      "expiry_close": 199
+    }
+  },
+  "interest_income_total": 21046.713300569543,
+  "realized_trading_pnl_gross": 3647.298409540641,
+  "total_fees": 332.25,
+  "entry_attempts": {
+    "attempted": 417,
+    "filled": 207,
+    "rejected": [
+      {
+        "session": "2018-10-22",
+        "reason": "filtered: absorption_chg_20d=0.006918 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-10-29",
+        "reason": "filtered: absorption_chg_20d=0.07578 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-11-05",
+        "reason": "filtered: absorption_chg_20d=0.09021 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-11-12",
+        "reason": "filtered: absorption_chg_20d=0.0484 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-11-19",
+        "reason": "filtered: absorption_chg_20d=0.0435 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-11-26",
+        "reason": "filtered: absorption_chg_20d=0.02348 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-12-03",
+        "reason": "filtered: absorption_chg_20d=0.02239 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-12-10",
+        "reason": "filtered: absorption_chg_20d=0.04307 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-12-17",
+        "reason": "filtered: absorption_chg_20d=0.03736 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-12-24",
+        "reason": "filtered: absorption_chg_20d=0.05494 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2018-12-31",
+        "reason": "filtered: absorption_chg_20d=0.09637 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-01-07",
+        "reason": "filtered: absorption_chg_20d=0.09373 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-01-14",
+        "reason": "filtered: absorption_chg_20d=0.08956 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-01-22",
+        "reason": "filtered: absorption_chg_20d=0.08026 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-01-28",
+        "reason": "filtered: absorption_chg_20d=0.02634 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-02-04",
+        "reason": "filtered: absorption_chg_20d=0.01866 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-02-19",
+        "reason": "filtered: absorption_chg_20d=0.003887 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-03-04",
+        "reason": "filtered: absorption_chg_20d=0.0014 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-03-11",
+        "reason": "filtered: absorption_chg_20d=0.002537 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-03-18",
+        "reason": "filtered: absorption_chg_20d=0.006657 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-03-25",
+        "reason": "filtered: absorption_chg_20d=0.01021 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-04-01",
+        "reason": "filtered: absorption_chg_20d=0.01466 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-04-08",
+        "reason": "filtered: absorption_chg_20d=0.004243 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-05-20",
+        "reason": "filtered: absorption_chg_20d=0.007202 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-05-28",
+        "reason": "filtered: absorption_chg_20d=0.006057 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-06-03",
+        "reason": "filtered: absorption_chg_20d=0.002035 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-07-29",
+        "reason": "filtered: absorption_chg_20d=0.001424 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-08-12",
+        "reason": "filtered: absorption_chg_20d=0.03254 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-08-19",
+        "reason": "filtered: absorption_chg_20d=0.07536 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-08-26",
+        "reason": "filtered: absorption_chg_20d=0.08752 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-09-03",
+        "reason": "filtered: absorption_chg_20d=0.08713 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-09-09",
+        "reason": "filtered: absorption_chg_20d=0.0575 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-09-16",
+        "reason": "filtered: absorption_chg_20d=0.01497 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-10-07",
+        "reason": "filtered: absorption_chg_20d=0.0009344 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-10-14",
+        "reason": "filtered: absorption_chg_20d=0.03415 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-10-21",
+        "reason": "filtered: absorption_chg_20d=0.04829 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-10-28",
+        "reason": "filtered: absorption_chg_20d=0.03562 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-11-04",
+        "reason": "filtered: absorption_chg_20d=0.004135 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-12-23",
+        "reason": "filtered: absorption_chg_20d=0.01669 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2019-12-30",
+        "reason": "filtered: absorption_chg_20d=0.01632 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-01-06",
+        "reason": "filtered: absorption_chg_20d=0.009668 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-01-13",
+        "reason": "filtered: absorption_chg_20d=0.01057 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-01-21",
+        "reason": "filtered: absorption_chg_20d=0.005436 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-01-27",
+        "reason": "filtered: absorption_chg_20d=0.004364 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-03-02",
+        "reason": "filtered: absorption_chg_20d=0.06269 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-03-09",
+        "reason": "filtered: absorption_chg_20d=0.1799 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-03-16",
+        "reason": "filtered: absorption_chg_20d=0.3062 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-03-23",
+        "reason": "filtered: absorption_chg_20d=0.3357 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-03-30",
+        "reason": "filtered: absorption_chg_20d=0.202 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-04-06",
+        "reason": "filtered: absorption_chg_20d=0.1116 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-04-13",
+        "reason": "filtered: absorption_chg_20d=0.01045 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-04-20",
+        "reason": "filtered: vix_level=38.15 fails vix_level < 25"
+      },
+      {
+        "session": "2020-04-27",
+        "reason": "filtered: vix_level=35.93 fails vix_level < 25"
+      },
+      {
+        "session": "2020-05-04",
+        "reason": "filtered: vix_level=37.19 fails vix_level < 25"
+      },
+      {
+        "session": "2020-05-11",
+        "reason": "filtered: vix_level=27.98 fails vix_level < 25"
+      },
+      {
+        "session": "2020-05-18",
+        "reason": "filtered: vix_level=31.89 fails vix_level < 25"
+      },
+      {
+        "session": "2020-05-26",
+        "reason": "filtered: vix_level=28.16 fails vix_level < 25"
+      },
+      {
+        "session": "2020-06-01",
+        "reason": "filtered: vix_level=27.51 fails vix_level < 25"
+      },
+      {
+        "session": "2020-06-15",
+        "reason": "filtered: vix_level=36.09 fails vix_level < 25"
+      },
+      {
+        "session": "2020-06-22",
+        "reason": "filtered: vix_level=35.12 fails vix_level < 25"
+      },
+      {
+        "session": "2020-06-29",
+        "reason": "filtered: vix_level=34.73 fails vix_level < 25"
+      },
+      {
+        "session": "2020-07-06",
+        "reason": "filtered: absorption_chg_20d=0.000841 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2020-07-13",
+        "reason": "filtered: vix_level=27.29 fails vix_level < 25"
+      },
+      {
+        "session": "2020-07-20",
+        "reason": "filtered: vix_level=25.68 fails vix_level < 25"
+      },
+      {
+        "session": "2020-07-27",
+        "reason": "filtered: vix_level=25.84 fails vix_level < 25"
+      },
+      {
+        "session": "2020-09-08",
+        "reason": "filtered: vix_level=30.75 fails vix_level < 25"
+      },
+      {
+        "session": "2020-09-14",
+        "reason": "filtered: vix_level=26.87 fails vix_level < 25"
+      },
+      {
+        "session": "2020-09-21",
+        "reason": "filtered: vix_level=25.83 fails vix_level < 25"
+      },
+      {
+        "session": "2020-09-28",
+        "reason": "filtered: vix_level=26.38 fails vix_level < 25"
+      },
+      {
+        "session": "2020-10-05",
+        "reason": "filtered: vix_level=27.63 fails vix_level < 25"
+      },
+      {
+        "session": "2020-10-12",
+        "reason": "filtered: vix_level=25 fails vix_level < 25"
+      },
+      {
+        "session": "2020-10-19",
+        "reason": "filtered: vix_level=27.41 fails vix_level < 25"
+      },
+      {
+        "session": "2020-10-26",
+        "reason": "filtered: vix_level=27.55 fails vix_level < 25"
+      },
+      {
+        "session": "2020-11-02",
+        "reason": "filtered: vix_level=38.02 fails vix_level < 25"
+      },
+      {
+        "session": "2021-02-01",
+        "reason": "filtered: absorption_chg_20d=0.01939 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-02-08",
+        "reason": "filtered: absorption_chg_20d=0.02332 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-02-16",
+        "reason": "filtered: absorption_chg_20d=0.02787 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-02-22",
+        "reason": "filtered: absorption_chg_20d=0.02222 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-03-01",
+        "reason": "filtered: vix_level=27.95 fails vix_level < 25"
+      },
+      {
+        "session": "2021-05-24",
+        "reason": "filtered: absorption_chg_20d=0.01118 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-06-01",
+        "reason": "filtered: absorption_chg_20d=0.008002 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-07-12",
+        "reason": "filtered: absorption_chg_20d=0.01862 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-07-19",
+        "reason": "filtered: absorption_chg_20d=0.02699 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-09-20",
+        "reason": "filtered: absorption_chg_20d=0.002502 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-09-27",
+        "reason": "filtered: absorption_chg_20d=0.0375 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-10-04",
+        "reason": "filtered: absorption_chg_20d=0.0474 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-10-11",
+        "reason": "filtered: absorption_chg_20d=0.04031 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-10-18",
+        "reason": "filtered: absorption_chg_20d=0.046 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-10-25",
+        "reason": "filtered: absorption_chg_20d=0.02811 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-11-01",
+        "reason": "filtered: absorption_chg_20d=0.01461 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-11-29",
+        "reason": "filtered: vix_level=28.62 fails vix_level < 25"
+      },
+      {
+        "session": "2021-12-06",
+        "reason": "filtered: absorption_chg_20d=0.03632 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-12-13",
+        "reason": "filtered: absorption_chg_20d=0.04889 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-12-20",
+        "reason": "filtered: absorption_chg_20d=0.03872 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2021-12-27",
+        "reason": "filtered: absorption_chg_20d=0.04914 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-01-24",
+        "reason": "filtered: vix_level=28.85 fails vix_level < 25"
+      },
+      {
+        "session": "2022-01-31",
+        "reason": "filtered: vix_level=27.66 fails vix_level < 25"
+      },
+      {
+        "session": "2022-02-07",
+        "reason": "filtered: absorption_chg_20d=0.007294 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-02-14",
+        "reason": "filtered: absorption_chg_20d=0.01962 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-02-22",
+        "reason": "filtered: absorption_chg_20d=0.008337 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-02-28",
+        "reason": "filtered: absorption_chg_20d=0.03402 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-03-07",
+        "reason": "filtered: absorption_chg_20d=0.02215 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-03-14",
+        "reason": "filtered: absorption_chg_20d=0.01552 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-03-21",
+        "reason": "filtered: absorption_chg_20d=0.01793 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-04-25",
+        "reason": "filtered: absorption_chg_20d=0.005093 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-05-02",
+        "reason": "filtered: absorption_chg_20d=0.0314 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-05-09",
+        "reason": "filtered: absorption_chg_20d=0.07031 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-05-16",
+        "reason": "filtered: absorption_chg_20d=0.0795 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-05-23",
+        "reason": "filtered: absorption_chg_20d=0.06814 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-05-31",
+        "reason": "filtered: absorption_chg_20d=0.03719 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-06-06",
+        "reason": "filtered: absorption_chg_20d=0.01327 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-06-13",
+        "reason": "filtered: absorption_chg_20d=0.02485 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-06-21",
+        "reason": "filtered: absorption_chg_20d=0.02801 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-06-27",
+        "reason": "filtered: absorption_chg_20d=0.04098 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-07-05",
+        "reason": "filtered: absorption_chg_20d=0.0446 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-07-11",
+        "reason": "filtered: absorption_chg_20d=0.03709 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-07-18",
+        "reason": "filtered: absorption_chg_20d=0.01289 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-07-25",
+        "reason": "filtered: absorption_chg_20d=0.01248 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-08-01",
+        "reason": "filtered: absorption_chg_20d=0.002164 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-08-15",
+        "reason": "filtered: absorption_chg_20d=0.00465 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-08-22",
+        "reason": "filtered: absorption_chg_20d=0.002356 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-08-29",
+        "reason": "filtered: absorption_chg_20d=0.01179 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-09-06",
+        "reason": "filtered: absorption_chg_20d=0.02205 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-09-12",
+        "reason": "filtered: absorption_chg_20d=0.02476 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-09-19",
+        "reason": "filtered: absorption_chg_20d=0.03563 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-09-26",
+        "reason": "filtered: absorption_chg_20d=0.0347 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-10-03",
+        "reason": "filtered: absorption_chg_20d=0.03254 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-10-10",
+        "reason": "filtered: absorption_chg_20d=0.03954 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-10-17",
+        "reason": "filtered: absorption_chg_20d=0.02998 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-10-24",
+        "reason": "filtered: absorption_chg_20d=0.02514 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-10-31",
+        "reason": "filtered: absorption_chg_20d=0.001117 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-11-14",
+        "reason": "filtered: absorption_chg_20d=0.001731 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-11-21",
+        "reason": "filtered: absorption_chg_20d=0.001381 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-11-28",
+        "reason": "filtered: absorption_chg_20d=0.01192 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2022-12-27",
+        "reason": "filtered: absorption_chg_20d=0.004505 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-01-03",
+        "reason": "filtered: absorption_chg_20d=0.008627 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-01-09",
+        "reason": "filtered: absorption_chg_20d=0.02881 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-01-17",
+        "reason": "filtered: absorption_chg_20d=0.0246 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-01-23",
+        "reason": "filtered: absorption_chg_20d=0.02236 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-01-30",
+        "reason": "filtered: absorption_chg_20d=0.01676 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-02-06",
+        "reason": "filtered: absorption_chg_20d=0.008226 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-02-13",
+        "reason": "filtered: absorption_chg_20d=0.004806 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-03-20",
+        "reason": "filtered: vix_level=25.51 fails vix_level < 25"
+      },
+      {
+        "session": "2023-10-02",
+        "reason": "filtered: absorption_chg_20d=0.008164 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-10-09",
+        "reason": "filtered: absorption_chg_20d=0.0004793 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-10-16",
+        "reason": "filtered: absorption_chg_20d=0.0124 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-10-23",
+        "reason": "filtered: absorption_chg_20d=0.008236 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-11-06",
+        "reason": "filtered: absorption_chg_20d=0.007556 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-11-13",
+        "reason": "filtered: absorption_chg_20d=0.006318 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-11-20",
+        "reason": "filtered: absorption_chg_20d=0.02285 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-11-27",
+        "reason": "filtered: absorption_chg_20d=0.02928 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-12-04",
+        "reason": "filtered: absorption_chg_20d=0.01658 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-12-11",
+        "reason": "filtered: absorption_chg_20d=0.01433 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-12-18",
+        "reason": "filtered: absorption_chg_20d=0.003509 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2023-12-26",
+        "reason": "filtered: absorption_chg_20d=0.0284 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-01-02",
+        "reason": "filtered: absorption_chg_20d=0.02164 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-01-08",
+        "reason": "filtered: absorption_chg_20d=0.02006 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-01-16",
+        "reason": "filtered: absorption_chg_20d=0.02202 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-01-22",
+        "reason": "filtered: absorption_chg_20d=0.02397 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-01-29",
+        "reason": "filtered: absorption_chg_20d=0.005911 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-02-05",
+        "reason": "filtered: absorption_chg_20d=0.01932 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-02-20",
+        "reason": "filtered: absorption_chg_20d=0.0004308 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-02-26",
+        "reason": "filtered: absorption_chg_20d=0.0003978 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-04-15",
+        "reason": "filtered: absorption_chg_20d=0.01692 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-04-22",
+        "reason": "filtered: absorption_chg_20d=0.0114 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-06-10",
+        "reason": "filtered: absorption_chg_20d=0.01056 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-08-12",
+        "reason": "filtered: absorption_chg_20d=0.01084 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-08-19",
+        "reason": "filtered: absorption_chg_20d=0.01752 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-08-26",
+        "reason": "filtered: absorption_chg_20d=0.03595 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-09-03",
+        "reason": "filtered: absorption_chg_20d=0.04565 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-09-09",
+        "reason": "filtered: absorption_chg_20d=0.0219 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-09-16",
+        "reason": "filtered: absorption_chg_20d=0.01547 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-09-23",
+        "reason": "filtered: absorption_chg_20d=0.001384 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-12-23",
+        "reason": "filtered: absorption_chg_20d=0.03039 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2024-12-30",
+        "reason": "filtered: absorption_chg_20d=0.03717 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-01-06",
+        "reason": "filtered: absorption_chg_20d=0.04276 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-01-13",
+        "reason": "filtered: absorption_chg_20d=0.04902 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-01-21",
+        "reason": "filtered: absorption_chg_20d=0.04787 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-01-27",
+        "reason": "filtered: absorption_chg_20d=0.02864 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-03-17",
+        "reason": "filtered: absorption_chg_20d=0.01222 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-03-24",
+        "reason": "filtered: absorption_chg_20d=0.02581 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-03-31",
+        "reason": "filtered: absorption_chg_20d=0.03567 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-04-07",
+        "reason": "filtered: absorption_chg_20d=0.1457 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-04-14",
+        "reason": "filtered: absorption_chg_20d=0.2175 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-04-21",
+        "reason": "filtered: absorption_chg_20d=0.2091 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-04-28",
+        "reason": "filtered: absorption_chg_20d=0.2145 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-05-05",
+        "reason": "filtered: absorption_chg_20d=0.1917 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-05-12",
+        "reason": "filtered: absorption_chg_20d=0.02707 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-05-19",
+        "reason": "filtered: absorption_chg_20d=0.02001 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-05-27",
+        "reason": "filtered: absorption_chg_20d=0.01073 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-06-02",
+        "reason": "filtered: absorption_chg_20d=0.01775 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-06-09",
+        "reason": "filtered: absorption_chg_20d=0.00919 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-06-16",
+        "reason": "filtered: absorption_chg_20d=0.00608 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-06-23",
+        "reason": "filtered: absorption_chg_20d=0.0004513 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-07-28",
+        "reason": "filtered: absorption_chg_20d=0.0122 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-08-04",
+        "reason": "filtered: absorption_chg_20d=0.01123 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-08-11",
+        "reason": "filtered: absorption_chg_20d=0.005298 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-08-18",
+        "reason": "filtered: absorption_chg_20d=0.007568 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-08-25",
+        "reason": "filtered: absorption_chg_20d=0.002494 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-09-02",
+        "reason": "filtered: absorption_chg_20d=0.01103 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-09-08",
+        "reason": "filtered: absorption_chg_20d=0.01175 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-09-15",
+        "reason": "filtered: absorption_chg_20d=0.002888 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2025-09-22",
+        "reason": "filtered: absorption_chg_20d=0.003801 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2026-03-09",
+        "reason": "filtered: vix_level=29.49 fails vix_level < 25"
+      },
+      {
+        "session": "2026-03-16",
+        "reason": "filtered: vix_level=27.19 fails vix_level < 25"
+      },
+      {
+        "session": "2026-03-23",
+        "reason": "filtered: absorption_chg_20d=0.01495 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2026-03-30",
+        "reason": "filtered: absorption_chg_20d=0.03771 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2026-04-06",
+        "reason": "filtered: absorption_chg_20d=0.03716 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2026-04-13",
+        "reason": "filtered: absorption_chg_20d=0.02863 fails absorption_chg_20d < 0"
+      },
+      {
+        "session": "2026-04-20",
+        "reason": "filtered: absorption_chg_20d=0.01574 fails absorption_chg_20d < 0"
+      }
+    ]
+  }
+}
