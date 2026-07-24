@@ -230,3 +230,63 @@ tail is irreducible at this width.
 Required next step before any capital: pre-register this exact rule and test
 on unmined data — other underlyings (QQQ/IWM/XSP chains) or forward paper
 trading. The thresholds must not move during that test.
+
+## Addendum (2026-07-24, second session): structure frontier, surface study, portfolio framing
+
+All exploratory (same 53 gated entries / ~26 episodes as the hypothesis above).
+
+### Phase A — aggression frontier (scripts/phaseA_aggression_frontier.py)
+
+108 configs (delta 0.08–0.35 × width $2–$15 × base/conservative) on the frozen
+gate, cap-2. Verdict:
+
+- Delta has a hard ceiling at 0.20: at 0.25–0.35 the means go negative/noisy,
+  win rate falls to 58–74%, and every episode CI spans zero. The gate does not
+  rescue high delta.
+- Return on collateral peaks at 0.15Δ/$2–$5 wide (~8.1%/trade base fills);
+  width buys total dollars at declining risk-efficiency (collateral grows
+  faster than credit).
+- An ultra-conservative variant exists: 0.08Δ/$15 — 98% win, worst trade −$127,
+  episode CI [+28, +42], but only ~2.7%/trade on collateral.
+- The efficient region is 0.15±0.03Δ × $5–$8; differences inside it are within
+  each other's CIs (picking the single best cell would be mining).
+
+### Phase B — surface-relative strike selection (phaseB_surface_diagnostic.py, phaseB_engine_ab.py)
+
+Question: can SVI-smile "mispricing" pick a better short strike than fixed
+0.15Δ? Answer: NO, and the mispricing story is backwards.
+
+- Strikes rich vs the fitted smile UNDERPERFORM when sold (within-date partial
+  correlation −0.20 controlling delta; sell-the-richest rule loses $4–8/spread
+  in every test). Local richness is information, not free premium.
+- The mirror rule (sell the cheapest strike in the 0.10–0.20 band) showed
+  +$12/spread out-of-engine but degraded to +$5.3 with episode CI [−4.8, +16.0]
+  in the full engine — and to $0.0 under a different (equally reasonable)
+  smile-fit implementation. Sign stable, magnitude fragile → not
+  pre-registrable. Fixed delta stands. XGBoost strike ranker (Phase C) skipped:
+  the signal it would learn is sub-vol-point, wrong-signed vs intuition, and
+  implementation-dependent.
+
+### Portfolio framing (scripts/portfolio_comparison.py)
+
+$100k, 2018-08→2026-07, base fills, dividends reinvested:
+
+| portfolio | CAGR | vol | Sharpe | maxDD | beta |
+|---|---|---|---|---|---|
+| T-bills | 2.71% | 0.2% | — | ~0% | 0.00 |
+| SPY (TR) | 14.97% | 18.5% | 0.70 | −34.7% | 1.00 |
+| strategy standalone (cash-collateralized) | 2.74% | 0.6% | 0.06 | −0.8% | −0.008 |
+| SPY + margin overlay | 15.09% | 18.2% | 0.72 | −34.4% | 0.99 |
+
+- KEY: cash collateral forfeits T-bill interest while spreads are open —
+  $2,142 of the $2,453 trading P&L over 8 years. Standalone cash-collateralized
+  = T-bills + 3bp/yr, i.e. not worth running. The strategy only makes economic
+  sense as a MARGIN OVERLAY on an existing SPY position (+$311/yr per 2-spread
+  unit, alpha +0.23%/yr, beta −0.008, corr −0.26 — genuinely diversifying;
+  scales linearly in contracts, as does the tail).
+
+### Status
+
+Exploratory phase CLOSED. The only remaining step that produces new evidence
+is the pre-registered test of the frozen rule on unmined data (QQQ/IWM
+chains or forward paper trading).
