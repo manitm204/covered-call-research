@@ -69,3 +69,28 @@ results/qqq_prereg/structure_ablation.{jsonl,parquet}.
 Conclusion: on QQQ, in the same regimes, short call spreads lose at every
 setup. Reinforces the instrument-level story: NDX's right tail in these
 regimes cannot be structured around with delta/width/DTE.
+
+## Full regime scan on QQQ (exploratory/overfit, 2026-07-24)
+
+scripts/qqq_regime_scan.py; panel = 414 unfiltered trades x 52 features
+(results/qqq_prereg/regime_scan_panel.parquet).
+
+- VETOES TRANSFER: absorption rising (hi tercile -$120), high sector-corr
+  (-$100), below MA200 (off -$103), IV<RV (-$60), high VXN (-$64), high
+  index-pair correlations (-$78..-$101) — all bad on QQQ exactly as on SPY.
+  The "when NOT to sell" side is universal market structure.
+- THE TRIGGER DOES NOT: RSI>70, SPY's load-bearing entry signal, is DEAD FLAT
+  on QQQ (on -$47.5 vs off -$46.6). QQQ's only positive conditioners are
+  LONG-horizon trend maturity: ret_120d / ret_60d / dist_ma200 top terciles
+  (+$21..+$27). Short-term overbought means nothing when the index melts up.
+- Even deliberately overfit composites can't reach SPY's number: best found
+  (all vetoes + ret_120d>10%, cap-2) = n=56, +$32.45, trade CI [-10.0,+68.1],
+  episode CI [-21.7,+68.3] — spans zero. SPY's mined rule on SPY: +$46.27,
+  CI [+22.9,+72.8]. Mining QQQ with the same effort cannot manufacture a
+  significant rule: the habitat itself is worse (2023/2024/2026 melt-up years
+  are -$92/-$58/-$144 unfiltered; only 2018 and 2022 were sellable at all).
+
+Bottom line: QQQ shares SPY's danger regimes but not its opportunity regime.
+The strategy's edge (if any) is not "calm overbought grinds" generically —
+on QQQ the closest analog is late-stage mature uptrends, and even that is
+statistically nothing after honest error bars.
