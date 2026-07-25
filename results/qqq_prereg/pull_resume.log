@@ -1,0 +1,15 @@
+2026-07: 15 sessions, 90464 rows
+warning: underlying EOD pull failed: request failed: /v3/stock/history/eod: HTTP Error 403: Forbidden
+{
+  "months_written": 1,
+  "months_skipped_existing": 95,
+  "empty_sessions": 0,
+  "session_errors": {
+    "2026-07-03": "request failed: /v3/option/history/quote: HTTP Error 472: 472"
+  },
+  "underlying_price_methods": {
+    "stock_quote": 0,
+    "parity_implied": 15
+  },
+  "out_dir": "data/normalized/options/qqq"
+}
