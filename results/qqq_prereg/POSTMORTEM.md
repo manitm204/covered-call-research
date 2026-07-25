@@ -48,3 +48,24 @@ the SPY result; it narrows it. Remaining honest tests of the narrowed
 hypothesis: XSP/SPX spreads (same index, different market) or forward paper
 trading of the frozen SPY rule. QQQ data is burned for testing and usable
 only for exploration.
+
+## Structure ablation under the frozen gate (exploratory, 2026-07-24)
+
+105 configs (delta 0.05-0.25 x width $5/$10/$15 x DTE 7/14/21/30/45), weekly,
+hold, cap-2, base fills: scripts/qqq_structure_ablation.py ->
+results/qqq_prereg/structure_ablation.{jsonl,parquet}.
+
+- ZERO of 105 cells have an episode-level CI above zero (~2-3 expected by
+  chance even under a no-edge null): the QQQ failure is not a structure
+  problem. Expectancy is monotone-worse in delta (-$2.3 mean at 0.05 ->
+  -$26.9 at 0.25) and worse with width -- the same signature as SPY's
+  UNCONDITIONAL grid, i.e. the gate adds nothing structural on QQQ.
+- Shorter DTE does not dodge the melt-up tail (7 DTE: every delta negative);
+  30 DTE is the WORST tenor (-$32.7 avg) -- SPY's sweet spot inverted.
+- The only ~positive corner is 0.05 delta / wide / 21-45 DTE (best cell
+  +$13.5, ep CI [-3.0, +25.8]): pennies of credit, the classic fake-winner
+  corner selection bias produces from 105 draws.
+
+Conclusion: on QQQ, in the same regimes, short call spreads lose at every
+setup. Reinforces the instrument-level story: NDX's right tail in these
+regimes cannot be structured around with delta/width/DTE.
