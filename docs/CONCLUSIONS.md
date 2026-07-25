@@ -322,3 +322,66 @@ Per protocol, no threshold may be tuned in response, and any new hypothesis
 would require fresh pre-registration on data not yet touched. The study's
 final state: framework validated, unconditional selling NO-GO, conditional
 SPY result NOT confirmed out-of-sample. Do not deploy capital on this rule.
+
+## Addendum (2026-07-25): post-NO-GO QQQ exploration — the two mined rules, side by side
+
+FRAMING, READ FIRST: everything in this section was HAND-PICKED from the data
+it is evaluated on. After the pre-registered QQQ test failed, we deliberately
+mined QQQ (labeled exploration): a 52-feature regime scan, a 10-signal
+ablation with phi-redundancy analysis, an exhaustive sweep of ALL 1,023
+signal combinations, and a 128-config structure ablation inside the chosen
+gate. The QQQ rule below is the survivor of roughly 1,300 engine runs on
+~27 effective episodes; the SPY rule survived a comparable in-sample gauntlet
+and then FAILED its only out-of-sample test (QQQ, NO-GO). The backtest
+numbers are arithmetic on selected data — 100%-win cells and positive worst
+trades are selection artifacts, not properties of any real strategy. Neither
+rule is validated. Neither should trade real capital as-is.
+
+### The two rules
+
+|                    | SPY                                   | QQQ                                        |
+|--------------------|---------------------------------------|--------------------------------------------|
+| Trigger            | RSI(14) > 70 (short-term overbought)  | ret_120d > 15% AND dist_ma200 > +10% (mature long-run trend) |
+| Confirmation       | >=2 of {IV>RV20, sector_corr<0.45, absorption falling} | sector_avg_corr_20 < 0.45 |
+| Delta              | 0.15 (efficient region 0.12-0.18)     | 0.12 (mean keeps rising to 0.30 but tails/CIs degrade; 0.08-0.12 is the robust band) |
+| Width              | $8 (efficient $5-$8; edge scales with width) | $15-$20 (width = capital knob, RoR flat) |
+| DTE                | ~30 (25-35) — clear sweet spot        | ~30 (25-35) — clear sweet spot (14/21 DTE fail, 45 comparable) |
+| Entries / sizing   | weekly, hold to expiry, max 2 open, 1 contract | same |
+| In-sample result   | n=53, +$46.27/spread, CI [+22.9,+72.8], 92% win, worst -$787 | n=40, +$91.33/spread (0.12/$20), CI [+76.7,+106.5], 97% win, worst -$17 |
+| Trades/yr          | ~6.6                                  | ~5.0                                       |
+| Out-of-sample      | FAILED (QQQ pre-registered test: -$36/spread, NO-GO) | NEVER TESTED |
+
+### What transfers between instruments and what does not
+
+- The DANGER regimes are universal: rising absorption, high sector/index
+  correlations, below the 200d MA, IV<RV, high vol index. Both instruments
+  agree, with similar magnitudes. "Never sell into fear, lockstep markets,
+  or broken trends" is the study's most robust finding.
+- The OPPORTUNITY trigger is instrument-personality: SPY sells short-term
+  overbought (mean-reversion index); RSI is completely flat on QQQ
+  (momentum index), which instead conditions on OLD, extended rallies.
+- The confirmation layer (diversified internals: sector-corr, absorption)
+  is shared; on QQQ, sector_corr<0.45 alone carries it, and phi-redundant
+  variants (SPY-IWM decorrelation) add fragility, not information.
+- Structure agrees on 30 DTE and hold-to-expiry; QQQ tolerates (in-sample)
+  higher delta than SPY's hard 0.20 ceiling, but the robust band is lower
+  delta on both.
+
+### Provenance
+
+QQQ exploration artifacts: results/qqq_prereg/{POSTMORTEM.md,
+regime_scan_panel.parquet, signal_phi_matrix.json, exhaustive_combos.parquet,
+regime_structure_qqq.parquet}; scripts/qqq_{postmortem,regime_scan,
+signal_ablation,exhaustive_combos,structure_ablation}.py. The exhaustive
+sweep's top-20 all share one shape (mature trend + diversified internals);
+simplifying any champion rule collapses its edge, the classic signature of
+threshold-sculpted selection.
+
+### If either rule is ever taken forward
+
+Freeze it exactly as specified above and run ONE pre-registered test on data
+neither rule has touched: IWM chains (pull available), XSP/SPX (needs index-
+options data tier), or forward paper trading. SPY's rule already spent its
+QQQ shot; QQQ's rule has never faced unmined data. Expected outcome under
+the null (mined noise): ~$0/spread. The SPY->QQQ NO-GO is the base-rate
+warning for how these tests tend to go.
