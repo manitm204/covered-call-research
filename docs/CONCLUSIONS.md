@@ -385,3 +385,42 @@ options data tier), or forward paper trading. SPY's rule already spent its
 QQQ shot; QQQ's rule has never faced unmined data. Expected outcome under
 the null (mined noise): ~$0/spread. The SPY->QQQ NO-GO is the base-rate
 warning for how these tests tend to go.
+
+## Pre-registered IWM test (2026-07-25): BOTH mined rules — verdict WEAK / WEAK
+
+Protocol: docs/PREREGISTRATION_IWM.md, committed (`52826a5`) before any IWM
+options data was downloaded. Two hypotheses on one unmined pull, multiplicity
+declared in advance (family-wise false-positive ~10% at nominal 5% per test).
+Single-use runner executed once; marker written. Data: 1,948 of 1,990
+sessions (46 persistent vendor gaps, documented with expiry-date patches in
+results/iwm_prereg/DATA_NOTES.md). Recorded verbatim from
+results/iwm_prereg/verdict.json — no tuning, no re-runs.
+
+### H1 — the SPY rule on IWM (RSI trigger, 0.15Δ/$3/30DTE): **WEAK**
+
+- Base fills: n=33, mean **+$10.86**/spread, moving-block CI
+  **[−36.63, +34.93]** (primary endpoint FAILED — CI spans zero), episode CI
+  [−18.45, +34.34] (23 episodes), win 90.9%, worst **−$315.75**, total +$358.
+- Conservative fills: mean +$7.35 (> 0, secondary met).
+- Yearly means positive every year except 2020 (−$70.57).
+
+### H2 — the mined QQQ rule on IWM (trend trigger, 0.12Δ/$6/30DTE): **WEAK**
+
+- Base fills: n=24, mean **+$14.89**/spread, moving-block CI
+  **[−10.59, +41.04]** (primary FAILED), episode CI [−39.13, +41.53] (only
+  **10 episodes**), win 95.8%, worst **−$514.25**, total +$357.
+- Conservative fills: mean +$11.42 (> 0, secondary met).
+- Fired only in 2020–2021 and 2024–2026 (IWM rarely satisfies the
+  mature-trend gate); 2021 mean −$53.25.
+
+### Reading (written per the frozen protocol)
+
+WEAK = inconclusive and explicitly NOT a license to tune. Both rules were
+net positive on data they had never seen — the first time either has
+survived contact with unmined data — but each result is one large loss away
+from breakeven (H1's −$316 in 2020; H2's −$514 in 2021), which is exactly
+the short-vol profile where 30 wins hide in a CI that spans zero. Per the
+protocol neither WEAK may be promoted; the honest summary is "consistent
+with a small edge, and consistent with zero." Remaining unmined venues for
+a decisive test: XSP/SPX chains (needs index data tier) or forward paper
+trading; IWM is now burned for both rules.
