@@ -290,3 +290,35 @@ $100k, 2018-08→2026-07, base fills, dividends reinvested:
 Exploratory phase CLOSED. The only remaining step that produces new evidence
 is the pre-registered test of the frozen rule on unmined data (QQQ/IWM
 chains or forward paper trading).
+
+## Pre-registered QQQ out-of-sample test: NO-GO (2026-07-24)
+
+Protocol: docs/PREREGISTRATION_QQQ.md (frozen and committed before the QQQ
+data pull; single-use runner). Rule: RSI14(NDX)>70 + >=2 of {VXN>RV20(NDX),
+sector_avg_corr_20<0.45, absorption_chg_20d<0}; 0.15Δ/$8/30 DTE/weekly/hold/
+cap-2 on QQQ, 2018-08 -> 2026-07 (1,977 sessions, data notes in
+results/qqq_prereg/DATA_NOTES.md).
+
+Result (base fills): n=50, mean −$35.99/spread, bootstrap 95% CI
+[−91.17, +37.92], episode CI [−108.18, +31.57] (27 episodes), win 80%,
+worst −$900, total −$1,800. Conservative: mean −$40.26, total −$2,013.
+Yearly means: +41.5 (2018), −11.4 (2019), −106.2 (2020), +72.1 (2021),
++80.5 (2022), −20.5 (2023), −77.2 (2024), +57.8 (2025), −441.1 (2026).
+Verdict per pre-declared criteria: NO-GO (primary failed, both mean-based
+secondaries failed; only the win-rate secondary passed — the short-premium
+base rate, which the tails erase).
+
+### What this means
+
+The SPY hypothesis (+$46/spread, CI [+23, +73]) failed its first and only
+out-of-sample test. The honest conclusion: the mined SPY edge does not
+generalize to the closest comparable underlying, which is exactly the
+signature of selection bias over ~26 effective episodes rather than real,
+transferable market structure. The regime story ("sell calls into calm
+overbought diversified grinds") is not supported off-instrument.
+
+Per protocol, no threshold may be tuned in response, and any new hypothesis
+(e.g. SPY-specific microstructure arguments, different vol index mapping)
+would require fresh pre-registration on data not yet touched. The study's
+final state: framework validated, unconditional selling NO-GO, conditional
+SPY result NOT confirmed out-of-sample. Do not deploy capital on this rule.
