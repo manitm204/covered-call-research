@@ -1,0 +1,512 @@
+{"mask": 1, "signals": ["rsi70"], "n": 52, "mean": -2.25, "win": 0.8653846153846154, "worst": -315.75, "total": -117.0, "ci_low": -28.009374999999984, "ci_high": 25.942427884615384, "ep_ci_low": -29.904651639344262, "ep_ci_high": 25.37350568181817, "n_episodes": 28, "elapsed_s": 4.77}
+{"mask": 5, "signals": ["rsi70", "trend60"], "n": 28, "mean": 9.303571428571429, "win": 0.8928571428571429, "worst": -315.75, "total": 260.5, "ci_low": -45.86741071428569, "ci_high": 39.559374999999996, "ep_ci_low": -22.93934791021672, "ep_ci_high": 38.896437500000005, "n_episodes": 16, "elapsed_s": 2.36}
+{"mask": 9, "signals": ["rsi70", "ma200_10"], "n": 18, "mean": -7.083333333333333, "win": 0.8333333333333334, "worst": -315.75, "total": -127.5, "ci_low": -65.69201388888888, "ci_high": 34.77847222222222, "ep_ci_low": -39.438541666666666, "ep_ci_high": 35.635937500000004, "n_episodes": 10, "elapsed_s": 1.64}
+{"mask": 13, "signals": ["rsi70", "trend60", "ma200_10"], "n": 12, "mean": -25.3125, "win": 0.75, "worst": -315.75, "total": -303.75, "ci_low": -112.72916666666667, "ci_high": 35.333333333333336, "ep_ci_low": -59.25, "ep_ci_high": 42.42857142857143, "n_episodes": 6, "elapsed_s": 1.12}
+{"mask": 17, "signals": ["rsi70", "ma50_up"], "n": 24, "mean": 4.729166666666667, "win": 0.875, "worst": -315.75, "total": 113.5, "ci_low": -56.690104166666664, "ci_high": 37.78177083333333, "ep_ci_low": -27.26735547667343, "ep_ci_high": 38.71495065789473, "n_episodes": 15, "elapsed_s": 2.11}
+{"mask": 21, "signals": ["rsi70", "trend60", "ma50_up"], "n": 21, "mean": 1.023809523809525, "win": 0.8571428571428571, "worst": -315.75, "total": 21.50000000000003, "ci_low": -67.79196428571429, "ci_high": 37.45267857142857, "ep_ci_low": -32.676071428571426, "ep_ci_high": 40.28125, "n_episodes": 12, "elapsed_s": 1.77}
+{"mask": 25, "signals": ["rsi70", "ma200_10", "ma50_up"], "n": 13, "mean": -21.0, "win": 0.7692307692307693, "worst": -315.75, "total": -273.0, "ci_low": -102.29711538461531, "ci_high": 37.60576923076922, "ep_ci_low": -55.97754576659039, "ep_ci_high": 40.84375, "n_episodes": 7, "elapsed_s": 1.32}
+{"mask": 29, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up"], "n": 12, "mean": -25.3125, "win": 0.75, "worst": -315.75, "total": -303.75, "ci_low": -112.72916666666667, "ci_high": 35.333333333333336, "ep_ci_low": -59.25, "ep_ci_high": 42.42857142857143, "n_episodes": 6, "elapsed_s": 1.19}
+{"mask": 33, "signals": ["rsi70", "beta_hi"], "n": 11, "mean": 32.20454545454545, "win": 1.0, "worst": 12.0, "total": 354.25, "ci_low": 30.318181818181817, "ci_high": 38.00397727272727, "ep_ci_low": 25.916145833333335, "ep_ci_high": 37.334375, "n_episodes": 8, "elapsed_s": 1.12}
+{"mask": 37, "signals": ["rsi70", "trend60", "beta_hi"], "n": 7, "mean": 34.67857142857143, "win": 1.0, "worst": 24.0, "total": 242.75, "elapsed_s": 0.73}
+{"mask": 41, "signals": ["rsi70", "ma200_10", "beta_hi"], "n": 6, "mean": 29.791666666666668, "win": 1.0, "worst": 12.0, "total": 178.75, "elapsed_s": 0.57}
+{"mask": 45, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi"], "n": 3, "mean": 34.0, "win": 1.0, "worst": 27.499999999999996, "total": 102.0, "elapsed_s": 0.32}
+{"mask": 49, "signals": ["rsi70", "ma50_up", "beta_hi"], "n": 7, "mean": 35.5, "win": 1.0, "worst": 27.499999999999996, "total": 248.5, "elapsed_s": 0.63}
+{"mask": 53, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi"], "n": 7, "mean": 35.5, "win": 1.0, "worst": 27.499999999999996, "total": 248.5, "elapsed_s": 0.62}
+{"mask": 57, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi"], "n": 3, "mean": 34.0, "win": 1.0, "worst": 27.499999999999996, "total": 102.0, "elapsed_s": 0.34}
+{"mask": 61, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi"], "n": 3, "mean": 34.0, "win": 1.0, "worst": 27.499999999999996, "total": 102.0, "elapsed_s": 0.32}
+{"mask": 65, "signals": ["rsi70", "absorb_fall"], "n": 30, "mean": 9.916666666666666, "win": 0.9, "worst": -315.75, "total": 297.5, "ci_low": -39.450833333333335, "ci_high": 36.517916666666665, "ep_ci_low": -22.50610537836148, "ep_ci_high": 36.52034295352323, "n_episodes": 22, "elapsed_s": 2.3}
+{"mask": 69, "signals": ["rsi70", "trend60", "absorb_fall"], "n": 19, "mean": -1.5, "win": 0.8421052631578947, "worst": -315.75, "total": -28.5, "ci_low": -79.21052631578948, "ci_high": 39.98717105263158, "ep_ci_low": -41.969408444816054, "ep_ci_high": 40.70842962184873, "n_episodes": 13, "elapsed_s": 1.61}
+{"mask": 73, "signals": ["rsi70", "ma200_10", "absorb_fall"], "n": 15, "mean": -14.0, "win": 0.8, "worst": -315.75, "total": -210.0, "ci_low": -72.88333333333334, "ci_high": 36.13333333333333, "ep_ci_low": -55.727302631578944, "ep_ci_high": 37.187926136363636, "n_episodes": 9, "elapsed_s": 1.28}
+{"mask": 77, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall"], "n": 9, "mean": -43.138888888888886, "win": 0.6666666666666666, "worst": -315.75, "total": -388.25, "elapsed_s": 0.8}
+{"mask": 81, "signals": ["rsi70", "ma50_up", "absorb_fall"], "n": 16, "mean": -8.375, "win": 0.8125, "worst": -315.75, "total": -134.0, "ci_low": -99.80624999999998, "ci_high": 38.5484375, "ep_ci_low": -50.75815217391305, "ep_ci_high": 40.5, "n_episodes": 11, "elapsed_s": 1.36}
+{"mask": 85, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall"], "n": 14, "mean": -14.053571428571429, "win": 0.7857142857142857, "worst": -315.75, "total": -196.75, "ci_low": -109.69866071428571, "ci_high": 37.12098214285713, "ep_ci_low": -56.328947368421055, "ep_ci_high": 44.62585227272727, "n_episodes": 9, "elapsed_s": 1.25}
+{"mask": 89, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall"], "n": 10, "mean": -35.75, "win": 0.7, "worst": -315.75, "total": -357.5, "ci_low": -112.0, "ci_high": 38.525, "ep_ci_low": -76.28125, "ep_ci_high": 43.59166666666666, "n_episodes": 6, "elapsed_s": 0.87}
+{"mask": 93, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall"], "n": 9, "mean": -43.138888888888886, "win": 0.6666666666666666, "worst": -315.75, "total": -388.25, "elapsed_s": 0.73}
+{"mask": 97, "signals": ["rsi70", "beta_hi", "absorb_fall"], "n": 7, "mean": 31.75, "win": 1.0, "worst": 12.0, "total": 222.25, "elapsed_s": 0.6}
+{"mask": 101, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall"], "n": 3, "mean": 36.916666666666664, "win": 1.0, "worst": 29.25, "total": 110.75, "elapsed_s": 0.33}
+{"mask": 105, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall"], "n": 4, "mean": 30.375, "win": 1.0, "worst": 12.0, "total": 121.5, "elapsed_s": 0.43}
+{"mask": 109, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.19}
+{"mask": 113, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall"], "n": 3, "mean": 36.916666666666664, "win": 1.0, "worst": 29.25, "total": 110.75, "elapsed_s": 0.32}
+{"mask": 117, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall"], "n": 3, "mean": 36.916666666666664, "win": 1.0, "worst": 29.25, "total": 110.75, "elapsed_s": 0.31}
+{"mask": 121, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.2}
+{"mask": 125, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.18}
+{"mask": 129, "signals": ["rsi70", "seccorr_lo"], "n": 27, "mean": 27.90740740740741, "win": 0.9629629629629629, "worst": -121.5, "total": 753.5, "ci_low": 13.156712962962963, "ci_high": 37.129629629629626, "ep_ci_low": 15.948883442265794, "ep_ci_high": 36.91793478260869, "n_episodes": 19, "elapsed_s": 2.1}
+{"mask": 133, "signals": ["rsi70", "trend60", "seccorr_lo"], "n": 17, "mean": 26.470588235294116, "win": 0.9411764705882353, "worst": -121.5, "total": 450.0, "ci_low": 2.6610294117647064, "ci_high": 42.03014705882353, "ep_ci_low": 7.704934210526316, "ep_ci_high": 40.25083333333333, "n_episodes": 12, "elapsed_s": 1.37}
+{"mask": 137, "signals": ["rsi70", "ma200_10", "seccorr_lo"], "n": 12, "mean": 20.875, "win": 0.9166666666666666, "worst": -121.5, "total": 250.5, "ci_low": 8.604166666666666, "ci_high": 37.604166666666664, "ep_ci_low": 1.0659040178571435, "ep_ci_high": 41.25277777777777, "n_episodes": 8, "elapsed_s": 1.1}
+{"mask": 141, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo"], "n": 6, "mean": 12.375, "win": 0.8333333333333334, "worst": -121.5, "total": 74.25, "elapsed_s": 0.5}
+{"mask": 145, "signals": ["rsi70", "ma50_up", "seccorr_lo"], "n": 15, "mean": 24.633333333333333, "win": 0.9333333333333333, "worst": -121.5, "total": 369.5, "ci_low": -0.8833333333333333, "ci_high": 39.9, "ep_ci_low": 5.233884803921568, "ep_ci_high": 39.700208333333336, "n_episodes": 11, "elapsed_s": 1.24}
+{"mask": 149, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo"], "n": 12, "mean": 23.125, "win": 0.9166666666666666, "worst": -121.5, "total": 277.5, "ci_low": -6.979166666666667, "ci_high": 40.916666666666664, "ep_ci_low": 1.38125, "ep_ci_high": 42.2525, "n_episodes": 8, "elapsed_s": 1.01}
+{"mask": 153, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo"], "n": 7, "mean": 15.0, "win": 0.8571428571428571, "worst": -121.5, "total": 105.0, "elapsed_s": 0.59}
+{"mask": 157, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo"], "n": 6, "mean": 12.375, "win": 0.8333333333333334, "worst": -121.5, "total": 74.25, "elapsed_s": 0.51}
+{"mask": 161, "signals": ["rsi70", "beta_hi", "seccorr_lo"], "n": 10, "mean": 32.675, "win": 1.0, "worst": 12.0, "total": 326.75, "ci_low": 32.475, "ci_high": 38.65, "ep_ci_low": 25.71765625, "ep_ci_high": 37.700208333333336, "n_episodes": 8, "elapsed_s": 0.85}
+{"mask": 165, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo"], "n": 6, "mean": 35.875, "win": 1.0, "worst": 24.0, "total": 215.25, "elapsed_s": 0.52}
+{"mask": 169, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo"], "n": 4, "mean": 30.375, "win": 1.0, "worst": 12.0, "total": 121.5, "elapsed_s": 0.47}
+{"mask": 173, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.18}
+{"mask": 177, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo"], "n": 5, "mean": 38.25, "win": 1.0, "worst": 29.25, "total": 191.25, "elapsed_s": 0.46}
+{"mask": 181, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo"], "n": 5, "mean": 38.25, "win": 1.0, "worst": 29.25, "total": 191.25, "elapsed_s": 0.47}
+{"mask": 185, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.18}
+{"mask": 189, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.18}
+{"mask": 193, "signals": ["rsi70", "absorb_fall", "seccorr_lo"], "n": 23, "mean": 27.0, "win": 0.9565217391304348, "worst": -121.5, "total": 621.0, "ci_low": 9.67146739130435, "ci_high": 37.967934782608694, "ep_ci_low": 13.405876068376068, "ep_ci_high": 37.13342391304347, "n_episodes": 17, "elapsed_s": 1.89}
+{"mask": 197, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo"], "n": 14, "mean": 24.678571428571427, "win": 0.9285714285714286, "worst": -121.5, "total": 345.5, "ci_low": -2.9285714285714284, "ci_high": 43.466517857142854, "ep_ci_low": 4.029411764705882, "ep_ci_high": 40.25048076923077, "n_episodes": 10, "elapsed_s": 1.15}
+{"mask": 201, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo"], "n": 12, "mean": 21.041666666666668, "win": 0.9166666666666666, "worst": -121.5, "total": 252.5, "ci_low": 8.604166666666666, "ci_high": 37.604166666666664, "ep_ci_low": 1.0957142857142865, "ep_ci_high": 41.418055555555554, "n_episodes": 8, "elapsed_s": 1.01}
+{"mask": 205, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo"], "n": 6, "mean": 12.375, "win": 0.8333333333333334, "worst": -121.5, "total": 74.25, "elapsed_s": 0.58}
+{"mask": 209, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo"], "n": 12, "mean": 21.645833333333332, "win": 0.9166666666666666, "worst": -121.5, "total": 259.75, "ci_low": -8.3125, "ci_high": 40.104166666666664, "ep_ci_low": 0.999609375, "ep_ci_high": 40.25125, "n_episodes": 9, "elapsed_s": 1.0}
+{"mask": 213, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo"], "n": 10, "mean": 19.7, "win": 0.9, "worst": -121.5, "total": 197.0, "ci_low": -1.3, "ci_high": 38.725, "ep_ci_low": -2.402266483516483, "ep_ci_high": 42.56361607142857, "n_episodes": 7, "elapsed_s": 0.91}
+{"mask": 217, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo"], "n": 7, "mean": 15.0, "win": 0.8571428571428571, "worst": -121.5, "total": 105.0, "elapsed_s": 0.6}
+{"mask": 221, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo"], "n": 6, "mean": 12.375, "win": 0.8333333333333334, "worst": -121.5, "total": 74.25, "elapsed_s": 0.47}
+{"mask": 225, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 7, "mean": 31.75, "win": 1.0, "worst": 12.0, "total": 222.25, "elapsed_s": 0.62}
+{"mask": 229, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 3, "mean": 36.916666666666664, "win": 1.0, "worst": 29.25, "total": 110.75, "elapsed_s": 0.32}
+{"mask": 233, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 4, "mean": 30.375, "win": 1.0, "worst": 12.0, "total": 121.5, "elapsed_s": 0.4}
+{"mask": 237, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.17}
+{"mask": 241, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 3, "mean": 36.916666666666664, "win": 1.0, "worst": 29.25, "total": 110.75, "elapsed_s": 0.37}
+{"mask": 245, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 3, "mean": 36.916666666666664, "win": 1.0, "worst": 29.25, "total": 110.75, "elapsed_s": 0.31}
+{"mask": 249, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.19}
+{"mask": 253, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.19}
+{"mask": 257, "signals": ["rsi70", "iv_rich"], "n": 39, "mean": 5.666666666666667, "win": 0.8974358974358975, "worst": -315.75, "total": 221.0, "ci_low": -28.478365384615376, "ci_high": 33.252243589743586, "ep_ci_low": -19.06477272727273, "ep_ci_high": 32.2022782976827, "n_episodes": 23, "elapsed_s": 3.0}
+{"mask": 261, "signals": ["rsi70", "trend60", "iv_rich"], "n": 24, "mean": 2.5520833333333335, "win": 0.875, "worst": -315.75, "total": 61.25, "ci_low": -59.50598958333333, "ci_high": 35.48046875, "ep_ci_low": -29.15703125, "ep_ci_high": 34.95808823529411, "n_episodes": 13, "elapsed_s": 1.84}
+{"mask": 265, "signals": ["rsi70", "ma200_10", "iv_rich"], "n": 15, "mean": -15.55, "win": 0.8, "worst": -315.75, "total": -233.25, "ci_low": -74.58333333333333, "ci_high": 32.666666666666664, "ep_ci_low": -49.20181818181818, "ep_ci_high": 36.43104166666666, "n_episodes": 8, "elapsed_s": 1.3}
+{"mask": 269, "signals": ["rsi70", "trend60", "ma200_10", "iv_rich"], "n": 10, "mean": -37.825, "win": 0.7, "worst": -315.75, "total": -378.25, "ci_low": -112.0, "ci_high": 34.375, "ep_ci_low": -65.13333333333334, "ep_ci_high": 44.1, "n_episodes": 5, "elapsed_s": 0.88}
+{"mask": 273, "signals": ["rsi70", "ma50_up", "iv_rich"], "n": 20, "mean": -3.025, "win": 0.85, "worst": -315.75, "total": -60.5, "ci_low": -74.76625, "ci_high": 34.8884375, "ep_ci_low": -37.4405625, "ep_ci_high": 35.26824404761905, "n_episodes": 12, "elapsed_s": 1.66}
+{"mask": 277, "signals": ["rsi70", "trend60", "ma50_up", "iv_rich"], "n": 17, "mean": -8.970588235294118, "win": 0.8235294117647058, "worst": -315.75, "total": -152.5, "ci_low": -85.44154411764706, "ci_high": 35.51801470588235, "ep_ci_low": -46.104, "ep_ci_high": 36.08616071428571, "n_episodes": 9, "elapsed_s": 1.61}
+{"mask": 281, "signals": ["rsi70", "ma200_10", "ma50_up", "iv_rich"], "n": 11, "mean": -31.59090909090909, "win": 0.7272727272727273, "worst": -315.75, "total": -347.5, "ci_low": -117.06818181818181, "ci_high": 34.22727272727273, "ep_ci_low": -60.79375, "ep_ci_high": 41.34374999999999, "n_episodes": 6, "elapsed_s": 1.03}
+{"mask": 285, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "iv_rich"], "n": 10, "mean": -37.825, "win": 0.7, "worst": -315.75, "total": -378.25, "ci_low": -112.0, "ci_high": 34.375, "ep_ci_low": -65.13333333333334, "ep_ci_high": 44.1, "n_episodes": 5, "elapsed_s": 0.93}
+{"mask": 289, "signals": ["rsi70", "beta_hi", "iv_rich"], "n": 9, "mean": 30.055555555555557, "win": 1.0, "worst": 12.0, "total": 270.5, "elapsed_s": 0.79}
+{"mask": 293, "signals": ["rsi70", "trend60", "beta_hi", "iv_rich"], "n": 6, "mean": 32.041666666666664, "win": 1.0, "worst": 24.0, "total": 192.25, "elapsed_s": 0.49}
+{"mask": 297, "signals": ["rsi70", "ma200_10", "beta_hi", "iv_rich"], "n": 3, "mean": 23.666666666666668, "win": 1.0, "worst": 12.0, "total": 71.0, "elapsed_s": 0.31}
+{"mask": 301, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "iv_rich"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.19}
+{"mask": 305, "signals": ["rsi70", "ma50_up", "beta_hi", "iv_rich"], "n": 5, "mean": 33.65, "win": 1.0, "worst": 27.499999999999996, "total": 168.25, "elapsed_s": 0.44}
+{"mask": 309, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "iv_rich"], "n": 5, "mean": 33.65, "win": 1.0, "worst": 27.499999999999996, "total": 168.25, "elapsed_s": 0.48}
+{"mask": 313, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "iv_rich"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.15}
+{"mask": 317, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "iv_rich"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.16}
+{"mask": 321, "signals": ["rsi70", "absorb_fall", "iv_rich"], "n": 26, "mean": 4.836538461538463, "win": 0.8846153846153846, "worst": -315.75, "total": 125.75000000000003, "ci_low": -52.41802884615383, "ci_high": 34.724999999999994, "ep_ci_low": -28.921006944444446, "ep_ci_high": 34.19619565217391, "n_episodes": 18, "elapsed_s": 2.03}
+{"mask": 325, "signals": ["rsi70", "trend60", "absorb_fall", "iv_rich"], "n": 16, "mean": -10.4375, "win": 0.8125, "worst": -315.75, "total": -167.0, "ci_low": -92.578125, "ci_high": 36.82890625, "ep_ci_low": -49.70098958333334, "ep_ci_high": 37.11964962121212, "n_episodes": 10, "elapsed_s": 1.38}
+{"mask": 329, "signals": ["rsi70", "ma200_10", "absorb_fall", "iv_rich"], "n": 13, "mean": -22.153846153846153, "win": 0.7692307692307693, "worst": -315.75, "total": -288.0, "ci_low": -101.97019230769223, "ci_high": 32.71153846153846, "ep_ci_low": -66.55882352941177, "ep_ci_high": 37.353281249999995, "n_episodes": 7, "elapsed_s": 1.07}
+{"mask": 333, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "iv_rich"], "n": 8, "mean": -54.125, "win": 0.625, "worst": -315.75, "total": -433.0, "elapsed_s": 0.68}
+{"mask": 337, "signals": ["rsi70", "ma50_up", "absorb_fall", "iv_rich"], "n": 13, "mean": -20.96153846153846, "win": 0.7692307692307693, "worst": -315.75, "total": -272.5, "ci_low": -120.9625, "ci_high": 35.69471153846154, "ep_ci_low": -64.20868055555555, "ep_ci_high": 38.16953125, "n_episodes": 8, "elapsed_s": 1.26}
+{"mask": 341, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "iv_rich"], "n": 11, "mean": -30.477272727272727, "win": 0.7272727272727273, "worst": -315.75, "total": -335.25, "ci_low": -129.61363636363637, "ci_high": 20.863636363636363, "ep_ci_low": -74.80522203947369, "ep_ci_high": 39.82142857142857, "n_episodes": 6, "elapsed_s": 1.04}
+{"mask": 345, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "iv_rich"], "n": 9, "mean": -44.69444444444444, "win": 0.6666666666666666, "worst": -315.75, "total": -402.25, "elapsed_s": 0.79}
+{"mask": 349, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "iv_rich"], "n": 8, "mean": -54.125, "win": 0.625, "worst": -315.75, "total": -433.0, "elapsed_s": 0.68}
+{"mask": 353, "signals": ["rsi70", "beta_hi", "absorb_fall", "iv_rich"], "n": 5, "mean": 28.85, "win": 1.0, "worst": 12.0, "total": 144.25, "elapsed_s": 0.47}
+{"mask": 357, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "iv_rich"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.26}
+{"mask": 361, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "iv_rich"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.24}
+{"mask": 365, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "iv_rich"], "n": 0, "elapsed_s": 0.1}
+{"mask": 369, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "iv_rich"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.27}
+{"mask": 373, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "iv_rich"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.35}
+{"mask": 377, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich"], "n": 0, "elapsed_s": 0.1}
+{"mask": 381, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich"], "n": 0, "elapsed_s": 0.11}
+{"mask": 385, "signals": ["rsi70", "seccorr_lo", "iv_rich"], "n": 24, "mean": 26.979166666666668, "win": 0.9583333333333334, "worst": -121.5, "total": 647.5, "ci_low": 10.76015625, "ci_high": 36.55234375, "ep_ci_low": 13.119875, "ep_ci_high": 37.08359375, "n_episodes": 16, "elapsed_s": 1.8}
+{"mask": 389, "signals": ["rsi70", "trend60", "seccorr_lo", "iv_rich"], "n": 15, "mean": 24.966666666666665, "win": 0.9333333333333333, "worst": -121.5, "total": 374.5, "ci_low": -1.0, "ci_high": 41.85, "ep_ci_low": 4.71710358056266, "ep_ci_high": 39.866477272727266, "n_episodes": 10, "elapsed_s": 1.21}
+{"mask": 393, "signals": ["rsi70", "ma200_10", "seccorr_lo", "iv_rich"], "n": 10, "mean": 17.45, "win": 0.9, "worst": -121.5, "total": 174.5, "ci_low": 3.45, "ci_high": 33.25, "ep_ci_low": -4.062019230769231, "ep_ci_high": 40.89970238095238, "n_episodes": 6, "elapsed_s": 0.78}
+{"mask": 397, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo", "iv_rich"], "n": 5, "mean": 5.9, "win": 0.8, "worst": -121.5, "total": 29.5, "elapsed_s": 0.4}
+{"mask": 401, "signals": ["rsi70", "ma50_up", "seccorr_lo", "iv_rich"], "n": 13, "mean": 22.615384615384617, "win": 0.9230769230769231, "worst": -121.5, "total": 294.0, "ci_low": -5.3100961538461515, "ci_high": 38.42307692307692, "ep_ci_low": 2.265234375, "ep_ci_high": 39.301590909090905, "n_episodes": 9, "elapsed_s": 1.03}
+{"mask": 405, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo", "iv_rich"], "n": 10, "mean": 20.2, "win": 0.9, "worst": -121.5, "total": 202.0, "ci_low": -0.2, "ci_high": 39.275, "ep_ci_low": -3.885096153846154, "ep_ci_high": 42.8125, "n_episodes": 6, "elapsed_s": 0.93}
+{"mask": 409, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich"], "n": 6, "mean": 10.041666666666666, "win": 0.8333333333333334, "worst": -121.5, "total": 60.25, "elapsed_s": 0.49}
+{"mask": 413, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich"], "n": 5, "mean": 5.9, "win": 0.8, "worst": -121.5, "total": 29.5, "elapsed_s": 0.42}
+{"mask": 417, "signals": ["rsi70", "beta_hi", "seccorr_lo", "iv_rich"], "n": 8, "mean": 30.375, "win": 1.0, "worst": 12.0, "total": 243.0, "elapsed_s": 0.69}
+{"mask": 421, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo", "iv_rich"], "n": 5, "mean": 32.95, "win": 1.0, "worst": 24.0, "total": 164.75, "elapsed_s": 0.48}
+{"mask": 425, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.28}
+{"mask": 429, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich"], "n": 0, "elapsed_s": 0.13}
+{"mask": 433, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich"], "n": 4, "mean": 35.1875, "win": 1.0, "worst": 29.25, "total": 140.75, "elapsed_s": 0.4}
+{"mask": 437, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich"], "n": 4, "mean": 35.1875, "win": 1.0, "worst": 29.25, "total": 140.75, "elapsed_s": 0.4}
+{"mask": 441, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich"], "n": 0, "elapsed_s": 0.11}
+{"mask": 445, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich"], "n": 0, "elapsed_s": 0.11}
+{"mask": 449, "signals": ["rsi70", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 20, "mean": 25.9, "win": 0.95, "worst": -121.5, "total": 518.0, "ci_low": 7.334687500000003, "ci_high": 37.20125, "ep_ci_low": 9.727989130434782, "ep_ci_high": 37.45357142857142, "n_episodes": 14, "elapsed_s": 2.49}
+{"mask": 453, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 12, "mean": 22.979166666666668, "win": 0.9166666666666666, "worst": -121.5, "total": 275.75, "ci_low": -8.416666666666666, "ci_high": 41.3359375, "ep_ci_low": -0.12729166666666653, "ep_ci_high": 41.727329545454545, "n_episodes": 8, "elapsed_s": 1.89}
+{"mask": 457, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 10, "mean": 17.45, "win": 0.9, "worst": -121.5, "total": 174.5, "ci_low": 3.45, "ci_high": 33.25, "ep_ci_low": -4.062019230769231, "ep_ci_high": 40.89970238095238, "n_episodes": 6, "elapsed_s": 1.48}
+{"mask": 461, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 5, "mean": 5.9, "win": 0.8, "worst": -121.5, "total": 29.5, "elapsed_s": 0.82}
+{"mask": 465, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 10, "mean": 19.0, "win": 0.9, "worst": -121.5, "total": 190.0, "ci_low": -1.15, "ci_high": 36.875, "ep_ci_low": -3.3225961538461526, "ep_ci_high": 41.10915178571428, "n_episodes": 7, "elapsed_s": 1.48}
+{"mask": 469, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 8, "mean": 15.90625, "win": 0.875, "worst": -121.5, "total": 127.25, "elapsed_s": 1.21}
+{"mask": 473, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 6, "mean": 10.041666666666666, "win": 0.8333333333333334, "worst": -121.5, "total": 60.25, "elapsed_s": 1.07}
+{"mask": 477, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 5, "mean": 5.9, "win": 0.8, "worst": -121.5, "total": 29.5, "elapsed_s": 0.84}
+{"mask": 481, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 5, "mean": 28.85, "win": 1.0, "worst": 12.0, "total": 144.25, "elapsed_s": 0.76}
+{"mask": 485, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.47}
+{"mask": 489, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.46}
+{"mask": 493, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 0, "elapsed_s": 0.12}
+{"mask": 497, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.43}
+{"mask": 501, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.42}
+{"mask": 505, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 0, "elapsed_s": 0.14}
+{"mask": 509, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich"], "n": 0, "elapsed_s": 0.14}
+{"mask": 513, "signals": ["rsi70", "iwm_decor"], "n": 20, "mean": -7.037500000000003, "win": 0.85, "worst": -283.75, "total": -140.75000000000006, "ci_low": -50.9875, "ci_high": 19.988125, "ep_ci_low": -56.65707236842105, "ep_ci_high": 32.76470588235294, "n_episodes": 12, "elapsed_s": 2.65}
+{"mask": 517, "signals": ["rsi70", "trend60", "iwm_decor"], "n": 14, "mean": 0.8749999999999959, "win": 0.8571428571428571, "worst": -265.75000000000006, "total": 12.249999999999943, "ci_low": -65.26785714285715, "ci_high": 35.42857142857143, "ep_ci_low": -63.287500000000016, "ep_ci_high": 36.69680631868132, "n_episodes": 8, "elapsed_s": 2.03}
+{"mask": 521, "signals": ["rsi70", "ma200_10", "iwm_decor"], "n": 10, "mean": -14.525000000000006, "win": 0.8, "worst": -265.75000000000006, "total": -145.25000000000006, "ci_low": -59.60000000000001, "ci_high": 32.225, "ep_ci_low": -99.93625000000002, "ep_ci_high": 36.28125, "n_episodes": 6, "elapsed_s": 1.55}
+{"mask": 525, "signals": ["rsi70", "trend60", "ma200_10", "iwm_decor"], "n": 7, "mean": -31.357142857142865, "win": 0.7142857142857143, "worst": -265.75000000000006, "total": -219.50000000000006, "elapsed_s": 0.81}
+{"mask": 529, "signals": ["rsi70", "ma50_up", "iwm_decor"], "n": 13, "mean": -1.230769230769235, "win": 0.8461538461538461, "worst": -265.75000000000006, "total": -16.000000000000057, "ci_low": -72.69230769230771, "ci_high": 37.17307692307692, "ep_ci_low": -68.73701923076925, "ep_ci_high": 37.341040209790215, "n_episodes": 8, "elapsed_s": 1.66}
+{"mask": 533, "signals": ["rsi70", "trend60", "ma50_up", "iwm_decor"], "n": 11, "mean": -7.1590909090909145, "win": 0.8181818181818182, "worst": -265.75000000000006, "total": -78.75000000000006, "ci_low": -65.63636363636364, "ci_high": 36.06875, "ep_ci_low": -89.5693181818182, "ep_ci_high": 38.6675, "n_episodes": 6, "elapsed_s": 1.52}
+{"mask": 537, "signals": ["rsi70", "ma200_10", "ma50_up", "iwm_decor"], "n": 8, "mean": -23.593750000000007, "win": 0.75, "worst": -265.75000000000006, "total": -188.75000000000006, "elapsed_s": 1.04}
+{"mask": 541, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "iwm_decor"], "n": 7, "mean": -31.357142857142865, "win": 0.7142857142857143, "worst": -265.75000000000006, "total": -219.50000000000006, "elapsed_s": 0.91}
+{"mask": 545, "signals": ["rsi70", "beta_hi", "iwm_decor"], "n": 8, "mean": 29.46875, "win": 1.0, "worst": 12.0, "total": 235.75, "elapsed_s": 0.96}
+{"mask": 549, "signals": ["rsi70", "trend60", "beta_hi", "iwm_decor"], "n": 6, "mean": 32.041666666666664, "win": 1.0, "worst": 24.0, "total": 192.25, "elapsed_s": 0.77}
+{"mask": 553, "signals": ["rsi70", "ma200_10", "beta_hi", "iwm_decor"], "n": 4, "mean": 25.1875, "win": 1.0, "worst": 12.0, "total": 100.75, "elapsed_s": 0.66}
+{"mask": 557, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "iwm_decor"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.35}
+{"mask": 561, "signals": ["rsi70", "ma50_up", "beta_hi", "iwm_decor"], "n": 6, "mean": 33.0, "win": 1.0, "worst": 27.499999999999996, "total": 198.0, "elapsed_s": 0.73}
+{"mask": 565, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "iwm_decor"], "n": 6, "mean": 33.0, "win": 1.0, "worst": 27.499999999999996, "total": 198.0, "elapsed_s": 0.79}
+{"mask": 569, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "iwm_decor"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.35}
+{"mask": 573, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "iwm_decor"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.39}
+{"mask": 577, "signals": ["rsi70", "absorb_fall", "iwm_decor"], "n": 14, "mean": -1.125000000000004, "win": 0.8571428571428571, "worst": -265.75000000000006, "total": -15.750000000000057, "ci_low": -65.12544642857144, "ci_high": 34.267857142857146, "ep_ci_low": -63.91205357142859, "ep_ci_high": 35.18708333333333, "n_episodes": 10, "elapsed_s": 1.92}
+{"mask": 581, "signals": ["rsi70", "trend60", "absorb_fall", "iwm_decor"], "n": 9, "mean": -15.69444444444445, "win": 0.7777777777777778, "worst": -265.75000000000006, "total": -141.25000000000006, "elapsed_s": 1.28}
+{"mask": 585, "signals": ["rsi70", "ma200_10", "absorb_fall", "iwm_decor"], "n": 7, "mean": -32.82142857142858, "win": 0.7142857142857143, "worst": -265.75000000000006, "total": -229.75000000000006, "elapsed_s": 0.9}
+{"mask": 589, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "iwm_decor"], "n": 4, "mean": -76.00000000000001, "win": 0.5, "worst": -265.75000000000006, "total": -304.00000000000006, "elapsed_s": 0.7}
+{"mask": 593, "signals": ["rsi70", "ma50_up", "absorb_fall", "iwm_decor"], "n": 8, "mean": -21.906250000000007, "win": 0.75, "worst": -265.75000000000006, "total": -175.25000000000006, "elapsed_s": 1.25}
+{"mask": 597, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "iwm_decor"], "n": 6, "mean": -39.66666666666668, "win": 0.6666666666666666, "worst": -265.75000000000006, "total": -238.00000000000006, "elapsed_s": 0.84}
+{"mask": 601, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "iwm_decor"], "n": 5, "mean": -54.65000000000001, "win": 0.6, "worst": -265.75000000000006, "total": -273.25000000000006, "elapsed_s": 0.7}
+{"mask": 605, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "iwm_decor"], "n": 4, "mean": -76.00000000000001, "win": 0.5, "worst": -265.75000000000006, "total": -304.00000000000006, "elapsed_s": 0.59}
+{"mask": 609, "signals": ["rsi70", "beta_hi", "absorb_fall", "iwm_decor"], "n": 4, "mean": 27.375, "win": 1.0, "worst": 12.0, "total": 109.5, "elapsed_s": 0.62}
+{"mask": 613, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.46}
+{"mask": 617, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "iwm_decor"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.34}
+{"mask": 621, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "iwm_decor"], "n": 0, "elapsed_s": 0.14}
+{"mask": 625, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.36}
+{"mask": 629, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.39}
+{"mask": 633, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor"], "n": 0, "elapsed_s": 0.12}
+{"mask": 637, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor"], "n": 0, "elapsed_s": 0.11}
+{"mask": 641, "signals": ["rsi70", "seccorr_lo", "iwm_decor"], "n": 16, "mean": 22.09375, "win": 0.9375, "worst": -121.5, "total": 353.5, "ci_low": 1.4367187500000007, "ci_high": 36.297265625, "ep_ci_low": 4.400833333333333, "ep_ci_high": 36.611420036764706, "n_episodes": 10, "elapsed_s": 2.09}
+{"mask": 645, "signals": ["rsi70", "trend60", "seccorr_lo", "iwm_decor"], "n": 12, "mean": 20.604166666666668, "win": 0.9166666666666666, "worst": -121.5, "total": 247.25, "ci_low": -8.979166666666666, "ci_high": 36.583333333333336, "ep_ci_low": -1.6142857142857139, "ep_ci_high": 38.93181818181818, "n_episodes": 7, "elapsed_s": 1.57}
+{"mask": 649, "signals": ["rsi70", "ma200_10", "seccorr_lo", "iwm_decor"], "n": 7, "mean": 8.571428571428571, "win": 0.8571428571428571, "worst": -121.5, "total": 60.0, "elapsed_s": 0.9}
+{"mask": 653, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.53}
+{"mask": 657, "signals": ["rsi70", "ma50_up", "seccorr_lo", "iwm_decor"], "n": 10, "mean": 18.925, "win": 0.9, "worst": -121.5, "total": 189.25, "ci_low": -1.15, "ci_high": 38.025, "ep_ci_low": -5.4639423076923075, "ep_ci_high": 40.19661458333333, "n_episodes": 6, "elapsed_s": 1.39}
+{"mask": 661, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo", "iwm_decor"], "n": 8, "mean": 15.8125, "win": 0.875, "worst": -121.5, "total": 126.5, "elapsed_s": 0.94}
+{"mask": 665, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo", "iwm_decor"], "n": 5, "mean": 3.3, "win": 0.8, "worst": -121.5, "total": 16.5, "elapsed_s": 0.63}
+{"mask": 669, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.57}
+{"mask": 673, "signals": ["rsi70", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 7, "mean": 29.75, "win": 1.0, "worst": 12.0, "total": 208.25, "elapsed_s": 0.81}
+{"mask": 677, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 5, "mean": 32.95, "win": 1.0, "worst": 24.0, "total": 164.75, "elapsed_s": 0.77}
+{"mask": 681, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.37}
+{"mask": 685, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 0, "elapsed_s": 0.18}
+{"mask": 689, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 4, "mean": 35.1875, "win": 1.0, "worst": 29.25, "total": 140.75, "elapsed_s": 0.61}
+{"mask": 693, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 4, "mean": 35.1875, "win": 1.0, "worst": 29.25, "total": 140.75, "elapsed_s": 0.58}
+{"mask": 697, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 0, "elapsed_s": 0.18}
+{"mask": 701, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor"], "n": 0, "elapsed_s": 0.18}
+{"mask": 705, "signals": ["rsi70", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 13, "mean": 19.596153846153847, "win": 0.9230769230769231, "worst": -121.5, "total": 254.75, "ci_low": -5.75, "ci_high": 34.57692307692308, "ep_ci_low": 0.07500000000000018, "ep_ci_high": 36.5, "n_episodes": 8, "elapsed_s": 1.7}
+{"mask": 709, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 9, "mean": 16.5, "win": 0.8888888888888888, "worst": -121.5, "total": 148.5, "elapsed_s": 1.09}
+{"mask": 713, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 7, "mean": 8.571428571428571, "win": 0.8571428571428571, "worst": -121.5, "total": 60.0, "elapsed_s": 0.89}
+{"mask": 717, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.55}
+{"mask": 721, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 8, "mean": 14.3125, "win": 0.875, "worst": -121.5, "total": 114.5, "elapsed_s": 1.15}
+{"mask": 725, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 6, "mean": 8.625, "win": 0.8333333333333334, "worst": -121.5, "total": 51.75, "elapsed_s": 0.78}
+{"mask": 729, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 5, "mean": 3.3, "win": 0.8, "worst": -121.5, "total": 16.5, "elapsed_s": 0.67}
+{"mask": 733, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.53}
+{"mask": 737, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 4, "mean": 27.375, "win": 1.0, "worst": 12.0, "total": 109.5, "elapsed_s": 0.54}
+{"mask": 741, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.34}
+{"mask": 745, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.44}
+{"mask": 749, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 0, "elapsed_s": 0.14}
+{"mask": 753, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.39}
+{"mask": 757, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.39}
+{"mask": 761, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 0, "elapsed_s": 0.18}
+{"mask": 765, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor"], "n": 0, "elapsed_s": 0.15}
+{"mask": 769, "signals": ["rsi70", "iv_rich", "iwm_decor"], "n": 19, "mean": 7.249999999999997, "win": 0.8947368421052632, "worst": -265.75000000000006, "total": 137.74999999999994, "ci_low": -40.21250000000001, "ci_high": 35.42203947368421, "ep_ci_low": -44.583212560386485, "ep_ci_high": 34.39663312693498, "n_episodes": 12, "elapsed_s": 2.5}
+{"mask": 773, "signals": ["rsi70", "trend60", "iv_rich", "iwm_decor"], "n": 14, "mean": 0.8749999999999959, "win": 0.8571428571428571, "worst": -265.75000000000006, "total": 12.249999999999943, "ci_low": -65.26785714285715, "ci_high": 35.42857142857143, "ep_ci_low": -63.287500000000016, "ep_ci_high": 36.69680631868132, "n_episodes": 8, "elapsed_s": 1.82}
+{"mask": 777, "signals": ["rsi70", "ma200_10", "iv_rich", "iwm_decor"], "n": 9, "mean": -19.44444444444445, "win": 0.7777777777777778, "worst": -265.75000000000006, "total": -175.00000000000006, "elapsed_s": 1.16}
+{"mask": 781, "signals": ["rsi70", "trend60", "ma200_10", "iv_rich", "iwm_decor"], "n": 6, "mean": -41.54166666666668, "win": 0.6666666666666666, "worst": -265.75000000000006, "total": -249.25000000000006, "elapsed_s": 0.86}
+{"mask": 785, "signals": ["rsi70", "ma50_up", "iv_rich", "iwm_decor"], "n": 12, "mean": -3.812500000000005, "win": 0.8333333333333334, "worst": -265.75000000000006, "total": -45.75000000000006, "ci_low": -69.41666666666669, "ci_high": 36.4609375, "ep_ci_low": -71.94807692307694, "ep_ci_high": 37.72992424242424, "n_episodes": 8, "elapsed_s": 1.58}
+{"mask": 789, "signals": ["rsi70", "trend60", "ma50_up", "iv_rich", "iwm_decor"], "n": 10, "mean": -10.850000000000005, "win": 0.8, "worst": -265.75000000000006, "total": -108.50000000000006, "ci_low": -60.40000000000001, "ci_high": 36.55, "ep_ci_low": -100.67500000000003, "ep_ci_high": 39.640277777777776, "n_episodes": 6, "elapsed_s": 1.46}
+{"mask": 793, "signals": ["rsi70", "ma200_10", "ma50_up", "iv_rich", "iwm_decor"], "n": 7, "mean": -31.214285714285722, "win": 0.7142857142857143, "worst": -265.75000000000006, "total": -218.50000000000006, "elapsed_s": 0.86}
+{"mask": 797, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "iv_rich", "iwm_decor"], "n": 6, "mean": -41.54166666666668, "win": 0.6666666666666666, "worst": -265.75000000000006, "total": -249.25000000000006, "elapsed_s": 0.8}
+{"mask": 801, "signals": ["rsi70", "beta_hi", "iv_rich", "iwm_decor"], "n": 8, "mean": 29.46875, "win": 1.0, "worst": 12.0, "total": 235.75, "elapsed_s": 1.12}
+{"mask": 805, "signals": ["rsi70", "trend60", "beta_hi", "iv_rich", "iwm_decor"], "n": 6, "mean": 32.041666666666664, "win": 1.0, "worst": 24.0, "total": 192.25, "elapsed_s": 0.77}
+{"mask": 809, "signals": ["rsi70", "ma200_10", "beta_hi", "iv_rich", "iwm_decor"], "n": 3, "mean": 23.666666666666668, "win": 1.0, "worst": 12.0, "total": 71.0, "elapsed_s": 0.45}
+{"mask": 813, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "iv_rich", "iwm_decor"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.25}
+{"mask": 817, "signals": ["rsi70", "ma50_up", "beta_hi", "iv_rich", "iwm_decor"], "n": 5, "mean": 33.65, "win": 1.0, "worst": 27.499999999999996, "total": 168.25, "elapsed_s": 0.58}
+{"mask": 821, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "iv_rich", "iwm_decor"], "n": 5, "mean": 33.65, "win": 1.0, "worst": 27.499999999999996, "total": 168.25, "elapsed_s": 0.88}
+{"mask": 825, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "iv_rich", "iwm_decor"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.24}
+{"mask": 829, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "iv_rich", "iwm_decor"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.25}
+{"mask": 833, "signals": ["rsi70", "absorb_fall", "iv_rich", "iwm_decor"], "n": 14, "mean": -1.125000000000004, "win": 0.8571428571428571, "worst": -265.75000000000006, "total": -15.750000000000057, "ci_low": -65.12544642857144, "ci_high": 34.267857142857146, "ep_ci_low": -63.91205357142859, "ep_ci_high": 35.18708333333333, "n_episodes": 10, "elapsed_s": 1.62}
+{"mask": 837, "signals": ["rsi70", "trend60", "absorb_fall", "iv_rich", "iwm_decor"], "n": 9, "mean": -15.69444444444445, "win": 0.7777777777777778, "worst": -265.75000000000006, "total": -141.25000000000006, "elapsed_s": 1.01}
+{"mask": 841, "signals": ["rsi70", "ma200_10", "absorb_fall", "iv_rich", "iwm_decor"], "n": 7, "mean": -32.82142857142858, "win": 0.7142857142857143, "worst": -265.75000000000006, "total": -229.75000000000006, "elapsed_s": 0.92}
+{"mask": 845, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "iv_rich", "iwm_decor"], "n": 4, "mean": -76.00000000000001, "win": 0.5, "worst": -265.75000000000006, "total": -304.00000000000006, "elapsed_s": 0.54}
+{"mask": 849, "signals": ["rsi70", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor"], "n": 8, "mean": -21.906250000000007, "win": 0.75, "worst": -265.75000000000006, "total": -175.25000000000006, "elapsed_s": 1.0}
+{"mask": 853, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor"], "n": 6, "mean": -39.66666666666668, "win": 0.6666666666666666, "worst": -265.75000000000006, "total": -238.00000000000006, "elapsed_s": 0.86}
+{"mask": 857, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor"], "n": 5, "mean": -54.65000000000001, "win": 0.6, "worst": -265.75000000000006, "total": -273.25000000000006, "elapsed_s": 0.84}
+{"mask": 861, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor"], "n": 4, "mean": -76.00000000000001, "win": 0.5, "worst": -265.75000000000006, "total": -304.00000000000006, "elapsed_s": 0.85}
+{"mask": 865, "signals": ["rsi70", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 4, "mean": 27.375, "win": 1.0, "worst": 12.0, "total": 109.5, "elapsed_s": 0.81}
+{"mask": 869, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.48}
+{"mask": 873, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.54}
+{"mask": 877, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.21}
+{"mask": 881, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.47}
+{"mask": 885, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.64}
+{"mask": 889, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.2}
+{"mask": 893, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.28}
+{"mask": 897, "signals": ["rsi70", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 16, "mean": 22.09375, "win": 0.9375, "worst": -121.5, "total": 353.5, "ci_low": 1.4367187500000007, "ci_high": 36.297265625, "ep_ci_low": 4.400833333333333, "ep_ci_high": 36.611420036764706, "n_episodes": 10, "elapsed_s": 1.89}
+{"mask": 901, "signals": ["rsi70", "trend60", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 12, "mean": 20.604166666666668, "win": 0.9166666666666666, "worst": -121.5, "total": 247.25, "ci_low": -8.979166666666666, "ci_high": 36.583333333333336, "ep_ci_low": -1.6142857142857139, "ep_ci_high": 38.93181818181818, "n_episodes": 7, "elapsed_s": 1.29}
+{"mask": 905, "signals": ["rsi70", "ma200_10", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 7, "mean": 8.571428571428571, "win": 0.8571428571428571, "worst": -121.5, "total": 60.0, "elapsed_s": 0.78}
+{"mask": 909, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.46}
+{"mask": 913, "signals": ["rsi70", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 10, "mean": 18.925, "win": 0.9, "worst": -121.5, "total": 189.25, "ci_low": -1.15, "ci_high": 38.025, "ep_ci_low": -5.4639423076923075, "ep_ci_high": 40.19661458333333, "n_episodes": 6, "elapsed_s": 1.1}
+{"mask": 917, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 8, "mean": 15.8125, "win": 0.875, "worst": -121.5, "total": 126.5, "elapsed_s": 0.79}
+{"mask": 921, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 5, "mean": 3.3, "win": 0.8, "worst": -121.5, "total": 16.5, "elapsed_s": 0.56}
+{"mask": 925, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.56}
+{"mask": 929, "signals": ["rsi70", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 7, "mean": 29.75, "win": 1.0, "worst": 12.0, "total": 208.25, "elapsed_s": 0.77}
+{"mask": 933, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 5, "mean": 32.95, "win": 1.0, "worst": 24.0, "total": 164.75, "elapsed_s": 0.58}
+{"mask": 937, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.34}
+{"mask": 941, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.14}
+{"mask": 945, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 4, "mean": 35.1875, "win": 1.0, "worst": 29.25, "total": 140.75, "elapsed_s": 0.47}
+{"mask": 949, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 4, "mean": 35.1875, "win": 1.0, "worst": 29.25, "total": 140.75, "elapsed_s": 0.51}
+{"mask": 953, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.14}
+{"mask": 957, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.14}
+{"mask": 961, "signals": ["rsi70", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 13, "mean": 19.596153846153847, "win": 0.9230769230769231, "worst": -121.5, "total": 254.75, "ci_low": -5.75, "ci_high": 34.57692307692308, "ep_ci_low": 0.07500000000000018, "ep_ci_high": 36.5, "n_episodes": 8, "elapsed_s": 1.44}
+{"mask": 965, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 9, "mean": 16.5, "win": 0.8888888888888888, "worst": -121.5, "total": 148.5, "elapsed_s": 0.93}
+{"mask": 969, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 7, "mean": 8.571428571428571, "win": 0.8571428571428571, "worst": -121.5, "total": 60.0, "elapsed_s": 0.82}
+{"mask": 973, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.46}
+{"mask": 977, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 8, "mean": 14.3125, "win": 0.875, "worst": -121.5, "total": 114.5, "elapsed_s": 0.82}
+{"mask": 981, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 6, "mean": 8.625, "win": 0.8333333333333334, "worst": -121.5, "total": 51.75, "elapsed_s": 0.63}
+{"mask": 985, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 5, "mean": 3.3, "win": 0.8, "worst": -121.5, "total": 16.5, "elapsed_s": 0.7}
+{"mask": 989, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 4, "mean": -3.5625, "win": 0.75, "worst": -121.5, "total": -14.25, "elapsed_s": 0.61}
+{"mask": 993, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 4, "mean": 27.375, "win": 1.0, "worst": 12.0, "total": 109.5, "elapsed_s": 0.61}
+{"mask": 997, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.35}
+{"mask": 1001, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.34}
+{"mask": 1005, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.15}
+{"mask": 1009, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.33}
+{"mask": 1013, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 2, "mean": 33.0, "win": 1.0, "worst": 29.25, "total": 66.0, "elapsed_s": 0.35}
+{"mask": 1017, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.14}
+{"mask": 1021, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor"], "n": 0, "elapsed_s": 0.13}
+{"mask": 1025, "signals": ["rsi70", "rvx_lo"], "n": 37, "mean": 6.45945945945946, "win": 0.918918918918919, "worst": -283.75, "total": 239.0, "ci_low": -18.502195945945942, "ci_high": 33.79797297297297, "ep_ci_low": -24.395994318181817, "ep_ci_high": 33.594129464285714, "n_episodes": 24, "elapsed_s": 3.45}
+{"mask": 1029, "signals": ["rsi70", "trend60", "rvx_lo"], "n": 16, "mean": 34.71875, "win": 1.0, "worst": 21.5, "total": 555.5, "ci_low": 27.015625, "ci_high": 42.84375, "ep_ci_low": 29.646666666666665, "ep_ci_high": 40.45596354166666, "n_episodes": 13, "elapsed_s": 1.52}
+{"mask": 1033, "signals": ["rsi70", "ma200_10", "rvx_lo"], "n": 10, "mean": 32.2, "win": 1.0, "worst": 12.0, "total": 322.0, "ci_low": 28.95, "ci_high": 33.35, "ep_ci_low": 27.248125, "ep_ci_high": 38.5328125, "n_episodes": 7, "elapsed_s": 1.07}
+{"mask": 1037, "signals": ["rsi70", "trend60", "ma200_10", "rvx_lo"], "n": 4, "mean": 36.4375, "win": 1.0, "worst": 27.499999999999996, "total": 145.75, "elapsed_s": 0.38}
+{"mask": 1041, "signals": ["rsi70", "ma50_up", "rvx_lo"], "n": 13, "mean": 32.94230769230769, "win": 1.0, "worst": 24.0, "total": 428.25, "ci_low": 27.940865384615385, "ci_high": 37.06538461538461, "ep_ci_low": 28.853645833333335, "ep_ci_high": 37.28846153846154, "n_episodes": 10, "elapsed_s": 1.18}
+{"mask": 1045, "signals": ["rsi70", "trend60", "ma50_up", "rvx_lo"], "n": 10, "mean": 33.625, "win": 1.0, "worst": 24.0, "total": 336.25, "ci_low": 27.1, "ci_high": 38.75, "ep_ci_low": 28.62471590909091, "ep_ci_high": 39.406718749999996, "n_episodes": 7, "elapsed_s": 1.12}
+{"mask": 1049, "signals": ["rsi70", "ma200_10", "ma50_up", "rvx_lo"], "n": 5, "mean": 35.3, "win": 1.0, "worst": 27.499999999999996, "total": 176.5, "elapsed_s": 0.51}
+{"mask": 1053, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "rvx_lo"], "n": 4, "mean": 36.4375, "win": 1.0, "worst": 27.499999999999996, "total": 145.75, "elapsed_s": 0.44}
+{"mask": 1057, "signals": ["rsi70", "beta_hi", "rvx_lo"], "n": 9, "mean": 32.02777777777778, "win": 1.0, "worst": 12.0, "total": 288.25, "elapsed_s": 0.85}
+{"mask": 1061, "signals": ["rsi70", "trend60", "beta_hi", "rvx_lo"], "n": 5, "mean": 35.35, "win": 1.0, "worst": 24.0, "total": 176.75, "elapsed_s": 0.52}
+{"mask": 1065, "signals": ["rsi70", "ma200_10", "beta_hi", "rvx_lo"], "n": 6, "mean": 29.791666666666668, "win": 1.0, "worst": 12.0, "total": 178.75, "elapsed_s": 0.69}
+{"mask": 1069, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "rvx_lo"], "n": 3, "mean": 34.0, "win": 1.0, "worst": 27.499999999999996, "total": 102.0, "elapsed_s": 0.36}
+{"mask": 1073, "signals": ["rsi70", "ma50_up", "beta_hi", "rvx_lo"], "n": 5, "mean": 36.5, "win": 1.0, "worst": 27.499999999999996, "total": 182.5, "elapsed_s": 0.59}
+{"mask": 1077, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "rvx_lo"], "n": 5, "mean": 36.5, "win": 1.0, "worst": 27.499999999999996, "total": 182.5, "elapsed_s": 0.6}
+{"mask": 1081, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "rvx_lo"], "n": 3, "mean": 34.0, "win": 1.0, "worst": 27.499999999999996, "total": 102.0, "elapsed_s": 0.38}
+{"mask": 1085, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "rvx_lo"], "n": 3, "mean": 34.0, "win": 1.0, "worst": 27.499999999999996, "total": 102.0, "elapsed_s": 0.33}
+{"mask": 1089, "signals": ["rsi70", "absorb_fall", "rvx_lo"], "n": 19, "mean": 32.61842105263158, "win": 1.0, "worst": 12.0, "total": 619.75, "ci_low": 28.763157894736842, "ci_high": 37.67269736842105, "ep_ci_low": 28.931737012987014, "ep_ci_high": 36.58833204334365, "n_episodes": 17, "elapsed_s": 1.71}
+{"mask": 1093, "signals": ["rsi70", "trend60", "absorb_fall", "rvx_lo"], "n": 8, "mean": 36.71875, "win": 1.0, "worst": 25.0, "total": 293.75, "elapsed_s": 0.7}
+{"mask": 1097, "signals": ["rsi70", "ma200_10", "absorb_fall", "rvx_lo"], "n": 8, "mean": 33.34375, "win": 1.0, "worst": 12.0, "total": 266.75, "elapsed_s": 0.73}
+{"mask": 1101, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "rvx_lo"], "n": 2, "mean": 44.25, "win": 1.0, "worst": 43.75, "total": 88.5, "elapsed_s": 0.26}
+{"mask": 1105, "signals": ["rsi70", "ma50_up", "absorb_fall", "rvx_lo"], "n": 6, "mean": 34.666666666666664, "win": 1.0, "worst": 25.0, "total": 208.0, "elapsed_s": 0.65}
+{"mask": 1109, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "rvx_lo"], "n": 4, "mean": 36.3125, "win": 1.0, "worst": 25.0, "total": 145.25, "elapsed_s": 0.48}
+{"mask": 1113, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "rvx_lo"], "n": 3, "mean": 39.75, "win": 1.0, "worst": 30.75, "total": 119.25, "elapsed_s": 0.4}
+{"mask": 1117, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "rvx_lo"], "n": 2, "mean": 44.25, "win": 1.0, "worst": 43.75, "total": 88.5, "elapsed_s": 0.34}
+{"mask": 1121, "signals": ["rsi70", "beta_hi", "absorb_fall", "rvx_lo"], "n": 5, "mean": 31.25, "win": 1.0, "worst": 12.0, "total": 156.25, "elapsed_s": 0.6}
+{"mask": 1125, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.25}
+{"mask": 1129, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "rvx_lo"], "n": 4, "mean": 30.375, "win": 1.0, "worst": 12.0, "total": 121.5, "elapsed_s": 0.53}
+{"mask": 1133, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.33}
+{"mask": 1137, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.21}
+{"mask": 1141, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.22}
+{"mask": 1145, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.23}
+{"mask": 1149, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.24}
+{"mask": 1153, "signals": ["rsi70", "seccorr_lo", "rvx_lo"], "n": 21, "mean": 33.416666666666664, "win": 1.0, "worst": 12.0, "total": 701.75, "ci_low": 29.761904761904763, "ci_high": 37.301785714285714, "ep_ci_low": 29.6875, "ep_ci_high": 37.164340277777775, "n_episodes": 17, "elapsed_s": 1.94}
+{"mask": 1157, "signals": ["rsi70", "trend60", "seccorr_lo", "rvx_lo"], "n": 11, "mean": 36.20454545454545, "win": 1.0, "worst": 24.0, "total": 398.25, "ci_low": 31.204545454545453, "ci_high": 41.38636363636363, "ep_ci_low": 30.825, "ep_ci_high": 41.160024350649344, "n_episodes": 10, "elapsed_s": 1.09}
+{"mask": 1161, "signals": ["rsi70", "ma200_10", "seccorr_lo", "rvx_lo"], "n": 8, "mean": 33.09375, "win": 1.0, "worst": 12.0, "total": 264.75, "elapsed_s": 0.79}
+{"mask": 1165, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo", "rvx_lo"], "n": 2, "mean": 44.25, "win": 1.0, "worst": 43.75, "total": 88.5, "elapsed_s": 0.3}
+{"mask": 1169, "signals": ["rsi70", "ma50_up", "seccorr_lo", "rvx_lo"], "n": 9, "mean": 35.30555555555556, "win": 1.0, "worst": 25.0, "total": 317.75, "elapsed_s": 0.95}
+{"mask": 1173, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo", "rvx_lo"], "n": 6, "mean": 37.625, "win": 1.0, "worst": 25.0, "total": 225.75, "elapsed_s": 0.71}
+{"mask": 1177, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo", "rvx_lo"], "n": 3, "mean": 39.75, "win": 1.0, "worst": 30.75, "total": 119.25, "elapsed_s": 0.36}
+{"mask": 1181, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo", "rvx_lo"], "n": 2, "mean": 44.25, "win": 1.0, "worst": 43.75, "total": 88.5, "elapsed_s": 0.28}
+{"mask": 1185, "signals": ["rsi70", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 8, "mean": 32.59375, "win": 1.0, "worst": 12.0, "total": 260.75, "elapsed_s": 0.72}
+{"mask": 1189, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 4, "mean": 37.3125, "win": 1.0, "worst": 24.0, "total": 149.25, "elapsed_s": 0.4}
+{"mask": 1193, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 4, "mean": 30.375, "win": 1.0, "worst": 12.0, "total": 121.5, "elapsed_s": 0.43}
+{"mask": 1197, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.18}
+{"mask": 1201, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 3, "mean": 41.75, "win": 1.0, "worst": 35.75, "total": 125.25, "elapsed_s": 0.39}
+{"mask": 1205, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 3, "mean": 41.75, "win": 1.0, "worst": 35.75, "total": 125.25, "elapsed_s": 0.33}
+{"mask": 1209, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.19}
+{"mask": 1213, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.16}
+{"mask": 1217, "signals": ["rsi70", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 17, "mean": 33.48529411764706, "win": 1.0, "worst": 12.0, "total": 569.25, "ci_low": 28.98455882352941, "ci_high": 38.54448529411765, "ep_ci_low": 29.425677244582044, "ep_ci_high": 37.56791666666667, "n_episodes": 15, "elapsed_s": 1.35}
+{"mask": 1221, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 8, "mean": 36.71875, "win": 1.0, "worst": 25.0, "total": 293.75, "elapsed_s": 0.87}
+{"mask": 1225, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 8, "mean": 33.34375, "win": 1.0, "worst": 12.0, "total": 266.75, "elapsed_s": 0.78}
+{"mask": 1229, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 2, "mean": 44.25, "win": 1.0, "worst": 43.75, "total": 88.5, "elapsed_s": 0.32}
+{"mask": 1233, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 6, "mean": 34.666666666666664, "win": 1.0, "worst": 25.0, "total": 208.0, "elapsed_s": 0.63}
+{"mask": 1237, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 4, "mean": 36.3125, "win": 1.0, "worst": 25.0, "total": 145.25, "elapsed_s": 0.44}
+{"mask": 1241, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 3, "mean": 39.75, "win": 1.0, "worst": 30.75, "total": 119.25, "elapsed_s": 0.39}
+{"mask": 1245, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 2, "mean": 44.25, "win": 1.0, "worst": 43.75, "total": 88.5, "elapsed_s": 0.25}
+{"mask": 1249, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 5, "mean": 31.25, "win": 1.0, "worst": 12.0, "total": 156.25, "elapsed_s": 0.49}
+{"mask": 1253, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.2}
+{"mask": 1257, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 4, "mean": 30.375, "win": 1.0, "worst": 12.0, "total": 121.5, "elapsed_s": 0.42}
+{"mask": 1261, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.21}
+{"mask": 1265, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.21}
+{"mask": 1269, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.19}
+{"mask": 1273, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.28}
+{"mask": 1277, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "rvx_lo"], "n": 1, "mean": 44.75, "win": 1.0, "worst": 44.75, "total": 44.75, "elapsed_s": 0.19}
+{"mask": 1281, "signals": ["rsi70", "iv_rich", "rvx_lo"], "n": 27, "mean": 19.333333333333332, "win": 0.9629629629629629, "worst": -267.75, "total": 522.0, "ci_low": 6.571759259259261, "ci_high": 33.79675925925926, "ep_ci_low": -1.5901785714285712, "ep_ci_high": 33.553031250000004, "n_episodes": 19, "elapsed_s": 1.98}
+{"mask": 1285, "signals": ["rsi70", "trend60", "iv_rich", "rvx_lo"], "n": 13, "mean": 32.69230769230769, "win": 1.0, "worst": 21.5, "total": 425.0, "ci_low": 26.191346153846155, "ci_high": 39.61538461538461, "ep_ci_low": 28.172916666666666, "ep_ci_high": 38.02443181818182, "n_episodes": 10, "elapsed_s": 1.17}
+{"mask": 1289, "signals": ["rsi70", "ma200_10", "iv_rich", "rvx_lo"], "n": 7, "mean": 30.892857142857142, "win": 1.0, "worst": 12.0, "total": 216.25, "elapsed_s": 0.61}
+{"mask": 1293, "signals": ["rsi70", "trend60", "ma200_10", "iv_rich", "rvx_lo"], "n": 2, "mean": 35.625, "win": 1.0, "worst": 27.499999999999996, "total": 71.25, "elapsed_s": 0.26}
+{"mask": 1297, "signals": ["rsi70", "ma50_up", "iv_rich", "rvx_lo"], "n": 10, "mean": 32.3, "win": 1.0, "worst": 24.0, "total": 323.0, "ci_low": 28.4, "ci_high": 34.7, "ep_ci_low": 28.79501262626263, "ep_ci_high": 36.1025, "n_episodes": 8, "elapsed_s": 0.97}
+{"mask": 1301, "signals": ["rsi70", "trend60", "ma50_up", "iv_rich", "rvx_lo"], "n": 7, "mean": 33.0, "win": 1.0, "worst": 24.0, "total": 231.0, "elapsed_s": 0.6}
+{"mask": 1305, "signals": ["rsi70", "ma200_10", "ma50_up", "iv_rich", "rvx_lo"], "n": 3, "mean": 34.0, "win": 1.0, "worst": 27.499999999999996, "total": 102.0, "elapsed_s": 0.31}
+{"mask": 1309, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "iv_rich", "rvx_lo"], "n": 2, "mean": 35.625, "win": 1.0, "worst": 27.499999999999996, "total": 71.25, "elapsed_s": 0.31}
+{"mask": 1313, "signals": ["rsi70", "beta_hi", "iv_rich", "rvx_lo"], "n": 7, "mean": 29.214285714285715, "win": 1.0, "worst": 12.0, "total": 204.5, "elapsed_s": 0.72}
+{"mask": 1317, "signals": ["rsi70", "trend60", "beta_hi", "iv_rich", "rvx_lo"], "n": 4, "mean": 31.5625, "win": 1.0, "worst": 24.0, "total": 126.25, "elapsed_s": 0.42}
+{"mask": 1321, "signals": ["rsi70", "ma200_10", "beta_hi", "iv_rich", "rvx_lo"], "n": 3, "mean": 23.666666666666668, "win": 1.0, "worst": 12.0, "total": 71.0, "elapsed_s": 0.37}
+{"mask": 1325, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "iv_rich", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.2}
+{"mask": 1329, "signals": ["rsi70", "ma50_up", "beta_hi", "iv_rich", "rvx_lo"], "n": 3, "mean": 34.083333333333336, "win": 1.0, "worst": 27.499999999999996, "total": 102.25, "elapsed_s": 0.32}
+{"mask": 1333, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "iv_rich", "rvx_lo"], "n": 3, "mean": 34.083333333333336, "win": 1.0, "worst": 27.499999999999996, "total": 102.25, "elapsed_s": 0.31}
+{"mask": 1337, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "iv_rich", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.22}
+{"mask": 1341, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "iv_rich", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.19}
+{"mask": 1345, "signals": ["rsi70", "absorb_fall", "iv_rich", "rvx_lo"], "n": 16, "mean": 32.296875, "win": 1.0, "worst": 12.0, "total": 516.75, "ci_low": 29.18671875, "ci_high": 36.046875, "ep_ci_low": 28.248958333333334, "ep_ci_high": 36.454296875, "n_episodes": 14, "elapsed_s": 1.46}
+{"mask": 1349, "signals": ["rsi70", "trend60", "absorb_fall", "iv_rich", "rvx_lo"], "n": 6, "mean": 37.333333333333336, "win": 1.0, "worst": 29.0, "total": 224.0, "elapsed_s": 0.58}
+{"mask": 1353, "signals": ["rsi70", "ma200_10", "absorb_fall", "iv_rich", "rvx_lo"], "n": 6, "mean": 31.458333333333332, "win": 1.0, "worst": 12.0, "total": 188.75, "elapsed_s": 0.66}
+{"mask": 1357, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "iv_rich", "rvx_lo"], "n": 1, "mean": 43.75, "win": 1.0, "worst": 43.75, "total": 43.75, "elapsed_s": 0.19}
+{"mask": 1361, "signals": ["rsi70", "ma50_up", "absorb_fall", "iv_rich", "rvx_lo"], "n": 4, "mean": 34.5625, "win": 1.0, "worst": 30.75, "total": 138.25, "elapsed_s": 0.42}
+{"mask": 1365, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "iv_rich", "rvx_lo"], "n": 2, "mean": 37.75, "win": 1.0, "worst": 31.75, "total": 75.5, "elapsed_s": 0.25}
+{"mask": 1369, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "iv_rich", "rvx_lo"], "n": 2, "mean": 37.25, "win": 1.0, "worst": 30.75, "total": 74.5, "elapsed_s": 0.24}
+{"mask": 1373, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "iv_rich", "rvx_lo"], "n": 1, "mean": 43.75, "win": 1.0, "worst": 43.75, "total": 43.75, "elapsed_s": 0.16}
+{"mask": 1377, "signals": ["rsi70", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 3, "mean": 26.083333333333332, "win": 1.0, "worst": 12.0, "total": 78.25, "elapsed_s": 0.36}
+{"mask": 1381, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.11}
+{"mask": 1385, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.32}
+{"mask": 1389, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.12}
+{"mask": 1393, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.12}
+{"mask": 1397, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.11}
+{"mask": 1401, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.12}
+{"mask": 1405, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.12}
+{"mask": 1409, "signals": ["rsi70", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 18, "mean": 33.09722222222222, "win": 1.0, "worst": 12.0, "total": 595.75, "ci_low": 29.61111111111111, "ci_high": 36.38923611111111, "ep_ci_low": 28.984270833333333, "ep_ci_high": 37.10367647058823, "n_episodes": 14, "elapsed_s": 1.47}
+{"mask": 1413, "signals": ["rsi70", "trend60", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 9, "mean": 35.861111111111114, "win": 1.0, "worst": 24.0, "total": 322.75, "elapsed_s": 0.92}
+{"mask": 1417, "signals": ["rsi70", "ma200_10", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 6, "mean": 31.458333333333332, "win": 1.0, "worst": 12.0, "total": 188.75, "elapsed_s": 0.59}
+{"mask": 1421, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 1, "mean": 43.75, "win": 1.0, "worst": 43.75, "total": 43.75, "elapsed_s": 0.19}
+{"mask": 1425, "signals": ["rsi70", "ma50_up", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 7, "mean": 34.607142857142854, "win": 1.0, "worst": 29.25, "total": 242.25, "elapsed_s": 0.71}
+{"mask": 1429, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 4, "mean": 37.5625, "win": 1.0, "worst": 30.0, "total": 150.25, "elapsed_s": 0.44}
+{"mask": 1433, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 2, "mean": 37.25, "win": 1.0, "worst": 30.75, "total": 74.5, "elapsed_s": 0.29}
+{"mask": 1437, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 1, "mean": 43.75, "win": 1.0, "worst": 43.75, "total": 43.75, "elapsed_s": 0.23}
+{"mask": 1441, "signals": ["rsi70", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 6, "mean": 29.5, "win": 1.0, "worst": 12.0, "total": 177.0, "elapsed_s": 0.64}
+{"mask": 1445, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 3, "mean": 32.916666666666664, "win": 1.0, "worst": 24.0, "total": 98.75, "elapsed_s": 0.39}
+{"mask": 1449, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.36}
+{"mask": 1453, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1457, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.36}
+{"mask": 1461, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.34}
+{"mask": 1465, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1469, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1473, "signals": ["rsi70", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 14, "mean": 33.30357142857143, "win": 1.0, "worst": 12.0, "total": 466.25, "ci_low": 29.375, "ci_high": 36.25, "ep_ci_low": 29.114140625, "ep_ci_high": 37.589457417582416, "n_episodes": 12, "elapsed_s": 1.73}
+{"mask": 1477, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 6, "mean": 37.333333333333336, "win": 1.0, "worst": 29.0, "total": 224.0, "elapsed_s": 0.76}
+{"mask": 1481, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 6, "mean": 31.458333333333332, "win": 1.0, "worst": 12.0, "total": 188.75, "elapsed_s": 0.76}
+{"mask": 1485, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 1, "mean": 43.75, "win": 1.0, "worst": 43.75, "total": 43.75, "elapsed_s": 0.2}
+{"mask": 1489, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 4, "mean": 34.5625, "win": 1.0, "worst": 30.75, "total": 138.25, "elapsed_s": 0.68}
+{"mask": 1493, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 2, "mean": 37.75, "win": 1.0, "worst": 31.75, "total": 75.5, "elapsed_s": 0.32}
+{"mask": 1497, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 2, "mean": 37.25, "win": 1.0, "worst": 30.75, "total": 74.5, "elapsed_s": 0.33}
+{"mask": 1501, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 1, "mean": 43.75, "win": 1.0, "worst": 43.75, "total": 43.75, "elapsed_s": 0.23}
+{"mask": 1505, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 3, "mean": 26.083333333333332, "win": 1.0, "worst": 12.0, "total": 78.25, "elapsed_s": 0.44}
+{"mask": 1509, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.13}
+{"mask": 1513, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.36}
+{"mask": 1517, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.12}
+{"mask": 1521, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1525, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.27}
+{"mask": 1529, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1533, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1537, "signals": ["rsi70", "iwm_decor", "rvx_lo"], "n": 13, "mean": 5.384615384615385, "win": 0.9230769230769231, "worst": -283.75, "total": 70.0, "ci_low": -41.96153846153846, "ci_high": 32.28990384615385, "ep_ci_low": -29.009375, "ep_ci_high": 33.39635416666667, "n_episodes": 9, "elapsed_s": 1.58}
+{"mask": 1541, "signals": ["rsi70", "trend60", "iwm_decor", "rvx_lo"], "n": 7, "mean": 31.857142857142858, "win": 1.0, "worst": 24.0, "total": 223.0, "elapsed_s": 0.81}
+{"mask": 1545, "signals": ["rsi70", "ma200_10", "iwm_decor", "rvx_lo"], "n": 5, "mean": 26.3, "win": 1.0, "worst": 12.0, "total": 131.5, "elapsed_s": 0.59}
+{"mask": 1549, "signals": ["rsi70", "trend60", "ma200_10", "iwm_decor", "rvx_lo"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.36}
+{"mask": 1553, "signals": ["rsi70", "ma50_up", "iwm_decor", "rvx_lo"], "n": 6, "mean": 32.458333333333336, "win": 1.0, "worst": 27.499999999999996, "total": 194.75, "elapsed_s": 0.77}
+{"mask": 1557, "signals": ["rsi70", "trend60", "ma50_up", "iwm_decor", "rvx_lo"], "n": 4, "mean": 33.0, "win": 1.0, "worst": 27.499999999999996, "total": 132.0, "elapsed_s": 0.49}
+{"mask": 1561, "signals": ["rsi70", "ma200_10", "ma50_up", "iwm_decor", "rvx_lo"], "n": 3, "mean": 29.333333333333332, "win": 1.0, "worst": 27.499999999999996, "total": 88.0, "elapsed_s": 0.45}
+{"mask": 1565, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "iwm_decor", "rvx_lo"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.32}
+{"mask": 1569, "signals": ["rsi70", "beta_hi", "iwm_decor", "rvx_lo"], "n": 6, "mean": 28.291666666666668, "win": 1.0, "worst": 12.0, "total": 169.75, "elapsed_s": 0.72}
+{"mask": 1573, "signals": ["rsi70", "trend60", "beta_hi", "iwm_decor", "rvx_lo"], "n": 4, "mean": 31.5625, "win": 1.0, "worst": 24.0, "total": 126.25, "elapsed_s": 0.66}
+{"mask": 1577, "signals": ["rsi70", "ma200_10", "beta_hi", "iwm_decor", "rvx_lo"], "n": 4, "mean": 25.1875, "win": 1.0, "worst": 12.0, "total": 100.75, "elapsed_s": 0.57}
+{"mask": 1581, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "iwm_decor", "rvx_lo"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.34}
+{"mask": 1585, "signals": ["rsi70", "ma50_up", "beta_hi", "iwm_decor", "rvx_lo"], "n": 4, "mean": 33.0, "win": 1.0, "worst": 27.499999999999996, "total": 132.0, "elapsed_s": 0.58}
+{"mask": 1589, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "iwm_decor", "rvx_lo"], "n": 4, "mean": 33.0, "win": 1.0, "worst": 27.499999999999996, "total": 132.0, "elapsed_s": 0.62}
+{"mask": 1593, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "iwm_decor", "rvx_lo"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.36}
+{"mask": 1597, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "iwm_decor", "rvx_lo"], "n": 2, "mean": 28.625, "win": 1.0, "worst": 27.499999999999996, "total": 57.25, "elapsed_s": 0.37}
+{"mask": 1601, "signals": ["rsi70", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 8, "mean": 27.78125, "win": 1.0, "worst": 12.0, "total": 222.25, "elapsed_s": 1.07}
+{"mask": 1605, "signals": ["rsi70", "trend60", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 3, "mean": 32.25, "win": 1.0, "worst": 29.0, "total": 96.75, "elapsed_s": 0.47}
+{"mask": 1609, "signals": ["rsi70", "ma200_10", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 3, "mean": 24.75, "win": 1.0, "worst": 12.0, "total": 74.25, "elapsed_s": 0.49}
+{"mask": 1613, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.14}
+{"mask": 1617, "signals": ["rsi70", "ma50_up", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 2, "mean": 31.375, "win": 1.0, "worst": 30.75, "total": 62.75, "elapsed_s": 0.43}
+{"mask": 1621, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.19}
+{"mask": 1625, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 1, "mean": 30.75, "win": 1.0, "worst": 30.75, "total": 30.75, "elapsed_s": 0.3}
+{"mask": 1629, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1633, "signals": ["rsi70", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.46}
+{"mask": 1637, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.12}
+{"mask": 1641, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.37}
+{"mask": 1645, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.2}
+{"mask": 1649, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1653, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1657, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1661, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1665, "signals": ["rsi70", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 10, "mean": 30.175, "win": 1.0, "worst": 12.0, "total": 301.75, "ci_low": 29.3, "ci_high": 33.7, "ep_ci_low": 25.5825, "ep_ci_high": 34.626875, "n_episodes": 8, "elapsed_s": 1.34}
+{"mask": 1669, "signals": ["rsi70", "trend60", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 6, "mean": 32.583333333333336, "win": 1.0, "worst": 24.0, "total": 195.5, "elapsed_s": 0.72}
+{"mask": 1673, "signals": ["rsi70", "ma200_10", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 3, "mean": 24.75, "win": 1.0, "worst": 12.0, "total": 74.25, "elapsed_s": 0.49}
+{"mask": 1677, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.15}
+{"mask": 1681, "signals": ["rsi70", "ma50_up", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 4, "mean": 34.375, "win": 1.0, "worst": 30.0, "total": 137.5, "elapsed_s": 0.49}
+{"mask": 1685, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.29}
+{"mask": 1689, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 1, "mean": 30.75, "win": 1.0, "worst": 30.75, "total": 30.75, "elapsed_s": 0.28}
+{"mask": 1693, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.15}
+{"mask": 1697, "signals": ["rsi70", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 5, "mean": 28.45, "win": 1.0, "worst": 12.0, "total": 142.25, "elapsed_s": 0.77}
+{"mask": 1701, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 3, "mean": 32.916666666666664, "win": 1.0, "worst": 24.0, "total": 98.75, "elapsed_s": 0.44}
+{"mask": 1705, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.32}
+{"mask": 1709, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1713, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.33}
+{"mask": 1717, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.35}
+{"mask": 1721, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1725, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1729, "signals": ["rsi70", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 7, "mean": 29.0, "win": 1.0, "worst": 12.0, "total": 203.0, "elapsed_s": 0.93}
+{"mask": 1733, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 3, "mean": 32.25, "win": 1.0, "worst": 29.0, "total": 96.75, "elapsed_s": 0.4}
+{"mask": 1737, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 3, "mean": 24.75, "win": 1.0, "worst": 12.0, "total": 74.25, "elapsed_s": 0.43}
+{"mask": 1741, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1745, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 2, "mean": 31.375, "win": 1.0, "worst": 30.75, "total": 62.75, "elapsed_s": 0.36}
+{"mask": 1749, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.15}
+{"mask": 1753, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 1, "mean": 30.75, "win": 1.0, "worst": 30.75, "total": 30.75, "elapsed_s": 0.23}
+{"mask": 1757, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.14}
+{"mask": 1761, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.35}
+{"mask": 1765, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.24}
+{"mask": 1769, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.34}
+{"mask": 1773, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1777, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.15}
+{"mask": 1781, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1785, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1789, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1793, "signals": ["rsi70", "iv_rich", "iwm_decor", "rvx_lo"], "n": 12, "mean": 29.041666666666668, "win": 1.0, "worst": 12.0, "total": 348.5, "ci_low": 28.4375, "ci_high": 33.3125, "ep_ci_low": 24.99955357142857, "ep_ci_high": 33.62524038461538, "n_episodes": 9, "elapsed_s": 1.4}
+{"mask": 1797, "signals": ["rsi70", "trend60", "iv_rich", "iwm_decor", "rvx_lo"], "n": 7, "mean": 31.857142857142858, "win": 1.0, "worst": 24.0, "total": 223.0, "elapsed_s": 0.8}
+{"mask": 1801, "signals": ["rsi70", "ma200_10", "iv_rich", "iwm_decor", "rvx_lo"], "n": 4, "mean": 25.4375, "win": 1.0, "worst": 12.0, "total": 101.75, "elapsed_s": 0.52}
+{"mask": 1805, "signals": ["rsi70", "trend60", "ma200_10", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.25}
+{"mask": 1809, "signals": ["rsi70", "ma50_up", "iv_rich", "iwm_decor", "rvx_lo"], "n": 5, "mean": 33.0, "win": 1.0, "worst": 27.499999999999996, "total": 165.0, "elapsed_s": 0.67}
+{"mask": 1813, "signals": ["rsi70", "trend60", "ma50_up", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 34.083333333333336, "win": 1.0, "worst": 27.499999999999996, "total": 102.25, "elapsed_s": 0.42}
+{"mask": 1817, "signals": ["rsi70", "ma200_10", "ma50_up", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 29.125, "win": 1.0, "worst": 27.499999999999996, "total": 58.25, "elapsed_s": 0.34}
+{"mask": 1821, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.25}
+{"mask": 1825, "signals": ["rsi70", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 6, "mean": 28.291666666666668, "win": 1.0, "worst": 12.0, "total": 169.75, "elapsed_s": 0.8}
+{"mask": 1829, "signals": ["rsi70", "trend60", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 4, "mean": 31.5625, "win": 1.0, "worst": 24.0, "total": 126.25, "elapsed_s": 0.5}
+{"mask": 1833, "signals": ["rsi70", "ma200_10", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 23.666666666666668, "win": 1.0, "worst": 12.0, "total": 71.0, "elapsed_s": 0.45}
+{"mask": 1837, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.26}
+{"mask": 1841, "signals": ["rsi70", "ma50_up", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 34.083333333333336, "win": 1.0, "worst": 27.499999999999996, "total": 102.25, "elapsed_s": 0.43}
+{"mask": 1845, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 34.083333333333336, "win": 1.0, "worst": 27.499999999999996, "total": 102.25, "elapsed_s": 0.44}
+{"mask": 1849, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.25}
+{"mask": 1853, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 27.499999999999996, "win": 1.0, "worst": 27.499999999999996, "total": 27.499999999999996, "elapsed_s": 0.29}
+{"mask": 1857, "signals": ["rsi70", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 8, "mean": 27.78125, "win": 1.0, "worst": 12.0, "total": 222.25, "elapsed_s": 0.85}
+{"mask": 1861, "signals": ["rsi70", "trend60", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 32.25, "win": 1.0, "worst": 29.0, "total": 96.75, "elapsed_s": 0.41}
+{"mask": 1865, "signals": ["rsi70", "ma200_10", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 24.75, "win": 1.0, "worst": 12.0, "total": 74.25, "elapsed_s": 0.5}
+{"mask": 1869, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1873, "signals": ["rsi70", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 31.375, "win": 1.0, "worst": 30.75, "total": 62.75, "elapsed_s": 0.41}
+{"mask": 1877, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1881, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 30.75, "win": 1.0, "worst": 30.75, "total": 30.75, "elapsed_s": 0.25}
+{"mask": 1885, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.26}
+{"mask": 1889, "signals": ["rsi70", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.32}
+{"mask": 1893, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1897, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.39}
+{"mask": 1901, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.15}
+{"mask": 1905, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.18}
+{"mask": 1909, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1913, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1917, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1921, "signals": ["rsi70", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 10, "mean": 30.175, "win": 1.0, "worst": 12.0, "total": 301.75, "ci_low": 29.3, "ci_high": 33.7, "ep_ci_low": 25.5825, "ep_ci_high": 34.626875, "n_episodes": 8, "elapsed_s": 1.4}
+{"mask": 1925, "signals": ["rsi70", "trend60", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 6, "mean": 32.583333333333336, "win": 1.0, "worst": 24.0, "total": 195.5, "elapsed_s": 0.64}
+{"mask": 1929, "signals": ["rsi70", "ma200_10", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 24.75, "win": 1.0, "worst": 12.0, "total": 74.25, "elapsed_s": 0.43}
+{"mask": 1933, "signals": ["rsi70", "trend60", "ma200_10", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1937, "signals": ["rsi70", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 4, "mean": 34.375, "win": 1.0, "worst": 30.0, "total": 137.5, "elapsed_s": 0.52}
+{"mask": 1941, "signals": ["rsi70", "trend60", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.3}
+{"mask": 1945, "signals": ["rsi70", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 30.75, "win": 1.0, "worst": 30.75, "total": 30.75, "elapsed_s": 0.27}
+{"mask": 1949, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.11}
+{"mask": 1953, "signals": ["rsi70", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 5, "mean": 28.45, "win": 1.0, "worst": 12.0, "total": 142.25, "elapsed_s": 0.69}
+{"mask": 1957, "signals": ["rsi70", "trend60", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 32.916666666666664, "win": 1.0, "worst": 24.0, "total": 98.75, "elapsed_s": 0.45}
+{"mask": 1961, "signals": ["rsi70", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.36}
+{"mask": 1965, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 1969, "signals": ["rsi70", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.36}
+{"mask": 1973, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 37.375, "win": 1.0, "worst": 30.0, "total": 74.75, "elapsed_s": 0.34}
+{"mask": 1977, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1981, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.17}
+{"mask": 1985, "signals": ["rsi70", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 7, "mean": 29.0, "win": 1.0, "worst": 12.0, "total": 203.0, "elapsed_s": 0.94}
+{"mask": 1989, "signals": ["rsi70", "trend60", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 32.25, "win": 1.0, "worst": 29.0, "total": 96.75, "elapsed_s": 0.44}
+{"mask": 1993, "signals": ["rsi70", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 3, "mean": 24.75, "win": 1.0, "worst": 12.0, "total": 74.25, "elapsed_s": 0.45}
+{"mask": 1997, "signals": ["rsi70", "trend60", "ma200_10", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.11}
+{"mask": 2001, "signals": ["rsi70", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 31.375, "win": 1.0, "worst": 30.75, "total": 62.75, "elapsed_s": 0.31}
+{"mask": 2005, "signals": ["rsi70", "trend60", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 2009, "signals": ["rsi70", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 1, "mean": 30.75, "win": 1.0, "worst": 30.75, "total": 30.75, "elapsed_s": 0.25}
+{"mask": 2013, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 2017, "signals": ["rsi70", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.39}
+{"mask": 2021, "signals": ["rsi70", "trend60", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 2025, "signals": ["rsi70", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 2, "mean": 21.75, "win": 1.0, "worst": 12.0, "total": 43.5, "elapsed_s": 0.37}
+{"mask": 2029, "signals": ["rsi70", "trend60", "ma200_10", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 2033, "signals": ["rsi70", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 2037, "signals": ["rsi70", "trend60", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
+{"mask": 2041, "signals": ["rsi70", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.15}
+{"mask": 2045, "signals": ["rsi70", "trend60", "ma200_10", "ma50_up", "beta_hi", "absorb_fall", "seccorr_lo", "iv_rich", "iwm_decor", "rvx_lo"], "n": 0, "elapsed_s": 0.16}
