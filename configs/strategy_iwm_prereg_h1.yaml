@@ -1,0 +1,40 @@
+# PRE-REGISTERED IWM out-of-sample test, hypothesis H1 (the SPY rule).
+# Frozen 2026-07-25 BEFORE any IWM options data was examined
+# (see docs/PREREGISTRATION_IWM.md). Width $3 = SPY's $8 scaled by
+# percent-of-spot (1.07% of IWM $293.79, rounded to the $1 grid). DO NOT EDIT.
+name: iwm_prereg_h1_spy_rule
+selection:
+  root: IWM
+  exercise_style: american
+  settlement: physical
+  target_dte: 30
+  min_dte: 25
+  max_dte: 35
+  short_delta_target: 0.15
+  width_method: fixed_width
+  fixed_width: 3.0
+  min_short_bid: 0.05
+  max_leg_rel_spread: 0.50
+exits: []                       # hold to expiry
+execution:
+  fill_model: pct_between
+  fill_pct: 0.5
+  max_leg_rel_spread: 0.50
+  min_credit: 0.05
+costs:
+  commission_per_contract: 0.65
+  fees_per_contract: 0.10       # ETF options: ORF/OCC/SEC only
+interest:
+  mode: free_cash_only
+  rate_source: provider
+  spread_bps: -25
+sizing:
+  contracts_per_entry: 1
+  max_open_positions: 2         # the frozen cap-2 rule
+backtest:
+  start: 2018-08-01
+  end: 2026-07-22
+  initial_cash: 100000.0
+  entry_frequency: weekly
+  entry_time_et: "15:30:00"
+  mark_time_et: "15:30:00"
