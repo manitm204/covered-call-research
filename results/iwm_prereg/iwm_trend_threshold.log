@@ -1,0 +1,74 @@
+preloaded 1948 session snapshots in 17s
+T0008 expires today with no quotes; closing at intrinsic
+no quotes for T0009 at 2021-06-11; mark is stale
+no quotes for T0016 at 2021-11-29; mark is stale
+no quotes for T0017 at 2025-11-28; mark is stale
+no quotes for T0018 at 2025-11-28; mark is stale
+no quotes for T0019 at 2025-12-24; mark is stale
+no quotes for T0020 at 2025-12-24; mark is stale
+no quotes for T0019 at 2025-12-29; mark is stale
+no quotes for T0020 at 2025-12-29; mark is stale
+T0005 expires today with no quotes; closing at intrinsic
+no quotes for T0006 at 2025-11-28; mark is stale
+no quotes for T0007 at 2025-12-24; mark is stale
+no quotes for T0008 at 2025-12-24; mark is stale
+no quotes for T0007 at 2025-12-29; mark is stale
+no quotes for T0008 at 2025-12-29; mark is stale
+T0007 expires today with no quotes; closing at intrinsic
+no quotes for T0009 at 2025-11-28; mark is stale
+no quotes for T0010 at 2025-11-28; mark is stale
+no quotes for T0011 at 2025-12-24; mark is stale
+no quotes for T0012 at 2025-12-24; mark is stale
+no quotes for T0011 at 2025-12-29; mark is stale
+no quotes for T0012 at 2025-12-29; mark is stale
+T0007 expires today with no quotes; closing at intrinsic
+no quotes for T0008 at 2021-06-11; mark is stale
+no quotes for T0010 at 2021-11-29; mark is stale
+no quotes for T0011 at 2025-11-28; mark is stale
+no quotes for T0012 at 2025-11-28; mark is stale
+no quotes for T0013 at 2025-12-24; mark is stale
+no quotes for T0014 at 2025-12-24; mark is stale
+no quotes for T0013 at 2025-12-29; mark is stale
+no quotes for T0014 at 2025-12-29; mark is stale
+T0007 expires today with no quotes; closing at intrinsic
+no quotes for T0008 at 2021-06-11; mark is stale
+no quotes for T0010 at 2021-11-29; mark is stale
+no quotes for T0011 at 2025-11-28; mark is stale
+no quotes for T0012 at 2025-11-28; mark is stale
+no quotes for T0013 at 2025-12-24; mark is stale
+no quotes for T0014 at 2025-12-24; mark is stale
+no quotes for T0013 at 2025-12-29; mark is stale
+no quotes for T0014 at 2025-12-29; mark is stale
+no quotes for T0008 at 2021-11-29; mark is stale
+no quotes for T0009 at 2025-11-28; mark is stale
+no quotes for T0010 at 2025-12-24; mark is stale
+no quotes for T0011 at 2025-12-24; mark is stale
+no quotes for T0010 at 2025-12-29; mark is stale
+no quotes for T0011 at 2025-12-29; mark is stale
+no quotes for T0009 at 2021-06-11; mark is stale
+no quotes for T0011 at 2021-11-29; mark is stale
+no quotes for T0012 at 2025-11-28; mark is stale
+no quotes for T0013 at 2025-11-28; mark is stale
+no quotes for T0014 at 2025-12-24; mark is stale
+no quotes for T0015 at 2025-12-24; mark is stale
+no quotes for T0014 at 2025-12-29; mark is stale
+no quotes for T0015 at 2025-12-29; mark is stale
+no quotes for T0009 at 2021-06-11; mark is stale
+no quotes for T0010 at 2021-06-11; mark is stale
+no quotes for T0012 at 2021-11-29; mark is stale
+no quotes for T0013 at 2021-11-29; mark is stale
+no quotes for T0014 at 2025-11-28; mark is stale
+no quotes for T0015 at 2025-11-28; mark is stale
+no quotes for T0016 at 2025-12-24; mark is stale
+no quotes for T0017 at 2025-12-24; mark is stale
+no quotes for T0016 at 2025-12-29; mark is stale
+no quotes for T0017 at 2025-12-29; mark is stale
+rule                           n   mean$            tradeCI             epCI   win  worst  total
+veto+seccorr (ref)            26   27.69 [  25.36,  32.44] [  17.3,  33.2]  0.96    -46    720
+veto+seccorr+trend>10%        12   22.21 [  15.25,  31.98] [   7.5,  33.9]  0.92    -46    266
+veto+seccorr+trend>7%         16   24.67 [  19.81,  32.36] [  13.6,  34.4]  0.94    -46    395
+veto+seccorr+trend>6%         20   25.55 [  23.50,  30.90] [  13.7,  32.0]  0.95    -46    511
+veto+seccorr+trend>3%         20   25.55 [  23.50,  30.90] [  13.7,  32.0]  0.95    -46    511
+veto+trend>10%                15   23.47 [  20.47,  32.20] [  11.4,  32.6]  0.93    -46    352
+veto+trend>7%                 19   25.53 [  22.54,  32.25] [  15.9,  33.3]  0.95    -46    485
+veto+trend>6%                 23   26.75 [  23.49,  31.55] [  16.4,  32.5]  0.96    -46    615
