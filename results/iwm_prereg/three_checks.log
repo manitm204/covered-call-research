@@ -1,0 +1,78 @@
+
+======================================================================
+SPY: n=417 mean=$-34.4 | breach rate 32.6%
+
+[1] LOSS FORENSICS (SPY) — mean$ / breach% / share of total losses
+  rebound window (dd<-10% in 60d) n=171 ( 41%)  mean=$  -74.4  breach=39.8%  loss_share=57.5%
+  no rebound window            n=246 ( 59%)  mean=$   -6.6  breach=27.6%  loss_share=42.5%
+  below MA200                  n= 95 ( 23%)  mean=$ -101.7  breach=42.1%  loss_share=38.5%
+  above MA200                  n=322 ( 77%)  mean=$  -14.6  breach=29.8%  loss_share=61.5%
+  RSI low tercile (<49)        n=139 ( 33%)  mean=$  -74.5  breach=37.4%  loss_share=47.9%
+  RSI mid tercile              n=139 ( 33%)  mean=$  -29.1  breach=32.4%  loss_share=30.8%
+  RSI high tercile (>65)       n=139 ( 33%)  mean=$    0.4  breach=28.1%  loss_share=21.3%
+  rebound AND below MA200      n= 83 ( 20%)  mean=$  -91.1  breach=43.4%  loss_share=31.4%
+  calm+extended (no reb, >MA200) n=234 ( 56%)  mean=$    2.1  breach=27.4%  loss_share=35.4%
+
+[2] VOL ECONOMICS (SPY) — by VIX tercile at entry
+  tercile                   n  credit$  breach% loss|breach$ mean pnl$
+  low (<16.1)             139     68.8    34.5%       -180.8     -18.4
+  mid (16.1-20.8)         139     84.1    24.5%       -299.6     -11.0
+  high (>20.8)            139     89.8    38.8%       -325.2     -73.9
+
+[3] REAL 0.15d STRIKE vs VIX-IMPLIED 1.2-SIGMA BAR (SPY)
+  strike distance: median +4.10% (IQR +3.50%..+5.04%)
+  vol-index bar:   median +6.22% (IQR +5.21%..+7.72%)
+  spearman(strike_dist, bar_dist) = 0.84
+  breach-vs-barBreach agreement: 75.5% | real-strike breach 32.6% vs bar breach 8.2%
+
+======================================================================
+QQQ: n=414 mean=$-46.8 | breach rate 33.6%
+
+[1] LOSS FORENSICS (QQQ) — mean$ / breach% / share of total losses
+  rebound window (dd<-10% in 60d) n=256 ( 62%)  mean=$  -66.3  breach=35.9%  loss_share=71.7%
+  no rebound window            n=158 ( 38%)  mean=$  -15.1  breach=29.7%  loss_share=28.3%
+  below MA200                  n= 89 ( 21%)  mean=$ -103.4  breach=39.3%  loss_share=31.9%
+  above MA200                  n=325 ( 79%)  mean=$  -31.3  breach=32.0%  loss_share=68.1%
+  RSI low tercile (<48)        n=138 ( 33%)  mean=$  -98.0  breach=36.2%  loss_share=49.0%
+  RSI mid tercile              n=138 ( 33%)  mean=$   -1.7  breach=28.3%  loss_share=21.2%
+  RSI high tercile (>66)       n=138 ( 33%)  mean=$  -40.6  breach=36.2%  loss_share=29.9%
+  rebound AND below MA200      n= 88 ( 21%)  mean=$  -95.0  breach=38.6%  loss_share=30.0%
+  calm+extended (no reb, >MA200) n=157 ( 38%)  mean=$   -9.8  breach=29.3%  loss_share=26.4%
+
+[2] VOL ECONOMICS (QQQ) — by VXN tercile at entry
+  tercile                   n  credit$  breach% loss|breach$ mean pnl$
+  low (<19.8)             138     73.3    34.8%       -239.2     -34.6
+  mid (19.8-25.8)         138     86.5    29.7%       -353.9     -44.8
+  high (>25.8)            138     88.2    36.2%       -316.1     -61.0
+
+[3] REAL 0.15d STRIKE vs VXN-IMPLIED 1.2-SIGMA BAR (QQQ)
+  strike distance: median +5.86% (IQR +4.99%..+7.07%)
+  vol-index bar:   median +7.74% (IQR +6.62%..+9.68%)
+  spearman(strike_dist, bar_dist) = 0.87
+  breach-vs-barBreach agreement: 82.9% | real-strike breach 33.6% vs bar breach 16.4%
+
+======================================================================
+IWM: n=401 mean=$-3.5 | breach rate 23.7%
+
+[1] LOSS FORENSICS (IWM) — mean$ / breach% / share of total losses
+  rebound window (dd<-10% in 60d) n=320 ( 80%)  mean=$   -8.7  breach=25.9%  loss_share=92.8%
+  no rebound window            n= 81 ( 20%)  mean=$   17.3  breach=14.8%  loss_share= 7.2%
+  below MA200                  n=146 ( 36%)  mean=$  -16.6  breach=31.5%  loss_share=51.0%
+  above MA200                  n=255 ( 64%)  mean=$    4.1  breach=19.2%  loss_share=49.0%
+  RSI low tercile (<46)        n=134 ( 33%)  mean=$  -11.8  breach=26.9%  loss_share=40.8%
+  RSI mid tercile              n=133 ( 33%)  mean=$    2.4  breach=23.3%  loss_share=27.9%
+  RSI high tercile (>60)       n=134 ( 33%)  mean=$   -1.0  breach=20.9%  loss_share=31.3%
+  rebound AND below MA200      n=146 ( 36%)  mean=$  -16.6  breach=31.5%  loss_share=51.0%
+  calm+extended (no reb, >MA200) n= 81 ( 20%)  mean=$   17.3  breach=14.8%  loss_share= 7.2%
+
+[2] VOL ECONOMICS (IWM) — by RVX tercile at entry
+  tercile                   n  credit$  breach% loss|breach$ mean pnl$
+  low (<21.8)             133     30.4    20.3%        -97.1       3.0
+  mid (21.8-26.4)         134     35.3    17.9%        -79.8      13.5
+  high (>26.4)            134     36.5    32.8%       -150.9     -26.8
+
+[3] REAL 0.15d STRIKE vs RVX-IMPLIED 1.2-SIGMA BAR (IWM)
+  strike distance: median +6.87% (IQR +5.81%..+7.70%)
+  vol-index bar:   median +8.21% (IQR +7.23%..+9.96%)
+  spearman(strike_dist, bar_dist) = 0.85
+  breach-vs-barBreach agreement: 87.8% | real-strike breach 23.7% vs bar breach 11.5%
