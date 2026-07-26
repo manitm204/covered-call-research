@@ -424,3 +424,85 @@ protocol neither WEAK may be promoted; the honest summary is "consistent
 with a small edge, and consistent with zero." Remaining unmined venues for
 a decisive test: XSP/SPX chains (needs index data tier) or forward paper
 trading; IWM is now burned for both rules.
+
+## Unified Rule v2 (2026-07-26): veto + per-ETF confirmations
+
+Successor to every prior mined gate. Unlike earlier rules, each leg here is
+supported by an INDEPENDENT 20-year price study (Spearman ICs on 2005+
+weekly data in a separate project: mean-return, breach, tail-size, and
+vol-normalized-return targets) and only then checked on our 2018-2026
+options panels. Still not validated forward — see caveats.
+
+### The veto (all ETFs — when NOT to sell)
+
+No entry if ANY of the following, computed on the underlying index
+(SPX/NDX/RUT) and own vol index (VIX/VXN/RVX), lagged >= 1 session:
+
+1. **Rebound window**: index closed >= 10% below its running high at any
+   point in the past 60 sessions. (The big one-month upside tails that
+   breach short calls are rebound rallies out of drawdowns — 20-yr breach
+   ICs; confirmed in our panels: rebound windows carry 58%/72%/93% of all
+   losses on SPY/QQQ/IWM.)
+2. **Below trend**: index under its 200-session MA.
+3. **High vol**: own vol index in its top tercile (2018-08..2026-07
+   terciles: VIX >= ~20.8, VXN >= ~25.8, RVX >= ~26.4). Rationale is loss
+   SEVERITY, not frequency: high-vol breaches lose ~2x more while credit
+   rises only ~30%.
+
+Veto split test (engine cap-2, weekly, base fills): veto-active trades
+lost -$64.71/spread on SPY (CI entirely negative, total -$6,342) and
+-$49.14 on QQQ (total -$5,700); veto-clear arms: SPY +$6.72, QQQ -$12.37,
+IWM +$18.12 (CI [+0.7,+31.5], the only standalone-positive arm).
+
+### Confirmations (when TO sell, within veto-clear windows)
+
+- **SPY**: sector_corr_60 < 0.45 AND ret_84d > 10%.
+  n=27, +$57.45/spread, epCI [+38.1,+78.2], win 89%, worst -$87.
+- **QQQ**: sector_corr_60 < 0.45 AND ret_84d > 10%; absorption_chg_20d < 0
+  is a useful additional check (with it: n=22, +$61.49, epCI [+34.2,+80.2],
+  worst -$125; without: n=28, +$43.71 but epCI spans zero).
+- **IWM**: sector_corr_60 < 0.45 only. n=26, +$27.69, epCI [+17.3,+33.2],
+  win 96%, worst -$46. RVX low is a useful additional check but largely
+  covered by the veto's vol leg. A trend condition is REDUNDANT on IWM:
+  every veto-clear + seccorr session already has ret_84d > +6% (the veto
+  clears only 14% of IWM sessions and its rebound/MA200 legs force an
+  uptrend); adding any trend threshold only shrinks n and total P&L.
+
+sector_corr_60 = mean pairwise 60-session correlation of the nine SPDR
+sector ETFs (the 60d variant, per the price study; stronger than our
+original 20d). ret_84d = 84-session index return ("4-month trend"). The
++10% cutoff sits at the ~70th percentile of veto-clear r84 on both SPX and
+RUT (53rd on NDX) — frequency-fair across instruments, not tuned.
+
+### Structure (unchanged from the frozen tests)
+
+~0.15 delta short call, width ~1-1.3% of spot ($8 SPY, $8 QQQ, $3 IWM; the
+QQQ prereg width), ~30 DTE, weekly entry checks, hold to expiry, max 2
+open, 1 contract per entry, American/physical with dividend calendars.
+Expect roughly 3-4 entries/yr/ETF; credits ~$70-80 (SPY/QQQ), ~$30 (IWM).
+
+### Why this one is different from (and replaces) the earlier mined rules
+
+The SPY RSI rule (failed QQQ prereg), the QQQ mature-trend rule and the
+IWM beta rule (both mined) are RETIRED. The v2 legs were each selected by
+the external study BEFORE being tested here: rebound danger (breach ICs),
+sector-corr and trend (top vol-normalized ICs), vol veto (severity
+decomposition), RSI demoted (weak after normalization; on our panels it
+only shrinks n), beta dropped (dead on 20-yr tail targets; its IWM
+backtest showing was a small-sample artifact). IC bridge test: all 21
+factor rows (7 factors x 3 ETFs) had the price-study "good side" beat the
+bad side in mean $/spread on the real options panels.
+
+### Caveats (unchanged in kind)
+
+All three chain datasets are burned; the confirmation-layer ablation was
+~128 more comparisons on them, and the veto's rebound definition (10%/60d)
+was informed by the same panels it was then tested on. The 100%-win cells
+in the IWM ablation are selection artifacts (n=15-20 subsets that dodge
+every loser). Numbers above are optimistic by construction. The ONLY
+remaining honest validation is forward: paper-trade this exact rule set,
+frozen verbatim, on all three ETFs (and XSP if the index data tier is ever
+added). Provenance: scripts/veto_split_test.py, scripts/ic_bridge_test.py,
+scripts/confirm_ablation.py, results/iwm_prereg/{veto_split,ic_bridge,
+confirm_ablation,iwm_trend_threshold,three_checks}.log and
+confirm_ablation_*.jsonl.
