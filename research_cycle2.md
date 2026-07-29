@@ -98,11 +98,13 @@ combination becomes interesting only after individual sleeves earn forward
      rather than equity-level recovery) — pre-register the amendment first.
    - Paper trade the **three-sleeve combination at reduced size** (e.g. half
      budgets: 5% + 5% + 1 CSP) alongside, to collect forward correlation data.
-   - Next data directions with actual promise (not yet pulled): dealer-positioning
-     proxies (OCC put/call OI ratios per underlying — derivable from existing
-     chain OI fields), realized dispersion from the 9 sector ETFs vs index vol
-     (a correlation-risk-premium proxy), and intraday-to-close return splits
-     (needs a second daily snapshot per session from ThetaData).
+   - Two of the queued data ideas were tested before closing the cycle, and both
+     also failed: the **correlation-risk-premium proxy** (sector 21d-return
+     dispersion / SPY RV21, 2000–17 terciles: high-dispersion +0.88% vs +0.55%
+     unconditional, CI90 [−0.35, +0.93] → fail) and the **put/call OI ratio**
+     built from the QQQ chains (train IC +0.03, CI spans zero, validation
+     unstable → fail). The remaining untested direction is intraday-to-close
+     return splits, which needs a second daily ThetaData snapshot per session.
 4. Deployment recommendation: **unchanged — no live capital**. The honest
    baseline for the $10k remains the ~4% money-market core until forward
    evidence exists.
