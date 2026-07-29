@@ -1,0 +1,46 @@
+{
+  "hypothesis": "H5",
+  "symbol": "SLV",
+  "scenario": "base",
+  "params": {
+    "target_delta": -0.25,
+    "dte_target": 35,
+    "dte_lo": 25,
+    "dte_hi": 50,
+    "profit_take": 0.5,
+    "manage_dte": 7,
+    "budget_frac": 0.8
+  },
+  "partition": "holdout",
+  "start": "2025-01-01",
+  "end": "2026-07-22",
+  "metrics": {
+    "start": "2025-01-02",
+    "end": "2026-07-21",
+    "sessions": 248,
+    "final_equity": 11159.73,
+    "total_return": 0.1161,
+    "cagr": 0.0736,
+    "ann_vol": 0.2124,
+    "sharpe": 0.45,
+    "sortino": 0.4,
+    "max_drawdown": -0.1949,
+    "calmar": 0.38,
+    "longest_dd_sessions": 39,
+    "worst_day": -0.0761,
+    "worst_week": -0.0745,
+    "worst_month": -0.118
+  },
+  "trade_metrics": {
+    "n_trades": 31,
+    "win_rate": 1.0,
+    "avg_win": 77.13,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 77.13,
+    "total_pnl": 2390.95,
+    "worst_trade": 12.1,
+    "best_trade": 335.1,
+    "median_holding_days": 12.0
+  }
+}

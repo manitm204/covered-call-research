@@ -1,0 +1,46 @@
+{
+  "hypothesis": "H5",
+  "symbol": "SLV",
+  "scenario": "base",
+  "params": {
+    "target_delta": -0.25,
+    "dte_target": 35,
+    "dte_lo": 25,
+    "dte_hi": 50,
+    "profit_take": 0.5,
+    "manage_dte": 7,
+    "budget_frac": 0.8
+  },
+  "partition": "valid",
+  "start": "2023-01-01",
+  "end": "2024-12-31",
+  "metrics": {
+    "start": "2023-01-03",
+    "end": "2024-12-26",
+    "sessions": 324,
+    "final_equity": 11332.62,
+    "total_return": 0.1334,
+    "cagr": 0.0653,
+    "ann_vol": 0.0442,
+    "sharpe": 1.1,
+    "sortino": 1.41,
+    "max_drawdown": -0.0248,
+    "calmar": 2.63,
+    "longest_dd_sessions": 42,
+    "worst_day": -0.0121,
+    "worst_week": -0.0141,
+    "worst_month": -0.0098
+  },
+  "trade_metrics": {
+    "n_trades": 27,
+    "win_rate": 1.0,
+    "avg_win": 22.82,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 22.82,
+    "total_pnl": 616.2,
+    "worst_trade": 7.1,
+    "best_trade": 71.55,
+    "median_holding_days": 21.0
+  }
+}

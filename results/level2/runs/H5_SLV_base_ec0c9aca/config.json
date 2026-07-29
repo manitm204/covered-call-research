@@ -1,0 +1,46 @@
+{
+  "hypothesis": "H5",
+  "symbol": "SLV",
+  "scenario": "base",
+  "params": {
+    "target_delta": -0.2,
+    "dte_target": 35,
+    "dte_lo": 25,
+    "dte_hi": 50,
+    "profit_take": 1.1,
+    "manage_dte": 7,
+    "budget_frac": 0.8
+  },
+  "partition": "train",
+  "start": "2018-08-01",
+  "end": "2022-12-31",
+  "metrics": {
+    "start": "2018-08-06",
+    "end": "2022-12-29",
+    "sessions": 775,
+    "final_equity": 11329.63,
+    "total_return": 0.133,
+    "cagr": 0.0288,
+    "ann_vol": 0.0508,
+    "sharpe": 0.63,
+    "sortino": 0.73,
+    "max_drawdown": -0.0615,
+    "calmar": 0.47,
+    "longest_dd_sessions": 310,
+    "worst_day": -0.0252,
+    "worst_week": -0.0314,
+    "worst_month": -0.0289
+  },
+  "trade_metrics": {
+    "n_trades": 33,
+    "win_rate": 1.0,
+    "avg_win": 25.82,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 25.82,
+    "total_pnl": 851.95,
+    "worst_trade": 7.85,
+    "best_trade": 71.05,
+    "median_holding_days": 32.0
+  }
+}

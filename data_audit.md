@@ -139,8 +139,12 @@ long-option strategies survive realistic fills only if expected edges are well a
   endpoints in 4-year chunks.
 - **ThetaData chains for XLF, SLV, EWZ** (2018-08→2026-07-28, 15:30 ET NBBO,
   max DTE 70 — same pipeline and format as SPY/QQQ/IWM): for the H5 cash-secured-put
-  wheel hypothesis, the only premium-selling family fundable at $10k. Quality audit
-  appended after the pull completes.
+  wheel hypothesis, the only premium-selling family fundable at $10k. Quality
+  (sampled): zero crossed quotes in all three; median relative spread (quotes with
+  mid ≥ $0.05): XLF ~2.7%, SLV ~1.5%, EWZ ~4.2% — wider than the big-three ETFs,
+  which is why wheel results are always read at conservative/stress fills. EWZ
+  post-2022 months completed after the backtests ran (train grid used 2018–2022;
+  EWZ was not promoted, so no further runs needed).
 
 ## 9. Contamination disclosure (critical for research design)
 

@@ -1,0 +1,46 @@
+{
+  "hypothesis": "H5",
+  "symbol": "EWZ",
+  "scenario": "base",
+  "params": {
+    "target_delta": -0.3,
+    "dte_target": 35,
+    "dte_lo": 25,
+    "dte_hi": 50,
+    "profit_take": 0.5,
+    "manage_dte": 7,
+    "budget_frac": 0.8
+  },
+  "partition": "train",
+  "start": "2018-08-01",
+  "end": "2022-12-31",
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2022-12-29",
+    "sessions": 916,
+    "final_equity": 11569.95,
+    "total_return": 0.1571,
+    "cagr": 0.0336,
+    "ann_vol": 0.1097,
+    "sharpe": 0.32,
+    "sortino": 0.39,
+    "max_drawdown": -0.1728,
+    "calmar": 0.19,
+    "longest_dd_sessions": 272,
+    "worst_day": -0.0415,
+    "worst_week": -0.0858,
+    "worst_month": -0.1213
+  },
+  "trade_metrics": {
+    "n_trades": 24,
+    "win_rate": 1.0,
+    "avg_win": 56.3,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 56.3,
+    "total_pnl": 1351.3,
+    "worst_trade": 32.85,
+    "best_trade": 88.8,
+    "median_holding_days": 27.0
+  }
+}

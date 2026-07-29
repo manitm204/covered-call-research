@@ -1,3 +1,4 @@
 Unlocked 2026-07-29 after G3 PASS on validation (spec frozen at commit e411fdd).
 Single use: TG-CER QQQ frozen spec, scenarios base/conservative/optimistic.
 Result to be recorded verbatim regardless of outcome.
+2026-07-29: SLV wheel backup (frozen at bb46cbf) holdout single-use run authorized after G3 pass.

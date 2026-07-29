@@ -124,14 +124,26 @@ call held to expiry, made structurally impossible by the ≤5-DTE rule). Orders:
 single-leg day-limit orders, ~15:15–15:45 ET, ~9/year. Required cash: premium ≤10%
 of equity + $0.65/contract; ≥85% of the account never leaves the money-market core.
 
-## 5. Backup candidate status (H5 wheel, XLF/SLV/EWZ)
+## 5. Backup candidate: H5 CSP wheel (XLF/SLV/EWZ) — completed, also G5 FAIL
 
-XLF train (2018–2022): CAGR +2.2–3.4%, Sharpe ≤0.54, maxDD ~−11% across the 6-cell
-grid — economically "T-bills + ~2%/yr" from ~57% collateral utilization; assignment
-mechanics (COVID 2020) handled and survivable. This does not clear the promotion
-bar on its own. SLV/EWZ chains (higher IV, fatter premiums) were still downloading
-at report time; their grids will be appended to `candidate_results.csv` and this
-section when complete. Until then **no backup strategy is recommended**.
+Train grids (2018–2022, 6 cells each): **XLF** +2.2–3.4% CAGR, Sharpe ≤0.54
+("T-bills+2%"); **EWZ** Sharpe ≤0.36 with −16..−21% DD (fat premium, fatter tail
+— rejected); **SLV** all 6 cells positive, Sharpe 0.63–0.93, maxDD −4.5..−6.4%,
+stress-fill-robust. The SLV class-default cell (−0.25Δ / 35 DTE / 50% profit-take
+/ manage at 7 DTE — deliberately not the train argmax) was **pre-registered at
+commit `bb46cbf`** and then evaluated once per partition:
+
+| SLV wheel (frozen) | base | conservative | stress |
+|---|---|---|---|
+| Validation 2023–24 | +6.5%/yr, Sharpe 1.10, DD −2.5% | +7.6%/yr | — |
+| **Holdout 2025–26** | +7.4%/yr, **DD −19.5%** | +6.6%/yr, DD −19.7% | **−4.0%/yr**, DD −22.5% |
+
+Verdict (verbatim, no tuning): **G5 FAIL on drawdown consistency** — holdout DD
+−19.5% vs the pre-set limit of −9.6% (1.5× the train+validation worst). The
+declared failure mode fired in-sample-free data: puts sold on silver at ~$50 after
+a historic run-up were assigned into the 2026 correction, and the wheel rode the
+stock down with covered calls capped below basis. Stress fills flip the holdout
+negative. The wheel is documented, not recommended.
 
 ## 6. Final recommendation
 
@@ -150,8 +162,9 @@ section when complete. Until then **no backup strategy is recommended**.
    spec and paper trade it forward 6–12 months** (`scripts/tg_cer_signal.py` is the
    generator; protocol in the checklist §9). Forward data is the only unmined
    sample left for QQQ.
-3. Do **not** trade the wheel for yield at XLF-like premium levels; revisit only if
-   SLV/EWZ change the picture materially.
+3. Do **not** trade the wheel: XLF-level premiums are too thin to matter, EWZ's
+   tail is too fat, and SLV — the best of the family — demonstrated the
+   assignment-drawdown failure mode in its own holdout (§5).
 4. A negative-but-honest bottom line for today's $10k: hold the cash at ~4% in the
    core fund while the paper-trading evidence accumulates. That is the standard
    every options strategy here had to beat, and none has yet done so out-of-sample.
