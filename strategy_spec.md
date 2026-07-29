@@ -131,3 +131,29 @@ Train 2018-08→2022-12, base fills, $10k: CAGR 13.9%, Sharpe 0.75, maxDD −20.
 Conservative fills: CAGR 13.6%. Stress: 12.2%. All 18 parameter-neighborhood
 cells positive. QQQ B&H same window: CAGR ≈ 12.4%, maxDD −35%. Runs recorded in
 `experiment_log.csv`; artifacts under `results/level2/`.
+
+---
+
+# Backup strategy specification — SLV cash-secured put wheel (pre-registered 2026-07-29)
+
+**STATUS: frozen before its validation/holdout runs.** Chosen as the H5Wheel class
+defaults (not the train argmax); all 6 SLV train cells were positive (Sharpe
+0.63–0.93), and the rule survives stress fills (+2.5% CAGR vs +2.9% base;
+T-bill baseline ~1.5% in the same window).
+
+Rules: while holding no SLV shares and no short put, sell 1 cash-secured SLV put,
+expiry nearest 35 DTE in [25,50], delta closest to −0.25 (local BS delta from the
+quote mid), quote filters as primary spec; collateral = strike × 100 ≤ 80% of
+equity (else no trade). Buy it back at 50% of the credit, or at ≤ $0.10 with ≤ 7
+DTE; otherwise take assignment. When assigned, sell ~0.25Δ covered calls (same
+DTE band) at strikes ≥ cost basis; let shares be called away; repeat. Dividends:
+none (SLV pays none). Early assignment modeled/expected when a short put's
+extrinsic < $0.03. Fidelity permission: Level 1 (covered calls) + Level 2
+(cash-secured puts). Fresh-$10k fundability at 2026 prices: ~$4.5–5k collateral ✓.
+
+Train record (2018-08→2022-12, $10k): base +2.9%/yr, Sharpe 0.70, maxDD −5.8%,
+41 trades; conservative +2.8%; stress +2.5%. Economic role: harvest the put-side
+variance risk premium on a hard asset, uncorrelated with the primary's equity
+trend exposure. Failure mode: sustained silver bear (assigned above market,
+covered calls capped below basis) and premium too thin to beat T-bills in
+high-rate/low-IV regimes.
