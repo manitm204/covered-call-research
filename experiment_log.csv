@@ -310,3 +310,25 @@ exp_id,timestamp_utc,hypothesis,partition,underlying,config,scenario,n,metric,va
 309,2026-07-29T20:21:28+00:00,H14_crp,preval_2000_2017,SPY,low_dispersion_tercile_h21,n/a,1351,fwd_mean_diff_pct,-0.343,-1.366,0.728,fail,"sector 21d return dispersion / SPY RV21, rolling terciles"
 310,2026-07-29T20:21:43+00:00,H15_pcoi,train+valid,QQQ,pc_oi_h21,n/a,1035,spearman_ic,0.025,-0.161,0.16,fail,"valid IC -0.482; from chain OI, no pre-2018 data available"
 311,2026-07-29T20:21:44+00:00,H15_pcoi,train+valid,QQQ,pc_oi_z60_h21,n/a,1035,spearman_ic,-0.012,-0.217,0.141,fail,"valid IC -0.261; from chain OI, no pre-2018 data available"
+312,2026-07-29T21:05:19+00:00,H16_whipsaw_tree,train+valid_purgedCV,QQQ,depth2,n/a,1615,oof_brier_minus_base,-0.0016,,,PASS,whipsaw base rate 0.038
+313,2026-07-29T21:05:19+00:00,H16_whipsaw_tree,train+valid_purgedCV,QQQ,depth3,n/a,1615,oof_brier_minus_base,-0.0016,,,PASS,whipsaw base rate 0.038
+314,2026-07-29T21:05:45+00:00,H16_flip_tree,train+valid_purgedCV,QQQ,depth2_ge1flip,n/a,1615,oof_brier_minus_base,-0.0092,,,PASS,base rate 0.102
+315,2026-07-29T21:05:45+00:00,H16_flip_tree,train+valid_purgedCV,QQQ,depth3_ge1flip,n/a,1615,oof_brier_minus_base,-0.0058,,,PASS,base rate 0.102
+316,2026-07-29T21:07:30+00:00,H17_xasset_mom,preval_2007_2017,18ETF+4sect,12-1mom_top3_aboveMA200_h21,n/a,496,fwd_mean_diff_pct,0.414,-0.53,1.253,fail,"weekly sampling, universe avg as control"
+317,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2005-2017,9 sector ETFs,opm4_yoy_med->rel_fwd21,n/a,156,mean_xsec_IC,-0.02,,,fail,t=-0.42; survivorship caveat
+318,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2018-2024,9 sector ETFs,opm4_yoy_med->rel_fwd21,n/a,84,mean_xsec_IC,-0.01,,,fail,t=-0.16; survivorship caveat
+319,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2005-2017,9 sector ETFs,opm4_yoy_med->rel_fwd63,n/a,156,mean_xsec_IC,-0.032,,,fail,t=-0.67; survivorship caveat
+320,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2018-2024,9 sector ETFs,opm4_yoy_med->rel_fwd63,n/a,84,mean_xsec_IC,0.022,,,fail,t=+0.31; survivorship caveat
+321,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2005-2017,9 sector ETFs,margin_breadth->rel_fwd21,n/a,156,mean_xsec_IC,-0.024,,,fail,t=-0.52; survivorship caveat
+322,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2018-2024,9 sector ETFs,margin_breadth->rel_fwd21,n/a,84,mean_xsec_IC,-0.008,,,fail,t=-0.12; survivorship caveat
+323,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2005-2017,9 sector ETFs,margin_breadth->rel_fwd63,n/a,156,mean_xsec_IC,-0.026,,,fail,t=-0.59; survivorship caveat
+324,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2018-2024,9 sector ETFs,margin_breadth->rel_fwd63,n/a,84,mean_xsec_IC,-0.008,,,fail,t=-0.12; survivorship caveat
+325,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2005-2017,9 sector ETFs,mom6->rel_fwd21,n/a,156,mean_xsec_IC,-0.026,,,fail,t=-0.51; survivorship caveat
+326,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2018-2024,9 sector ETFs,mom6->rel_fwd21,n/a,84,mean_xsec_IC,0.004,,,fail,t=+0.07; survivorship caveat
+327,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2005-2017,9 sector ETFs,mom6->rel_fwd63,n/a,156,mean_xsec_IC,-0.006,,,fail,t=-0.11; survivorship caveat
+328,2026-07-29T21:09:33+00:00,H18_sector_margin,panel_2018-2024,9 sector ETFs,mom6->rel_fwd63,n/a,84,mean_xsec_IC,0.043,,,fail,t=+0.70; survivorship caveat
+329,2026-07-29T21:09:56+00:00,H18b_margin_tree,panel_2005_2024_purgedCV,9 sector ETFs,depth3_pooled_panel,n/a,2160,oof_brier_minus_base,0.0028,,,fail,"interaction test on {margin_yoy, breadth, mom6}"
+330,2026-07-29T21:10:24+00:00,H18c_mkt_margin,2005-2017,SPY,mkt_margin_yoy->fwd21,n/a,156,spearman_ic,-0.054,,,fail,market-level aggregate; survivorship caveat
+331,2026-07-29T21:10:24+00:00,H18c_mkt_margin,2018-2024,SPY,mkt_margin_yoy->fwd21,n/a,84,spearman_ic,-0.13,,,fail,market-level aggregate; survivorship caveat
+332,2026-07-29T21:10:24+00:00,H18c_mkt_margin,2005-2017,SPY,mkt_margin_breadth->fwd21,n/a,156,spearman_ic,-0.064,,,fail,market-level aggregate; survivorship caveat
+333,2026-07-29T21:10:24+00:00,H18c_mkt_margin,2018-2024,SPY,mkt_margin_breadth->fwd21,n/a,84,spearman_ic,-0.146,,,fail,market-level aggregate; survivorship caveat

@@ -90,6 +90,7 @@ class H2TrendCalls:
     band: float = 0.01  # hysteresis band around the 200d MA
     extra_lag: int = 0  # additional sessions of signal delay (timing robustness)
     affordable_floor: float | None = None  # e.g. 0.30: walk delta down to fit budget
+    use_brake: bool = False  # spec §4 drawdown brake (budget x ctx.brake_mult)
 
     def on_session(self, ctx: Ctx) -> list[Order]:
         orders: list[Order] = []
@@ -120,6 +121,10 @@ class H2TrendCalls:
         if len(held_after) >= self.max_positions or not trend_on_entry:
             return orders
         budget = self.budget_pct * _equity_now(ctx)
+        if self.use_brake:
+            budget *= ctx.brake_mult
+            if budget <= 0:
+                return orders
         if self.affordable_floor is not None:
             from .selection import pick_affordable_call
             c = pick_affordable_call(ctx.chain, ctx.spot, ctx.session, ctx.rate,
@@ -227,6 +232,10 @@ class H5Wheel:
     manage_dte: int = 7  # buy back short with dte <= this if OTM-cheap, else let assign
     cc_min_strike_rel_basis: float = 1.0  # covered call strike >= basis
     budget_frac: float = 0.60  # max collateral as fraction of equity
+    earnings_dates: frozenset = frozenset()  # skip new shorts spanning a report
+
+    def _spans_earnings(self, session, expiration) -> bool:
+        return any(session < d <= expiration for d in self.earnings_dates)
 
     def on_session(self, ctx: Ctx) -> list[Order]:
         from .engine import BuyToCloseShort  # local import to avoid cycle noise
@@ -259,6 +268,7 @@ class H5Wheel:
             c = pick_by_delta(ctx.chain, ctx.spot, ctx.session, ctx.rate, option_type="P",
                               target_delta=self.target_delta, dte_target=self.dte_target,
                               dte_lo=self.dte_lo, dte_hi=self.dte_hi, for_sell=True)
-            if c is not None and c.strike * 100 <= self.budget_frac * eq:
+            if (c is not None and c.strike * 100 <= self.budget_frac * eq
+                    and not self._spans_earnings(ctx.session, c.expiration)):
                 orders.append(SellPutToOpen(c, 1, tag="wheel_csp"))
         return orders
