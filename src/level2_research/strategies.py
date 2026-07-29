@@ -89,6 +89,7 @@ class H2TrendCalls:
     max_positions: int = 1
     band: float = 0.01  # hysteresis band around the 200d MA
     extra_lag: int = 0  # additional sessions of signal delay (timing robustness)
+    affordable_floor: float | None = None  # e.g. 0.30: walk delta down to fit budget
 
     def on_session(self, ctx: Ctx) -> list[Order]:
         orders: list[Order] = []
@@ -118,12 +119,22 @@ class H2TrendCalls:
                       if (acct.long_options[pid].contract.expiration - ctx.session).days > self.roll_dte]
         if len(held_after) >= self.max_positions or not trend_on_entry:
             return orders
-        c = pick_by_delta(ctx.chain, ctx.spot, ctx.session, ctx.rate, option_type="C",
-                          target_delta=self.target_delta, dte_target=self.dte_target,
-                          dte_lo=self.dte_lo, dte_hi=self.dte_hi)
+        budget = self.budget_pct * _equity_now(ctx)
+        if self.affordable_floor is not None:
+            from .selection import pick_affordable_call
+            c = pick_affordable_call(ctx.chain, ctx.spot, ctx.session, ctx.rate,
+                                     budget=budget, fee=0.70,
+                                     delta_hi=self.target_delta + 0.12,
+                                     delta_lo=self.affordable_floor,
+                                     dte_target=self.dte_target, dte_lo=self.dte_lo,
+                                     dte_hi=self.dte_hi, prefer_delta=self.target_delta)
+        else:
+            c = pick_by_delta(ctx.chain, ctx.spot, ctx.session, ctx.rate, option_type="C",
+                              target_delta=self.target_delta, dte_target=self.dte_target,
+                              dte_lo=self.dte_lo, dte_hi=self.dte_hi)
         if c is None:
             return orders
-        n = _contracts_for_budget(self.budget_pct * _equity_now(ctx), c.ask, 0.70)
+        n = _contracts_for_budget(budget, c.ask, 0.70)
         if n >= 1:
             orders.append(BuyToOpen(c, n, tag="h2_entry"))
         return orders

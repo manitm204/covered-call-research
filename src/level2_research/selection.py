@@ -102,6 +102,35 @@ def pick_by_delta(chain: pd.DataFrame, spot: float, session: date, rate: float, 
                     float(row.open_interest or 0))
 
 
+def pick_affordable_call(chain: pd.DataFrame, spot: float, session: date, rate: float, *,
+                         budget: float, fee: float, delta_hi: float, delta_lo: float,
+                         dte_target: int, dte_lo: int, dte_hi: int,
+                         prefer_delta: float) -> Contract | None:
+    """Highest-delta call within [delta_lo, delta_hi] whose ask-side cost fits the
+    budget; among equally affordable, the one nearest prefer_delta from above.
+    Deterministic. Used by the small-account variant where the preferred delta's
+    premium can exceed the per-position budget."""
+    c = eligible(chain, "C", dte_lo, dte_hi)
+    c = _nearest_expiry_pool(c, dte_target)
+    c = c[(c.strike >= 0.75 * spot) & (c.strike <= 1.18 * spot) & (c.mid >= 0.05)]
+    if not len(c):
+        return None
+    cands = []
+    for row in c.sort_values("strike").itertuples():
+        d, iv = _delta_iv(row, spot, session, rate)
+        if d is None or not (delta_lo - 1e-9 <= d <= delta_hi + 1e-9):
+            continue
+        if row.ask * 100 + fee > budget:
+            continue
+        cands.append((d, row, iv))
+    if not cands:
+        return None
+    cands.sort(key=lambda x: (-x[0], x[1].strike))  # highest delta first
+    d, row, iv = cands[0]
+    return Contract(row.expiration, float(row.strike), "C", float(row.bid), float(row.ask),
+                    float(row.mid), int(row.dte), d, iv, float(row.open_interest or 0))
+
+
 def lookup(chain: pd.DataFrame, expiration: date, strike: float, option_type: str) -> Contract | None:
     c = chain[(chain.expiration == expiration) & (chain.strike == strike)
               & (chain.option_type == option_type)]
