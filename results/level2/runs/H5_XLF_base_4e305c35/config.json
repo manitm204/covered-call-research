@@ -1,0 +1,46 @@
+{
+  "hypothesis": "H5",
+  "symbol": "XLF",
+  "scenario": "base",
+  "params": {
+    "target_delta": -0.25,
+    "dte_target": 35,
+    "dte_lo": 25,
+    "dte_hi": 50,
+    "profit_take": 1.1,
+    "manage_dte": 7,
+    "budget_frac": 0.8
+  },
+  "partition": "train",
+  "start": "2018-08-01",
+  "end": "2022-12-31",
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2022-12-28",
+    "sessions": 862,
+    "final_equity": 11480.83,
+    "total_return": 0.1482,
+    "cagr": 0.0319,
+    "ann_vol": 0.0651,
+    "sharpe": 0.49,
+    "sortino": 0.55,
+    "max_drawdown": -0.1024,
+    "calmar": 0.31,
+    "longest_dd_sessions": 160,
+    "worst_day": -0.0223,
+    "worst_week": -0.0319,
+    "worst_month": -0.0439
+  },
+  "trade_metrics": {
+    "n_trades": 35,
+    "win_rate": 1.0,
+    "avg_win": 31.52,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 31.52,
+    "total_pnl": 1103.35,
+    "worst_trade": 15.55,
+    "best_trade": 57.85,
+    "median_holding_days": 34.0
+  }
+}

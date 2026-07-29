@@ -1,0 +1,48 @@
+{
+  "hypothesis": "H2",
+  "symbol": "QQQ",
+  "scenario": "base",
+  "params": {
+    "target_delta": 0.5,
+    "dte_target": 60,
+    "dte_lo": 40,
+    "dte_hi": 70,
+    "roll_dte": 21,
+    "budget_pct": 0.1,
+    "band": 0.01,
+    "affordable_floor": 0.3,
+    "use_brake": true
+  },
+  "partition": "holdout",
+  "start": "2025-01-01",
+  "end": "2026-07-22",
+  "metrics": {
+    "start": "2025-01-02",
+    "end": "2026-07-22",
+    "sessions": 386,
+    "final_equity": 9876.33,
+    "total_return": -0.0121,
+    "cagr": -0.0078,
+    "ann_vol": 0.232,
+    "sharpe": -0.09,
+    "sortino": -0.09,
+    "max_drawdown": -0.204,
+    "calmar": -0.04,
+    "longest_dd_sessions": 180,
+    "worst_day": -0.0846,
+    "worst_week": -0.1046,
+    "worst_month": -0.1279
+  },
+  "trade_metrics": {
+    "n_trades": 8,
+    "win_rate": 0.375,
+    "avg_win": 496.6,
+    "avg_loss": -437.5,
+    "profit_factor": 0.68,
+    "ev_per_trade": -87.21,
+    "total_pnl": -697.7,
+    "worst_trade": -680.15,
+    "best_trade": 525.35,
+    "median_holding_days": 37.5
+  }
+}

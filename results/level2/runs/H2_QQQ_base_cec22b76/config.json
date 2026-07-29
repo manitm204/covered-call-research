@@ -1,0 +1,47 @@
+{
+  "hypothesis": "H2",
+  "symbol": "QQQ",
+  "scenario": "base",
+  "params": {
+    "target_delta": 0.4,
+    "dte_target": 45,
+    "dte_lo": 25,
+    "dte_hi": 55,
+    "roll_dte": 14,
+    "budget_pct": 0.1,
+    "band": 0.01,
+    "extra_lag": 0
+  },
+  "partition": "train",
+  "start": "2018-08-01",
+  "end": "2022-12-31",
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2022-12-30",
+    "sessions": 1094,
+    "final_equity": 19580.43,
+    "total_return": 0.959,
+    "cagr": 0.1646,
+    "ann_vol": 0.2391,
+    "sharpe": 0.72,
+    "sortino": 0.84,
+    "max_drawdown": -0.2954,
+    "calmar": 0.56,
+    "longest_dd_sessions": 328,
+    "worst_day": -0.0755,
+    "worst_week": -0.0971,
+    "worst_month": -0.1404
+  },
+  "trade_metrics": {
+    "n_trades": 40,
+    "win_rate": 0.525,
+    "avg_win": 1067.12,
+    "avg_loss": -708.18,
+    "profit_factor": 1.67,
+    "ev_per_trade": 223.85,
+    "total_pnl": 8954.1,
+    "worst_trade": -1500.8,
+    "best_trade": 5112.3,
+    "median_holding_days": 29.0
+  }
+}

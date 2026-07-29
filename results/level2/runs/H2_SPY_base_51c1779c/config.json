@@ -1,0 +1,47 @@
+{
+  "hypothesis": "H2",
+  "symbol": "SPY",
+  "scenario": "base",
+  "params": {
+    "target_delta": 0.6,
+    "dte_target": 45,
+    "dte_lo": 25,
+    "dte_hi": 55,
+    "roll_dte": 21,
+    "budget_pct": 0.1,
+    "band": 0.01,
+    "extra_lag": 0
+  },
+  "partition": "train",
+  "start": "2018-08-01",
+  "end": "2022-12-31",
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2022-12-30",
+    "sessions": 1105,
+    "final_equity": 13522.66,
+    "total_return": 0.3525,
+    "cagr": 0.0708,
+    "ann_vol": 0.1606,
+    "sharpe": 0.44,
+    "sortino": 0.48,
+    "max_drawdown": -0.2175,
+    "calmar": 0.33,
+    "longest_dd_sessions": 295,
+    "worst_day": -0.0708,
+    "worst_week": -0.0645,
+    "worst_month": -0.1106
+  },
+  "trade_metrics": {
+    "n_trades": 45,
+    "win_rate": 0.533,
+    "avg_win": 552.53,
+    "avg_loss": -489.04,
+    "profit_factor": 1.29,
+    "ev_per_trade": 66.46,
+    "total_pnl": 2990.85,
+    "worst_trade": -1388.9,
+    "best_trade": 2269.1,
+    "median_holding_days": 21.0
+  }
+}

@@ -112,3 +112,42 @@ in `data/manifests/`.
 - Providers are queried strictly as-of; a regression test asserts the engine's query
   stream never moves backward or beyond the simulation clock.
 - Interest income is ledgered separately from trading P&L and never mixed into it.
+
+---
+
+## Level-2 research program (2026-07: long options / CSP wheel, $10k account)
+
+A second, self-contained research program lives alongside the (retired) spread
+framework: `src/level2_research/` + `scripts/l2_*.py`. It targets a $10,000
+Fidelity account with options Level 1–2 only (no spreads). Start here:
+
+- `research_plan.md` — partitions, hypotheses, execution model, decision gates
+- `data_audit.md` — what the data is and is not (incl. new XLF/SLV/EWZ chains)
+- `strategy_spec.md` — the frozen TG-CER rule (trend-gated QQQ calls)
+- `final_report.md` — full results; holdout verdict; recommendation
+- `fidelity_execution_checklist.md` — operational checklist + paper-trade protocol
+- `experiment_log.csv`, `candidate_results.csv` — complete run ledger
+
+### Reproduce
+
+```bash
+pip install -e ".[dev]"; pytest tests/test_level2_engine.py    # engine unit tests
+# price history (needs FMP_API_KEY in .env):
+python -m level2_research.fmp
+# G1 signal pre-validation on 2000-2017:
+python scripts/l2_signal_prevalidation.py
+# coarse train grid (H1/H2/H4/BENCH x SPY/QQQ/IWM, ~25 min on 10 cores):
+python scripts/l2_run_experiments.py --all --partition train
+# H2 robustness suite:
+python scripts/l2_robustness.py QQQ
+# wheel grid (needs XLF/SLV/EWZ chains under data/normalized/options/):
+python scripts/l2_run_experiments.py --wheel --partition train
+# validation/holdout of the frozen spec: see scripts/l2_run_experiments.py
+#   (holdout is guarded by results/level2/HOLDOUT_UNLOCKED)
+# daily paper-trading signal:
+python scripts/tg_cer_signal.py --equity 10000
+```
+
+Chain pulls for new underlyings use the existing adapter:
+`python -m xsp_research.cli pull-thetadata --symbol XLF --start 2018-08-01
+--end 2026-07-28 --snapshot 15:30:00 --max-dte 70 -o data/normalized/options/xlf`.

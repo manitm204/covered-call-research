@@ -1,0 +1,47 @@
+{
+  "hypothesis": "H1",
+  "symbol": "IWM",
+  "scenario": "base",
+  "params": {
+    "dd_thresh": 0.12,
+    "confirm_ret5": 0.02,
+    "target_delta": 0.5,
+    "dte_target": 60,
+    "dte_lo": 45,
+    "dte_hi": 80,
+    "hold_days": 60,
+    "budget_pct": 0.1
+  },
+  "partition": "train",
+  "start": "2018-08-01",
+  "end": "2022-12-31",
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2022-12-30",
+    "sessions": 1089,
+    "final_equity": 11692.59,
+    "total_return": 0.1693,
+    "cagr": 0.0361,
+    "ann_vol": 0.1871,
+    "sharpe": 0.23,
+    "sortino": 0.25,
+    "max_drawdown": -0.2264,
+    "calmar": 0.16,
+    "longest_dd_sessions": 318,
+    "worst_day": -0.0661,
+    "worst_week": -0.0857,
+    "worst_month": -0.0815
+  },
+  "trade_metrics": {
+    "n_trades": 16,
+    "win_rate": 0.375,
+    "avg_win": 1065.12,
+    "avg_loss": -517.56,
+    "profit_factor": 1.23,
+    "ev_per_trade": 75.94,
+    "total_pnl": 1215.1,
+    "worst_trade": -996.9,
+    "best_trade": 2142.35,
+    "median_holding_days": 55.5
+  }
+}

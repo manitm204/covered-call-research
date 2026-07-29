@@ -1,0 +1,47 @@
+{
+  "hypothesis": "H2",
+  "symbol": "QQQ",
+  "scenario": "optimistic",
+  "params": {
+    "target_delta": 0.5,
+    "dte_target": 60,
+    "dte_lo": 40,
+    "dte_hi": 70,
+    "roll_dte": 21,
+    "budget_pct": 0.1,
+    "band": 0.01,
+    "affordable_floor": 0.3
+  },
+  "partition": "valid",
+  "start": "2023-01-01",
+  "end": "2024-12-31",
+  "metrics": {
+    "start": "2023-01-03",
+    "end": "2024-12-31",
+    "sessions": 497,
+    "final_equity": 19885.55,
+    "total_return": 0.9886,
+    "cagr": 0.4118,
+    "ann_vol": 0.3267,
+    "sharpe": 1.08,
+    "sortino": 1.63,
+    "max_drawdown": -0.1894,
+    "calmar": 2.17,
+    "longest_dd_sessions": 120,
+    "worst_day": -0.1353,
+    "worst_week": -0.1255,
+    "worst_month": -0.0775
+  },
+  "trade_metrics": {
+    "n_trades": 17,
+    "win_rate": 0.588,
+    "avg_win": 1345.15,
+    "avg_loss": -700.61,
+    "profit_factor": 2.74,
+    "ev_per_trade": 502.78,
+    "total_pnl": 8547.2,
+    "worst_trade": -1291.4,
+    "best_trade": 3100.1,
+    "median_holding_days": 42.0
+  }
+}
