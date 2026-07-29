@@ -1,0 +1,53 @@
+{
+  "source": "FMP historical-price-full",
+  "pulled": [
+    {
+      "symbol": "SPY",
+      "rows": 6934,
+      "start": "1999-01-04",
+      "end": "2026-07-29",
+      "dividend_rows": 135
+    },
+    {
+      "symbol": "QQQ",
+      "rows": 6889,
+      "start": "1999-03-10",
+      "end": "2026-07-29",
+      "dividend_rows": 88
+    },
+    {
+      "symbol": "IWM",
+      "rows": 6581,
+      "start": "2000-05-26",
+      "end": "2026-07-29",
+      "dividend_rows": 105
+    },
+    {
+      "symbol": "^VIX",
+      "rows": 6957,
+      "start": "1999-01-04",
+      "end": "2026-07-29"
+    },
+    {
+      "symbol": "XLF",
+      "rows": 6934,
+      "start": "1999-01-04",
+      "end": "2026-07-29",
+      "dividend_rows": 110
+    },
+    {
+      "symbol": "SLV",
+      "rows": 5094,
+      "start": "2006-04-28",
+      "end": "2026-07-29",
+      "dividend_rows": 0
+    },
+    {
+      "symbol": "EWZ",
+      "rows": 6548,
+      "start": "2000-07-14",
+      "end": "2026-07-29",
+      "dividend_rows": 55
+    }
+  ]
+}
