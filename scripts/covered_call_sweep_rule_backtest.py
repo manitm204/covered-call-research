@@ -28,15 +28,29 @@ SYMBOLS = ["SPY", "QQQ", "IWM"]
 OUT = Path("results/covered_call_sweep_rule")
 INITIAL_SHARES = 200
 
-# per-ticker rule from this session's threshold sweep (results/covered_call/
-# threshold_sweep.json): each leg's own decile cutoff, 90% CI excludes the
-# unconditional baseline (SPY RSI) or is the largest, most consistent
-# cross-fund effect (sector corr on SPY/QQQ; RSI tercile on IWM, since its
-# market-wide leg doesn't replicate).
+# SPY: trend+absorption pair (2026-09 chat research), least-correlated
+# 2-signal combo at a matched ~32%-skip-each cutoff, targeting ~50% combined
+# skip -> "mostly passive, occasional premium".
+# QQQ: absorption shift's RISKY side is its q70 cutoff (top 30%), not its
+# q10 cutoff (that's the SAFE side -- q10 alone would mean "skip unless
+# bottom decile", a 90%-skip trap). Paired with price-vs-MA200 at its own
+# q30 cutoff (bottom tercile) -- the strongest, least naively-correlated
+# partner tested (RSI, trend84 also tested; MA200 gave the deepest
+# write-side breach-rate cut of the three).
+# IWM: RSI (bottom tercile) + 4-month trend (bottom tercile, matched deciles
+# so neither leg dominates) -- 2026-09 chat research. Both legs individually
+# CI-significant and, unlike SPY's RSI-as-third-leg case, each one's
+# marginal (non-overlapping) weeks checked out as genuinely riskier than
+# average, not just noise -- so both earn their place. Beta-to-SPY and
+# deepest-drawdown were the highest-confidence single cells on IWM but both
+# are "approve-only" traps (their significant cutoff is the SAFE side, at a
+# 70-90% skip fraction if misread as a veto) and were excluded.
 GATE_PARAMS = {
-    "SPY": dict(rsi_thresh=35.0, trend84_thresh=None, use_ma200_leg=False, sector_corr_thresh=0.35),
-    "QQQ": dict(rsi_thresh=None, trend84_thresh=-0.08, use_ma200_leg=False, sector_corr_thresh=0.35),
-    "IWM": dict(rsi_thresh=46.0, trend84_thresh=None, use_ma200_leg=False, sector_corr_thresh=None),
+    "SPY": dict(rsi_thresh=None, trend84_thresh=0.0158, use_ma200_leg=False, sector_corr_thresh=None,
+               absorption_shift_thresh=0.0083),
+    "QQQ": dict(rsi_thresh=None, trend84_thresh=None, use_ma200_leg=False, sector_corr_thresh=None,
+               absorption_shift_thresh=0.0100, ma200_pct_thresh=0.0347),
+    "IWM": dict(rsi_thresh=45.7818, trend84_thresh=-0.0071, use_ma200_leg=False, sector_corr_thresh=None),
 }
 
 

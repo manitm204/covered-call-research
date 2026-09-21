@@ -454,6 +454,18 @@ class ReinvestingCoveredCallStrategy:
     # -> elevated breach risk on SPY/QQQ; doesn't replicate on IWM, left off
     # there by leaving sector_corr_thresh=None).
     sector_corr_thresh: float | None = None
+    # rising-absorption leg from the SPY trend+absorption pair (2026-09
+    # chat research): veto if absorption_shift rises ABOVE this (market
+    # structure consolidating -> elevated breach risk); least-correlated
+    # partner for trend84 of the signals tested (spearman ~-0.35 vs SPY's
+    # trend84, vs 0.85 between trend84 and px-vs-MA200).
+    absorption_shift_thresh: float | None = None
+    # percentage-threshold MA200 leg (distinct from use_ma200_leg's plain
+    # px<ma200 boolean): veto if price is more than this far BELOW its
+    # 200-day MA, e.g. -0.0347 for QQQ's bottom-tercile cutoff. Lets the
+    # MA200 leg be tuned to a specific decile/tercile like the other legs,
+    # not just a fixed 0% crossover.
+    ma200_pct_thresh: float | None = None
 
     def _rip_risk(self, ctx: Ctx) -> bool:
         s = asof(self.signals, ctx.session)
@@ -463,9 +475,13 @@ class ReinvestingCoveredCallStrategy:
         weak_trend = self.trend84_thresh is not None and pd.notna(s.get("ret84")) and s["ret84"] < self.trend84_thresh
         below_ma200 = (self.use_ma200_leg and pd.notna(s.get("px")) and pd.notna(s.get("ma200"))
                       and s["px"] < s["ma200"])
+        below_ma200_pct = (self.ma200_pct_thresh is not None and pd.notna(s.get("px")) and pd.notna(s.get("ma200"))
+                          and (s["px"] / s["ma200"] - 1.0) < self.ma200_pct_thresh)
         fragmented = (self.sector_corr_thresh is not None and pd.notna(s.get("sector_corr_60"))
                      and s["sector_corr_60"] < self.sector_corr_thresh)
-        return bool(oversold or weak_trend or below_ma200 or fragmented)
+        rising_absorption = (self.absorption_shift_thresh is not None and pd.notna(s.get("absorption_shift"))
+                             and s["absorption_shift"] > self.absorption_shift_thresh)
+        return bool(oversold or weak_trend or below_ma200 or below_ma200_pct or fragmented or rising_absorption)
 
     def on_session(self, ctx: Ctx) -> list[Order]:
         acct = ctx.account
