@@ -122,7 +122,14 @@ class SellStock:
     tag: str = ""
 
 
-Order = BuyToOpen | SellToClose | SellPutToOpen | BuyToCloseShort | SellCallToOpen | SellStock
+@dataclass(frozen=True)
+class BuyStock:
+    shares: int
+    tag: str = ""
+
+
+Order = (BuyToOpen | SellToClose | SellPutToOpen | BuyToCloseShort | SellCallToOpen
+         | SellStock | BuyStock)
 
 
 @dataclass
@@ -133,6 +140,7 @@ class Ctx:
     account: "Account"
     daily: DailyData
     rate: float
+    brake_mult: float = 1.0  # drawdown brake: 1.0 / 0.5 / 0.0 (spec §4)
 
 
 class Strategy(Protocol):
@@ -400,6 +408,19 @@ class Engine:
                                     close_price=px, pnl=round((px - acct.stock.basis) * n, 2),
                                     close_how=o.tag or "sell_stock", tag=o.tag))
             acct.stock.shares -= n
+        elif isinstance(o, BuyStock):
+            cost = spot * o.shares
+            if cost > acct.available_cash or o.shares <= 0:
+                return
+            new_shares = acct.stock.shares + o.shares
+            acct.stock.basis = ((acct.stock.basis * acct.stock.shares + spot * o.shares)
+                                 / new_shares) if new_shares else 0.0
+            acct.stock.shares = new_shares
+            acct.cash -= cost
+            self.trades.append(dict(pos_id=None, kind="stock", open_session=today,
+                                    close_session=None, contracts=o.shares, open_price=spot,
+                                    close_price=None, pnl=None,
+                                    close_how=o.tag or "buy_stock", tag=o.tag))
 
     # -------------------------------------------------------------- marking
     def _mark(self, today: date, chain: pd.DataFrame, spot: float):
@@ -442,7 +463,17 @@ class Engine:
             self._early_assignments(today, chain, spot)
             for o in self._force_exits(today, chain):
                 self._exec_order(o, today, chain, spot)
-            ctx = Ctx(today, chain, spot, self.acct, self.daily, self.daily.rate_on(today))
+            brake = 1.0
+            if self.equity_rows:
+                hist = [r["equity"] for r in self.equity_rows[-252:]]
+                high = max(hist)
+                cur = hist[-1]
+                if cur < 0.75 * high:
+                    brake = 0.0
+                elif cur < 0.85 * high:
+                    brake = 0.5
+            ctx = Ctx(today, chain, spot, self.acct, self.daily,
+                      self.daily.rate_on(today), brake_mult=brake)
             for o in self.strategy.on_session(ctx):
                 self._exec_order(o, today, chain, spot)
             if self.acct.cash < -1e-6 and not self.acct.stock.shares:

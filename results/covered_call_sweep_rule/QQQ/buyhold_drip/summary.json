@@ -1,0 +1,50 @@
+{
+  "symbol": "QQQ",
+  "strategy": "buyhold_drip",
+  "scenario": "base",
+  "target_delta": 0.25,
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "sessions": 1977,
+    "final_equity": 150278.45,
+    "total_return": 3.2022,
+    "cagr": 0.1973,
+    "ann_vol": 0.231,
+    "sharpe": 0.79,
+    "sortino": 1.09,
+    "max_drawdown": -0.3491,
+    "calmar": 0.57,
+    "longest_dd_sessions": 507,
+    "worst_day": -0.0754,
+    "worst_week": -0.1218,
+    "worst_month": -0.1362
+  },
+  "trade_metrics": {
+    "n_trades": 0,
+    "win_rate": NaN,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": NaN,
+    "total_pnl": 0.0,
+    "worst_trade": NaN,
+    "best_trade": NaN,
+    "median_holding_days": NaN
+  },
+  "yearly": {
+    "2018": -0.1275,
+    "2019": 0.393,
+    "2020": 0.4833,
+    "2021": 0.2806,
+    "2022": -0.332,
+    "2023": 0.559,
+    "2024": 0.2589,
+    "2025": 0.2044,
+    "2026": 0.1528
+  },
+  "n_calls_written": 0,
+  "n_called_away": 0,
+  "initial_shares": 200,
+  "final_shares": 212
+}

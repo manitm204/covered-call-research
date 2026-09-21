@@ -1,0 +1,48 @@
+{
+  "symbol": "IWM",
+  "strategy": "fwdret_cc",
+  "scenario": "base",
+  "target_delta": 0.15,
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "sessions": 1948,
+    "final_equity": 33878.86,
+    "total_return": 1.0041,
+    "cagr": 0.0911,
+    "ann_vol": 0.2206,
+    "sharpe": 0.4,
+    "sortino": 0.54,
+    "max_drawdown": -0.3986,
+    "calmar": 0.23,
+    "longest_dd_sessions": 718,
+    "worst_day": -0.0921,
+    "worst_week": -0.1776,
+    "worst_month": -0.2037
+  },
+  "trade_metrics": {
+    "n_trades": 38,
+    "win_rate": 1.0,
+    "avg_win": 91.02,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 91.02,
+    "total_pnl": 3458.65,
+    "worst_trade": 34.05,
+    "best_trade": 146.3,
+    "median_holding_days": 36.0
+  },
+  "yearly": {
+    "2018": -0.1811,
+    "2019": 0.2712,
+    "2020": 0.1891,
+    "2021": 0.1415,
+    "2022": -0.1921,
+    "2023": 0.1801,
+    "2024": 0.104,
+    "2025": 0.1416,
+    "2026": 0.1804
+  },
+  "n_calls_written": 38,
+  "n_called_away": 3
+}

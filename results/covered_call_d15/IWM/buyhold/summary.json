@@ -1,0 +1,48 @@
+{
+  "symbol": "IWM",
+  "strategy": "buyhold",
+  "scenario": "base",
+  "target_delta": 0.15,
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "sessions": 1948,
+    "final_equity": 31908.28,
+    "total_return": 0.8876,
+    "cagr": 0.0829,
+    "ann_vol": 0.233,
+    "sharpe": 0.36,
+    "sortino": 0.5,
+    "max_drawdown": -0.411,
+    "calmar": 0.2,
+    "longest_dd_sessions": 717,
+    "worst_day": -0.095,
+    "worst_week": -0.1826,
+    "worst_month": -0.2096
+  },
+  "trade_metrics": {
+    "n_trades": 0,
+    "win_rate": NaN,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": NaN,
+    "total_pnl": 0.0,
+    "worst_trade": NaN,
+    "best_trade": NaN,
+    "median_holding_days": NaN
+  },
+  "yearly": {
+    "2018": -0.1864,
+    "2019": 0.2546,
+    "2020": 0.188,
+    "2021": 0.1412,
+    "2022": -0.2004,
+    "2023": 0.1691,
+    "2024": 0.1057,
+    "2025": 0.1165,
+    "2026": 0.1818
+  },
+  "n_calls_written": 0,
+  "n_called_away": 0
+}

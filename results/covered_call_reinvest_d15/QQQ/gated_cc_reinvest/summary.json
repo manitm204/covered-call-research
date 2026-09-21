@@ -1,0 +1,50 @@
+{
+  "symbol": "QQQ",
+  "strategy": "gated_cc_reinvest",
+  "scenario": "base",
+  "target_delta": 0.15,
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "sessions": 1977,
+    "final_equity": 153011.07,
+    "total_return": 3.2787,
+    "cagr": 0.2,
+    "ann_vol": 0.2243,
+    "sharpe": 0.82,
+    "sortino": 1.11,
+    "max_drawdown": -0.3477,
+    "calmar": 0.58,
+    "longest_dd_sessions": 487,
+    "worst_day": -0.0757,
+    "worst_week": -0.1159,
+    "worst_month": -0.1362
+  },
+  "trade_metrics": {
+    "n_trades": 61,
+    "win_rate": 1.0,
+    "avg_win": 146.51,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 146.51,
+    "total_pnl": 8937.05,
+    "worst_trade": 43.55,
+    "best_trade": 330.05,
+    "median_holding_days": 32.0
+  },
+  "yearly": {
+    "2018": -0.1252,
+    "2019": 0.3953,
+    "2020": 0.4932,
+    "2021": 0.2961,
+    "2022": -0.3313,
+    "2023": 0.5396,
+    "2024": 0.2809,
+    "2025": 0.2211,
+    "2026": 0.1249
+  },
+  "n_calls_written": 61,
+  "n_called_away": 14,
+  "initial_shares": 200,
+  "final_shares": 216
+}

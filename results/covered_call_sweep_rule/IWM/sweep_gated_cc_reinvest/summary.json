@@ -1,0 +1,50 @@
+{
+  "symbol": "IWM",
+  "strategy": "sweep_gated_cc_reinvest",
+  "scenario": "base",
+  "target_delta": 0.25,
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "sessions": 1948,
+    "final_equity": 61825.77,
+    "total_return": 0.8468,
+    "cagr": 0.08,
+    "ann_vol": 0.2285,
+    "sharpe": 0.35,
+    "sortino": 0.47,
+    "max_drawdown": -0.4224,
+    "calmar": 0.19,
+    "longest_dd_sessions": 717,
+    "worst_day": -0.1,
+    "worst_week": -0.1912,
+    "worst_month": -0.2188
+  },
+  "trade_metrics": {
+    "n_trades": 71,
+    "win_rate": 1.0,
+    "avg_win": 170.97,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 170.97,
+    "total_pnl": 12138.8,
+    "worst_trade": 57.8,
+    "best_trade": 298.55,
+    "median_holding_days": 35.0
+  },
+  "yearly": {
+    "2018": -0.181,
+    "2019": 0.2599,
+    "2020": 0.137,
+    "2021": 0.168,
+    "2022": -0.2082,
+    "2023": 0.1294,
+    "2024": 0.1117,
+    "2025": 0.144,
+    "2026": 0.1851
+  },
+  "n_calls_written": 71,
+  "n_called_away": 18,
+  "initial_shares": 200,
+  "final_shares": 210
+}

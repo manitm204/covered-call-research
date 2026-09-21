@@ -1,0 +1,48 @@
+{
+  "symbol": "SPY",
+  "strategy": "fwdret_cc",
+  "scenario": "base",
+  "target_delta": 0.15,
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "sessions": 1990,
+    "final_equity": 77564.31,
+    "total_return": 1.706,
+    "cagr": 0.133,
+    "ann_vol": 0.1741,
+    "sharpe": 0.66,
+    "sortino": 0.8,
+    "max_drawdown": -0.3305,
+    "calmar": 0.4,
+    "longest_dd_sessions": 485,
+    "worst_day": -0.0757,
+    "worst_week": -0.1256,
+    "worst_month": -0.1016
+  },
+  "trade_metrics": {
+    "n_trades": 49,
+    "win_rate": 1.0,
+    "avg_win": 123.12,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 123.12,
+    "total_pnl": 6032.95,
+    "worst_trade": 16.55,
+    "best_trade": 261.3,
+    "median_holding_days": 35.0
+  },
+  "yearly": {
+    "2018": -0.0972,
+    "2019": 0.3036,
+    "2020": 0.1662,
+    "2021": 0.2257,
+    "2022": -0.1821,
+    "2023": 0.2447,
+    "2024": 0.2348,
+    "2025": 0.1891,
+    "2026": 0.0762
+  },
+  "n_calls_written": 49,
+  "n_called_away": 10
+}

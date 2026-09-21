@@ -11,7 +11,7 @@ from datetime import date
 
 import pandas as pd
 
-from .engine import (BuyToOpen, Ctx, Order, SellCallToOpen, SellPutToOpen,
+from .engine import (BuyStock, BuyToOpen, Ctx, Order, SellCallToOpen, SellPutToOpen,
                      SellToClose, SellStock)
 from .selection import pick_by_delta
 from .signals import asof
@@ -271,4 +271,219 @@ class H5Wheel:
             if (c is not None and c.strike * 100 <= self.budget_frac * eq
                     and not self._spans_earnings(ctx.session, c.expiration)):
                 orders.append(SellPutToOpen(c, 1, tag="wheel_csp"))
+        return orders
+
+
+@dataclass
+class BuyHoldShares:
+    """Own lots*100 shares permanently; buy once, rebuy immediately if ever
+    reduced. No options. The zero-strategy baseline for the covered-call work."""
+
+    lots: int = 1
+
+    def on_session(self, ctx: Ctx) -> list[Order]:
+        target = 100 * self.lots
+        held = ctx.account.stock.shares
+        if held < target:
+            return [BuyStock(target - held, tag="init_buy")]
+        return []
+
+
+@dataclass
+class CoveredCallStrategy:
+    """Own lots*100 shares permanently (rebuy the session after being called
+    away — settlement clears the shares first, so the rebuy lands one session
+    late; documented simplification, not a strategy edge). Whenever shares are
+    fully uncovered, sell one ~target_delta OTM call per lot (dte in
+    [dte_lo, dte_hi]); let it ride to expiry/assignment, then repeat.
+
+    gated=False -> naive "sell every month, no matter what" covered call.
+    gated=True  -> skip writing this cycle under the "rip-risk veto board"
+    (see scripts/covered_call_signal_research.py): a weekly rank-IC study,
+    2005-2026, of nine regime signals against three targets that matter for a
+    short call specifically (does the underlying breach an OTM strike within
+    a month; the continuous upside-tail size; the vol-normalized forward
+    return), each with a block-bootstrap 95% CI. The signals whose CI excludes
+    zero on breach probability, on *all three* of SPY/QQQ/IWM, describe a
+    *weak*, not strong, tape: RSI(14) < 40, 84-session trend < 0%, and price
+    below its 200-day MA. Two signals that matter a lot for *plain* forward
+    return did NOT clear the bar on breach probability specifically and are
+    deliberately excluded here: elevated own vol-index level (predicts bigger
+    moves in general, not a disproportionate breach of a vol-scaled strike —
+    the option is already priced for that), and market-wide sector
+    correlation (correlated markets do have better forward returns, but that
+    doesn't translate into more OR fewer strike breaches). `iwm_sector_corr_leg`
+    is kept as an optional, off-by-default fourth leg for experimentation; an
+    earlier, differently-defined version of this signal (each fund's own
+    correlation to the sector average, which is nearly tautological for a
+    broad index) looked significant for IWM and does not replicate under the
+    corrected market-wide definition.
+    """
+
+    signals: pd.DataFrame
+    lots: int = 1
+    target_delta: float = 0.25
+    dte_target: int = 35
+    dte_lo: int = 25
+    dte_hi: int = 45
+    gated: bool = True
+    rsi_thresh: float = 40.0
+    trend84_thresh: float = 0.0
+    use_ma200_leg: bool = True
+    # breach-gate leg selection is per-ticker: RSI<40 and trend84<0% clear a
+    # 90% CI on all three funds, but price-below-MA200 only clears it on
+    # SPY/QQQ — it's dropped for IWM (use_ma200_leg=False there).
+    iwm_sector_corr_leg: bool = False
+    sector_corr_thresh: float = 0.70
+    gate_mode: str = "breach"  # "breach" or "fwd_ret" — see _rip_risk docstring
+    # gate_mode="breach" (default): veto on the weak-tape rip-risk board above.
+    # gate_mode="fwd_ret": veto instead on the signals with the strongest IC
+    # against plain forward return (RSI14, sector_corr_60, trend_84d, and the
+    # fund's own vol-index level — see scripts/covered_call_signal_research.py).
+    # Thresholds are each signal's own tercile cutoff, 2005-2026 weekly sample,
+    # computed per ticker (they differ slightly fund to fund).
+    fwdret_sector_corr_thresh: float = 0.677
+    fwdret_absorption_thresh: float | None = None  # off by default — near-duplicate of sector_corr/vol_own
+    fwdret_vol_thresh: float | None = None  # required when gate_mode="fwd_ret"
+    fwdret_rsi_thresh: float | None = None  # veto if RSI14 below this (oversold -> good month coming)
+    fwdret_trend84_thresh: float | None = None  # veto if trend84 below this
+    fwdret_use_ma200_leg: bool = False  # IWM only — the only fund where px-vs-MA200 clears fwd_ret's IC bar
+
+    def _rip_risk(self, ctx: Ctx) -> bool:
+        s = asof(self.signals, ctx.session)
+        if s is None:
+            return False
+        if self.gate_mode == "fwd_ret":
+            high_corr = pd.notna(s.get("sector_corr_60")) and s["sector_corr_60"] > self.fwdret_sector_corr_thresh
+            rising_absorption = (self.fwdret_absorption_thresh is not None and pd.notna(s.get("absorption_shift"))
+                                 and s["absorption_shift"] > self.fwdret_absorption_thresh)
+            high_vol = (self.fwdret_vol_thresh is not None and pd.notna(s.get("vol_own"))
+                       and s["vol_own"] > self.fwdret_vol_thresh)
+            oversold = (self.fwdret_rsi_thresh is not None and pd.notna(s.get("rsi14"))
+                       and s["rsi14"] < self.fwdret_rsi_thresh)
+            weak_trend = (self.fwdret_trend84_thresh is not None and pd.notna(s.get("ret84"))
+                         and s["ret84"] < self.fwdret_trend84_thresh)
+            below_ma200 = (self.fwdret_use_ma200_leg and pd.notna(s.get("px")) and pd.notna(s.get("ma200"))
+                          and s["px"] < s["ma200"])
+            return bool(high_corr or rising_absorption or high_vol or oversold or weak_trend or below_ma200)
+        oversold = pd.notna(s.get("rsi14")) and s["rsi14"] < self.rsi_thresh
+        weak_trend = pd.notna(s.get("ret84")) and s["ret84"] < self.trend84_thresh
+        below_ma200 = (self.use_ma200_leg and pd.notna(s.get("px")) and pd.notna(s.get("ma200"))
+                      and s["px"] < s["ma200"])
+        veto = bool(oversold or weak_trend or below_ma200)
+        if self.iwm_sector_corr_leg and pd.notna(s.get("sector_corr_60")):
+            veto = veto or bool(s["sector_corr_60"] > self.sector_corr_thresh)
+        return veto
+
+    def on_session(self, ctx: Ctx) -> list[Order]:
+        acct = ctx.account
+        target = 100 * self.lots
+        if acct.stock.shares < target:
+            # buy back up to `target`, but never require the full lot in one
+            # unaffordable order — after an assignment, deploy whatever cash
+            # is on hand into as many whole shares as it affords (even a
+            # partial lot), the same fix applied to ReinvestingCoveredCallStrategy.
+            # Requiring the exact full lot and doing nothing otherwise was the
+            # bug: it left the account sitting in 100% cash indefinitely
+            # whenever it was even $1 short of a full rebuy.
+            afford = int(acct.available_cash // ctx.spot)
+            want = min(target - acct.stock.shares, afford)
+            if want > 0:
+                return [BuyStock(want, tag="init_buy" if acct.stock.shares == 0 else "reinvest")]
+            return []
+        uncovered = acct.stock.shares - 100 * sum(c.contracts for c in acct.short_calls.values())
+        if uncovered < 100:
+            return []
+        if self.gated and self._rip_risk(ctx):
+            return []
+        c = pick_by_delta(ctx.chain, ctx.spot, ctx.session, ctx.rate, option_type="C",
+                          target_delta=self.target_delta, dte_target=self.dte_target,
+                          dte_lo=self.dte_lo, dte_hi=self.dte_hi, for_sell=True)
+        if c is None:
+            return []
+        return [SellCallToOpen(c, uncovered // 100, tag="cc_write")]
+
+
+@dataclass
+class DripBuyHoldShares:
+    """Own initial_shares permanently; every session, sweep all free cash
+    (dividends, interest — there are no options here) into more whole shares
+    instead of letting it sit idle. The fair 'fully-compounding' buy-and-hold
+    baseline for the reinvesting covered-call strategies below."""
+
+    initial_shares: int = 200
+
+    def on_session(self, ctx: Ctx) -> list[Order]:
+        acct = ctx.account
+        afford = int(acct.available_cash // ctx.spot)
+        if afford > 0:
+            return [BuyStock(afford, tag="init_buy" if acct.stock.shares == 0 else "reinvest")]
+        return []
+
+
+@dataclass
+class ReinvestingCoveredCallStrategy:
+    """Own initial_shares (default 200) permanently; ALWAYS keep exactly
+    covered_lots*100 shares (default 100) covered by one short call, leaving
+    the rest (initially 100, growing over time) permanently uncovered as a
+    buffer. Every session, sweep all free cash — option premium, assignment
+    proceeds, dividends, interest, all alike, none of it ever sits idle —
+    into as many additional whole shares as it affords. This is a compounding
+    variant of CoveredCallStrategy: the position grows over time instead of
+    staying pinned at one lot.
+
+    gated=False -> naive "sell every month, no matter what" covered call.
+    gated=True  -> same rip-risk veto board as CoveredCallStrategy (RSI < 40,
+    84-session trend < 0%, price below its 200-day MA — see
+    scripts/covered_call_signal_research.py).
+    """
+
+    signals: pd.DataFrame
+    initial_shares: int = 200
+    covered_lots: int = 1
+    target_delta: float = 0.25
+    dte_target: int = 35
+    dte_lo: int = 25
+    dte_hi: int = 45
+    gated: bool = True
+    rsi_thresh: float | None = 40.0
+    trend84_thresh: float | None = 0.0
+    use_ma200_leg: bool = True
+    # sector-decorrelation leg from the 2026-09 threshold-sweep rule: veto if
+    # the market-wide 60d sector correlation drops BELOW this (fragmented tape
+    # -> elevated breach risk on SPY/QQQ; doesn't replicate on IWM, left off
+    # there by leaving sector_corr_thresh=None).
+    sector_corr_thresh: float | None = None
+
+    def _rip_risk(self, ctx: Ctx) -> bool:
+        s = asof(self.signals, ctx.session)
+        if s is None:
+            return False
+        oversold = self.rsi_thresh is not None and pd.notna(s.get("rsi14")) and s["rsi14"] < self.rsi_thresh
+        weak_trend = self.trend84_thresh is not None and pd.notna(s.get("ret84")) and s["ret84"] < self.trend84_thresh
+        below_ma200 = (self.use_ma200_leg and pd.notna(s.get("px")) and pd.notna(s.get("ma200"))
+                      and s["px"] < s["ma200"])
+        fragmented = (self.sector_corr_thresh is not None and pd.notna(s.get("sector_corr_60"))
+                     and s["sector_corr_60"] < self.sector_corr_thresh)
+        return bool(oversold or weak_trend or below_ma200 or fragmented)
+
+    def on_session(self, ctx: Ctx) -> list[Order]:
+        acct = ctx.account
+        orders: list[Order] = []
+        # always sweep whatever cash is on hand into as many whole shares as
+        # it affords — never wait to re-accumulate the full initial_shares in
+        # one lump sum (that's the bug this replaced: after an assignment it
+        # tried to buy ALL the way back to 200 shares in a single order, that
+        # order was unaffordable, and it silently did nothing, forever)
+        afford = int(acct.available_cash // ctx.spot)
+        if afford > 0:
+            orders.append(BuyStock(afford, tag="init_buy" if acct.stock.shares == 0 else "reinvest"))
+        covered_target = self.covered_lots * 100
+        if not acct.short_calls and acct.stock.shares >= covered_target:
+            if not (self.gated and self._rip_risk(ctx)):
+                c = pick_by_delta(ctx.chain, ctx.spot, ctx.session, ctx.rate, option_type="C",
+                                  target_delta=self.target_delta, dte_target=self.dte_target,
+                                  dte_lo=self.dte_lo, dte_hi=self.dte_hi, for_sell=True)
+                if c is not None:
+                    orders.append(SellCallToOpen(c, self.covered_lots, tag="cc_write"))
         return orders

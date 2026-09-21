@@ -1,0 +1,48 @@
+{
+  "symbol": "SPY",
+  "strategy": "naive_cc",
+  "scenario": "base",
+  "target_delta": 0.15,
+  "metrics": {
+    "start": "2018-08-01",
+    "end": "2026-07-22",
+    "sessions": 1990,
+    "final_equity": 76447.23,
+    "total_return": 1.6671,
+    "cagr": 0.1309,
+    "ann_vol": 0.1586,
+    "sharpe": 0.7,
+    "sortino": 0.81,
+    "max_drawdown": -0.3269,
+    "calmar": 0.4,
+    "longest_dd_sessions": 484,
+    "worst_day": -0.0739,
+    "worst_week": -0.1265,
+    "worst_month": -0.097
+  },
+  "trade_metrics": {
+    "n_trades": 78,
+    "win_rate": 1.0,
+    "avg_win": 141.15,
+    "avg_loss": 0,
+    "profit_factor": Infinity,
+    "ev_per_trade": 141.15,
+    "total_pnl": 11009.9,
+    "worst_trade": 21.55,
+    "best_trade": 437.05,
+    "median_holding_days": 34.0
+  },
+  "yearly": {
+    "2018": -0.093,
+    "2019": 0.2583,
+    "2020": 0.2396,
+    "2021": 0.2653,
+    "2022": -0.1625,
+    "2023": 0.2141,
+    "2024": 0.2018,
+    "2025": 0.1308,
+    "2026": 0.0783
+  },
+  "n_calls_written": 78,
+  "n_called_away": 21
+}
