@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Does Selectively Selling Covered Calls Improve Total Return or Risk-Adjusted Return Compared with Simply Holding the ETF?</title>
+<style>
+  :root{
+    --bg:#fbfaf7;
+    --bg-raised:#ffffff;
+    --ink:#1a1a17;
+    --ink-dim:#59564c;
+    --line:#d9d5c8;
+    --line-strong:#b8b3a2;
+    --accent:#7a5a12;
+    --good:#2c6b4d;
+    --bad:#963226;
+    --naive:#8b8879;
+    --tint:#f1efe6;
+    --shadow:0 1px 3px rgba(20,15,0,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#131412;
+      --bg-raised:#191a17;
+      --ink:#e7e5da;
+      --ink-dim:#a5a293;
+      --line:#38372f;
+      --line-strong:#4c4a3f;
+      --accent:#d7ab55;
+      --good:#4fae86;
+      --bad:#d9806c;
+      --naive:#82806f;
+      --tint:#1c1d19;
+      --shadow:0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#131412; --bg-raised:#191a17; --ink:#e7e5da; --ink-dim:#a5a293; --line:#38372f;
+    --line-strong:#4c4a3f; --accent:#d7ab55; --good:#4fae86; --bad:#d9806c; --naive:#82806f;
+    --tint:#1c1d19; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"]{
+    --bg:#fbfaf7; --bg-raised:#ffffff; --ink:#1a1a17; --ink-dim:#59564c; --line:#d9d5c8;
+    --line-strong:#b8b3a2; --accent:#7a5a12; --good:#2c6b4d; --bad:#963226; --naive:#8b8879;
+    --tint:#f1efe6; --shadow:0 1px 3px rgba(20,15,0,.05);
+  }
+
+  *{box-sizing:border-box;}
+  html{background:var(--bg);}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    -webkit-font-smoothing:antialiased;
+    font-size:17px; line-height:1.62;
+  }
+  ::selection{background:var(--accent); color:#fff;}
+  .mono{font-family:ui-monospace,"SF Mono","Cascadia Code",Consolas,monospace;}
+
+  .page{max-width:700px; margin:0 auto; padding:72px 26px 100px;}
+
+  /* ---------- title block ---------- */
+  .titleblock{text-align:center; padding-bottom:34px; margin-bottom:38px; border-bottom:1.5px solid var(--ink);}
+  .kicker{
+    font-family:ui-monospace,"SF Mono",monospace; font-size:11.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-dim); margin:0 0 22px;
+  }
+  h1.title{
+    font-size:clamp(24px,3.4vw,30px); line-height:1.32; margin:0 0 20px; font-weight:700;
+    text-wrap:balance;
+  }
+  .byline{font-size:15px; color:var(--ink-dim); margin:0 0 6px;}
+  .byline b{color:var(--ink); font-weight:600;}
+  .datel{font-family:ui-monospace,monospace; font-size:12.5px; color:var(--ink-dim);}
+
+  /* ---------- abstract ---------- */
+  .abstract{
+    margin:0 0 40px; padding:26px 30px; background:var(--tint); border-radius:2px;
+  }
+  .abstract h2{
+    font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; margin:0 0 12px;
+    font-family:ui-monospace,monospace; color:var(--accent); font-weight:600; border:none;
+  }
+  .abstract p{font-size:15.5px; line-height:1.65; margin:0 0 12px; text-align:justify; hyphens:auto;}
+  .abstract p:last-child{margin-bottom:0;}
+  .keywords{font-size:13px; color:var(--ink-dim); margin-top:14px;}
+  .keywords b{font-family:ui-monospace,monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink);}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:38px;}
+  h2{
+    font-size:20px; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+    font-weight:700; letter-spacing:.003em;
+  }
+  h3{font-size:16.5px; margin:26px 0 12px; font-weight:700; font-style:italic;}
+  p{margin:0 0 15px; text-align:justify; hyphens:auto; font-size:16.5px;}
+  p.noJustify{text-align:left;}
+  ul.plain, ol.plain{padding-left:22px; margin:0 0 16px;}
+  ul.plain li, ol.plain li{margin-bottom:7px; line-height:1.58; font-size:16.5px;}
+  strong{font-weight:700;}
+  em{font-style:italic;}
+  a{color:var(--accent);}
+
+  /* ---------- figure / table captions ---------- */
+  figure{margin:22px 0 26px;}
+  figcaption, .tcaption{
+    font-size:13.5px; color:var(--ink-dim); margin-top:8px; line-height:1.5;
+    font-family:"Iowan Old Style",Georgia,serif; font-style:italic;
+  }
+  .tcaption{margin-top:0; margin-bottom:8px;}
+  figcaption b, .tcaption b{font-style:normal; color:var(--ink); font-weight:600;}
+
+  /* ---------- tables ---------- */
+  .tbl-wrap{overflow-x:auto; margin:0;}
+  table{border-collapse:collapse; width:100%; min-width:480px; font-size:14px;}
+  thead th{
+    text-align:right; font-family:ui-monospace,monospace; font-size:10.5px; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--ink-dim); padding:8px 12px; border-bottom:1.5px solid var(--ink);
+    border-top:1.5px solid var(--ink);
+  }
+  thead th:first-child, td.rowlabel{text-align:left;}
+  tbody td{
+    padding:8px 12px; text-align:right; font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--line); font-family:ui-monospace,monospace; font-size:13.5px;
+  }
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink);}
+  td.rowlabel{font-family:"Iowan Old Style",Georgia,serif; font-weight:600; font-size:14.5px;}
+  .strat-buyhold{color:var(--ink-dim);}
+  .strat-naive{color:var(--bad);}
+  .strat-gated{color:var(--good); font-weight:700;}
+  .up::before{content:"▲ "; font-size:9px;}
+
+  /* ---------- key-result box ---------- */
+  .result-box{
+    border:1px solid var(--ink); border-left:4px solid var(--accent); padding:18px 22px;
+    margin:22px 0; background:var(--bg-raised);
+  }
+  .result-box .lbl{
+    font-family:ui-monospace,monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:8px; display:block; font-weight:700;
+  }
+  .result-box p{margin:0; font-size:15.5px; line-height:1.6;}
+
+  /* ---------- note / limitation box ---------- */
+  .note{
+    border-top:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong);
+    padding:16px 2px; margin:22px 0; font-size:14.5px; color:var(--ink-dim); line-height:1.6;
+  }
+  .note b{color:var(--ink);}
+
+  /* ---------- fund strip ---------- */
+  .fund-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin:4px 0; border:1px solid var(--line);}
+  .fund-card{background:var(--bg-raised); padding:16px 15px;}
+  .fund-card .tk{font-family:ui-monospace,monospace; font-weight:700; font-size:14px;}
+  .fund-card .nm{font-size:11.5px; color:var(--ink-dim); margin:2px 0 10px;}
+  .fund-card .big{font-family:ui-monospace,monospace; font-size:21px; font-variant-numeric:tabular-nums; font-weight:600;}
+  .fund-card .cap{font-size:10px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.05em; margin-top:1px;}
+
+  /* ---------- signal grid ---------- */
+  .sig-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin:4px 0;}
+  .sig{background:var(--bg-raised); padding:12px 14px; border:1px solid var(--line);}
+  .sig .nm{font-family:ui-monospace,monospace; font-weight:700; font-size:12.5px; color:var(--accent);}
+  .sig .ds{font-size:12.5px; color:var(--ink-dim); margin-top:5px; line-height:1.5; text-align:left;}
+
+  /* ---------- bar chart ---------- */
+  .board{margin:6px 0;}
+  .board .fund-h{
+    font-family:ui-monospace,monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink); margin:20px 0 8px; font-weight:700;
+  }
+  .board .fund-h:first-child{margin-top:0;}
+  .barrow{display:grid; grid-template-columns:140px 1fr 74px; align-items:center; gap:8px; margin-bottom:7px;}
+  .barrow .lbl{font-family:ui-monospace,monospace; font-size:11.5px;}
+  .barrow .track{position:relative; height:13px; background:var(--tint); overflow:visible;}
+  .barrow .fill{position:absolute; top:0; bottom:0;}
+  .barrow .fill.pos{background:var(--good); left:50%;}
+  .barrow .fill.neg{background:var(--bad); right:50%;}
+  .barrow .center{position:absolute; left:50%; top:-2px; bottom:-2px; width:1px; background:var(--ink); opacity:.5;}
+  .barrow .val{font-family:ui-monospace,monospace; font-size:11.5px; text-align:right; font-variant-numeric:tabular-nums;}
+  .barrow.notsig .fill{opacity:.28;}
+  .barrow.notsig .val{color:var(--ink-dim);}
+
+  /* ---------- rule cards ---------- */
+  .rule-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin:4px 0;}
+  .rule-card{background:var(--bg-raised); padding:16px 15px; display:flex; flex-direction:column; gap:8px;}
+  .rule-card .tk{font-family:ui-monospace,monospace; font-weight:700; font-size:14px; display:flex; align-items:baseline; justify-content:space-between;}
+  .rule-card .skip{font-size:10px; color:var(--ink-dim); font-family:ui-monospace,monospace; font-weight:400;}
+  .rule-card .leg{font-size:12.5px; line-height:1.5; padding:8px 10px; background:var(--tint); text-align:left;}
+  .rule-card .leg b{color:var(--accent);}
+  .rule-card .or{text-align:center; font-family:ui-monospace,monospace; font-size:10px; color:var(--ink-dim); letter-spacing:.1em;}
+
+  /* ---------- chart ---------- */
+  .chart-box{margin:4px 0;}
+  .tabs{display:flex; gap:6px; margin-bottom:12px;}
+  .tab{
+    font-family:ui-monospace,monospace; font-size:11.5px; letter-spacing:.03em; padding:5px 13px;
+    border:1px solid var(--ink); background:transparent; color:var(--ink); cursor:pointer;
+  }
+  .tab.active{background:var(--ink); color:var(--bg);}
+  canvas{width:100%; height:320px; display:block;}
+  .legend{display:flex; gap:18px; flex-wrap:wrap; margin:10px 2px 0; font-size:11.5px; font-family:ui-monospace,monospace;}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .legend i{width:11px; height:2.5px; display:inline-block;}
+
+  /* ---------- pseudocode ---------- */
+  pre.code{
+    background:var(--tint); border:1px solid var(--line); padding:16px 18px; overflow-x:auto;
+    font-family:ui-monospace,monospace; font-size:12.5px; line-height:1.65; margin:14px 0;
+  }
+
+  footer{
+    max-width:700px; margin:56px auto 0; padding:24px 26px 0; border-top:1px solid var(--line);
+    color:var(--ink-dim); font-size:12.5px; font-family:ui-monospace,monospace; line-height:1.7;
+  }
+
+  @media (max-width:620px){
+    .fund-strip{grid-template-columns:1fr;}
+    .rule-grid{grid-template-columns:1fr;}
+    .barrow{grid-template-columns:96px 1fr 58px;}
+    body{font-size:16px;}
+    p, ul.plain li, ol.plain li{font-size:15.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="titleblock">
+    <p class="kicker">Working Paper &middot; Applied Options Research</p>
+    <h1 class="title">Does Selectively Selling Covered Calls Improve Total Return or Risk-Adjusted Return Compared with Simply Holding the ETF?</h1>
+    <p class="byline">An empirical study on <b>SPY</b>, <b>QQQ</b>, and <b>IWM</b>, August 2018&ndash;July 2026</p>
+    <p class="datel">Revised 2026-09-22</p>
+  </div>
+
+  <div class="abstract">
+    <h2>Abstract</h2>
+    <p>Retail commentary frequently claims that selling monthly covered calls against an existing equity ETF
+    position generates near-riskless income. This paper tests that claim mechanically on three U.S. equity
+    index ETFs &mdash; SPY, QQQ, and IWM &mdash; over an eight-year sample (2018-08-01 to 2026-07-22), comparing
+    a fully reinvesting buy-and-hold benchmark against (i) an unconditional monthly covered-call program and
+    (ii) a signal-gated variant that withholds the call in months judged likely to breach the strike. We find
+    that the unconditional program underperforms buy-and-hold on total return, Sharpe ratio, and Calmar ratio
+    on all three underlyings, and ends with fewer shares in every case. We then construct a breach-probability
+    statistic from a longer (2005&ndash;2026) weekly price history, screen ten candidate regime signals for a
+    significant association with breach risk, remove redundant signals, and derive one gating rule per fund.
+    The resulting selective strategy matches or exceeds buy-and-hold on CAGR, Sharpe, and Calmar for SPY and
+    IWM, and materially closes &mdash; without fully eliminating &mdash; the shortfall on QQQ. We interpret the
+    QQQ result in light of that fund's unusually strong trend over the sample window and discuss why the
+    result should be read as in-sample evidence pending an out-of-sample test.</p>
+    <div class="keywords"><b>Keywords</b> &nbsp;covered calls &middot; options overlay &middot; breach probability &middot; regime filtering &middot; SPY &middot; QQQ &middot; IWM</div>
+  </div>
+
+  <section id="intro">
+    <h2>1. Introduction</h2>
+
+    <h3>1.1 Motivation</h3>
+    <p>A recurring claim in retail investing discussion is that an investor holding shares of a broad-market
+    ETF can generate a steady stream of "free" monthly income by selling call options against that position
+    &mdash; a covered call. A commonly cited example involves an investor holding 100 shares of SPY who
+    reports collecting on the order of $400&ndash;$600 per month by writing a single call contract, with the
+    stated worst case being that the shares are sold at a strike price the investor was already willing to
+    accept. This framing presents the strategy as generating income at negligible risk.</p>
+    <p>That framing evaluates only the premium received in isolation. It does not account for the opportunity
+    cost incurred when the underlying rises through the strike and the position is called away, nor for the
+    compounding effect of that foregone upside on the size of the position over time. Whether covered-call
+    writing is, in fact, advantageous depends on how the <em>total account</em> &mdash; capital gains, dividends,
+    option premium, and reinvestment &mdash; evolves relative to simply holding the underlying, and on whether
+    the strategy's risk-adjusted profile is actually improved. This is an empirical question, not one that can
+    be settled by inspecting a single month's premium.</p>
+
+    <h3>1.2 Research question</h3>
+    <p>This paper asks two questions. First, does a mechanical, unconditional monthly covered-call program
+    outperform a comparably reinvesting buy-and-hold position on total return and risk-adjusted return?
+    Second, if it does not, can a simple, low-dimensional market-regime filter &mdash; one that withholds the
+    call in months where the underlying is statistically more likely to rally through the strike &mdash;
+    recover or reverse that underperformance?</p>
+
+    <h3>1.3 Approach and contribution</h3>
+    <p>We test both questions mechanically, using historical options-implied data on three ETFs with distinct
+    return and volatility profiles: SPY (broad large-cap), QQQ (concentrated large-cap growth), and IWM
+    (small-cap). Testing across three underlyings, rather than one, lets us distinguish a genuine property of
+    the covered-call structure from an artifact of a single index's idiosyncratic path. We define a
+    <em>breach probability</em> statistic on a 21-year price history, screen a set of ten simple, publicly
+    computable regime signals against it, and construct one gating rule per fund from the signals that survive
+    redundancy and stability checks. We then evaluate the gated strategy in the same backtest engine used for
+    the unconditional program, holding every other mechanical parameter fixed.</p>
+  </section>
+
+  <section id="background">
+    <h2>2. Background</h2>
+
+    <h3>2.1 Covered-call mechanics</h3>
+    <p>An investor holding 100 shares of an underlying security may sell ("write") one call option contract
+    against that position, selecting a strike price above the current market price and an expiration date in
+    the future. In exchange for a cash premium paid immediately by the option buyer, the writer assumes the
+    obligation to sell the 100 shares at the strike price if the option is in the money at expiration. Two
+    outcomes are possible. If the underlying closes below the strike at expiration, the option expires
+    worthless; the writer retains both the shares and the premium and may write a new call for the next cycle.
+    If the underlying closes above the strike, the shares are "called away" &mdash; sold at the strike price
+    &mdash; and the writer retains the premium and the capital gain up to the strike, but forgoes any
+    appreciation above it.</p>
+    <p>The strategy is frequently described as reducing risk because the premium provides a small buffer
+    against a decline in the underlying. This is true only to a limited degree: the writer remains fully
+    exposed to the underlying's downside beyond that buffer, since covered-call premiums on liquid index ETFs
+    are typically a small fraction of the underlying's price. The structure is more accurately described as an
+    exchange of a portion of the right tail of the return distribution for a fixed, certain payment; it
+    reshapes risk rather than eliminating it.</p>
+
+    <h3>2.2 The three underlyings</h3>
+    <p>The strategy is evaluated identically on three ETFs chosen to span materially different return and
+    volatility regimes over the sample window. Table 1 summarizes their buy-and-hold performance over the
+    test period, reported in full in Section 4.</p>
+    <div class="fund-strip">
+      <div class="fund-card">
+        <div class="tk">SPY</div>
+        <div class="nm">S&amp;P 500 &mdash; large-cap, broad market</div>
+        <div class="big">14.8%</div>
+        <div class="cap">buy-and-hold CAGR, sample window</div>
+      </div>
+      <div class="fund-card">
+        <div class="tk">QQQ</div>
+        <div class="nm">Nasdaq-100 &mdash; concentrated large-cap growth</div>
+        <div class="big">19.7%</div>
+        <div class="cap">buy-and-hold CAGR, sample window</div>
+      </div>
+      <div class="fund-card">
+        <div class="tk">IWM</div>
+        <div class="nm">Russell 2000 &mdash; domestic small-cap</div>
+        <div class="big">8.8%</div>
+        <div class="cap">buy-and-hold CAGR, sample window</div>
+      </div>
+    </div>
+    <p class="noJustify" style="font-size:13.5px;color:var(--ink-dim);margin-top:10px;">
+    <b>Table 1.</b> Buy-and-hold CAGR by underlying, 2018-08-01&ndash;2026-07-22. QQQ's return reflects an
+    unusually strong, concentrated technology-driven advance over this specific window; IWM exhibits the
+    weakest trend and the deepest drawdowns of the three (&minus;42.6% worst, vs. &minus;34.7% for SPY).
+    Running an identical mechanical rule across all three tests whether any finding generalizes across
+    volatility and trend regimes or is specific to one fund's realized path.</p>
+  </section>
+
+  <section id="data-methods">
+    <h2>3. Data and Methods</h2>
+
+    <h3>3.1 Sample and instrument construction</h3>
+    <p>The backtest engine uses SPY, QQQ, and IWM adjusted closes and options-implied volatility proxies over
+    2018-08-01 to 2026-07-22 (1,948&ndash;1,990 trading sessions depending on the fund's listing history). The
+    signal-research component described in Section 5 draws on a longer, independent weekly price history
+    beginning 2005-01-01 (approximately 1,126 weekly observations per fund) to obtain sufficient statistical
+    power for the breach-probability analysis, which the 8-year options sample alone could not support.</p>
+
+    <h3>3.2 Baseline strategies</h3>
+    <p>Both strategies begin with a 200-share position and reinvest all incoming cash &mdash; option premium,
+    dividends, and assignment proceeds &mdash; into additional whole shares immediately, with no cash held
+    idle. This "full reinvestment" design was chosen deliberately as the most favorable realistic
+    implementation of the covered-call pitch, rather than a stripped-down version that would be easier to
+    beat.</p>
+    <ul class="plain">
+      <li><strong>Buy-and-hold (benchmark).</strong> The full 200-share position is held with no options
+      overlay; dividends and any cash balance are swept into additional shares.</li>
+      <li><strong>Naive covered call.</strong> Exactly 100 of the 200 shares (one contract) are kept covered
+      by a written call at all times; the remaining 100 shares are held uncovered. The written contract
+      targets approximately 0.25 delta at 25&ndash;45 days to expiration (target 35 DTE), rolled monthly with
+      no discretion to skip a cycle.</li>
+    </ul>
+
+    <h3>3.3 Performance metrics</h3>
+    <p>Strategies are compared on compound annual growth rate (CAGR), annualized Sharpe ratio, Calmar ratio
+    (CAGR divided by maximum drawdown), maximum drawdown, and terminal share count. Terminal share count is
+    reported because it isolates the strategy's effect on the underlying position size independent of
+    valuation at the measurement date, and because it is the quantity most directly comparable to the
+    "shares retained" framing used in the retail pitch under test.</p>
+  </section>
+
+  <section id="naive-results">
+    <h2>4. Naive Covered-Call Results</h2>
+    <p>Table 2 reports the buy-and-hold and naive covered-call results for each fund. Both legs reinvest
+    100% of incoming cash under identical assumptions; the only difference is whether a call is written
+    against 100 of the 200 shares each month.</p>
+
+    <p class="tcaption noJustify"><b>Table 2.</b> Buy-and-hold vs. unconditional monthly covered-call, base execution scenario.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>SPY</th><th>CAGR</th><th>Sharpe</th><th>Calmar</th><th>Max DD</th><th>Shares 200&rarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel strat-buyhold">Buy &amp; hold (DRIP)</td><td>14.80%</td><td>0.70</td><td>0.43</td><td>&minus;34.7%</td><td>228</td></tr>
+          <tr><td class="rowlabel strat-naive">Naive covered call</td><td>14.01%</td><td>0.70</td><td>0.41</td><td>&minus;34.1%</td><td>215</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap" style="margin-top:14px;">
+      <table>
+        <thead><tr><th>QQQ</th><th>CAGR</th><th>Sharpe</th><th>Calmar</th><th>Max DD</th><th>Shares 200&rarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel strat-buyhold">Buy &amp; hold (DRIP)</td><td>19.73%</td><td>0.79</td><td>0.57</td><td>&minus;34.9%</td><td>212</td></tr>
+          <tr><td class="rowlabel strat-naive">Naive covered call</td><td>15.79%</td><td>0.70</td><td>0.46</td><td>&minus;34.4%</td><td>162</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap" style="margin-top:14px;">
+      <table>
+        <thead><tr><th>IWM</th><th>CAGR</th><th>Sharpe</th><th>Calmar</th><th>Max DD</th><th>Shares 200&rarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel strat-buyhold">Buy &amp; hold (DRIP)</td><td>8.78%</td><td>0.37</td><td>0.21</td><td>&minus;42.6%</td><td>222</td></tr>
+          <tr><td class="rowlabel strat-naive">Naive covered call</td><td>7.97%</td><td>0.35</td><td>0.18</td><td>&minus;43.8%</td><td>210</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="result-box">
+      <span class="lbl">Finding 1</span>
+      <p>The unconditional covered-call program underperforms buy-and-hold on CAGR, Sharpe ratio, and Calmar
+      ratio on all three underlyings, and finishes with fewer shares in every case (&minus;13 on SPY, &minus;50
+      on QQQ, &minus;12 on IWM). The Calmar shortfall is notable because a covered call is often presented as
+      a risk-reducing structure; on this evidence its drawdown-adjusted return is uniformly <em>worse</em>
+      than simply holding, because the premium collected does not meaningfully offset a genuine broad-market
+      selloff while the strategy simultaneously caps the best months.</p>
+    </div>
+    <p>The QQQ result is the largest in magnitude: 76 calls were written over the sample, 31 of which resulted
+    in assignment, consistent with QQQ's tendency during 2023&ndash;2025 to advance through whatever strike had
+    been sold the preceding month. This is consistent with the mechanism under test &mdash; writing a call every
+    month, irrespective of conditions, necessarily sells into the months that contribute most to long-run
+    compounding.</p>
+  </section>
+
+  <section id="breach">
+    <h2>5. Constructing a Selective Strategy</h2>
+
+    <h3>5.1 Breach probability</h3>
+    <p>If unconditional monthly writing is the source of the shortfall documented in Section 4, a natural
+    remedy is to withhold the call specifically in months where the underlying is more likely to rally through
+    the strike, while continuing to write in other months. Implementing this requires a statistic that
+    quantifies breach risk rather than a qualitative heuristic.</p>
+    <p>We define <strong>breach probability</strong> using the longer 2005&ndash;2026 weekly history: for each
+    week, let the option's implied monthly standard deviation be approximated from the fund's own volatility
+    index level, converted to a 21-session horizon. A month is classified as a "breach" event at multiplier
+    <em>m</em> if the underlying's best forward move over that horizon exceeds <em>m</em> times the
+    option-implied monthly move. Table 3 reports the unconditional breach rate at three multipliers.</p>
+    <p>A multiplier of <strong>1.2&times;</strong> is used as the primary threshold in the analysis that
+    follows: this requires a move roughly 20% larger than what the option market was already pricing in at
+    entry &mdash; large enough to comfortably clear a written strike rather than merely approach it &mdash;
+    which better isolates the event a covered-call writer is actually exposed to than a 1.0&times; ("any month
+    that beat the option-implied move") or 1.5&times; ("only very large moves, at the cost of a much smaller
+    and noisier event count") threshold would.</p>
+
+    <p class="tcaption noJustify"><b>Table 3.</b> Unconditional breach rate by fund and multiplier, 2005&ndash;2026 weekly sample.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Fund</th><th>1.0&times;</th><th>1.2&times;</th><th>1.5&times;</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel">SPY</td><td>13.0%</td><td>5.3%</td><td>1.1%</td></tr>
+          <tr><td class="rowlabel">QQQ</td><td>23.6%</td><td>12.3%</td><td>3.8%</td></tr>
+          <tr><td class="rowlabel">IWM</td><td>17.6%</td><td>9.5%</td><td>3.3%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>QQQ's unconditional breach rate at every multiplier is roughly double SPY's, consistent with the larger
+    naive-strategy shortfall documented for QQQ in Section 4.</p>
+
+    <h3>5.2 Candidate signals</h3>
+    <p>Ten simple, publicly computable regime signals were evaluated as candidate predictors of elevated
+    breach probability. None require options data to compute.</p>
+    <div class="sig-grid">
+      <div class="sig"><div class="nm">RSI(14)</div><div class="ds">Overbought/oversold oscillator; the hypothesis under test is that oversold readings precede sharp rebounds capable of breaching a written strike.</div></div>
+      <div class="sig"><div class="nm">4-month trend</div><div class="ds">Trailing 84-session return.</div></div>
+      <div class="sig"><div class="nm">Price vs. 200-day MA</div><div class="ds">Position relative to the long-run trend line.</div></div>
+      <div class="sig"><div class="nm">Sector correlation</div><div class="ds">Mean pairwise 60-session correlation across the nine SPDR sector ETFs; a proxy for market dispersion.</div></div>
+      <div class="sig"><div class="nm">Absorption shift</div><div class="ds">20-session change in the share of daily variance explained by the market's dominant factor.</div></div>
+      <div class="sig"><div class="nm">Own volatility index</div><div class="ds">VIX / VXN / RVX level, as applicable to the fund.</div></div>
+      <div class="sig"><div class="nm">Volatility rank (252d)</div><div class="ds">Percentile rank of the volatility index over the trailing year.</div></div>
+      <div class="sig"><div class="nm">VRP proxy</div><div class="ds">Implied volatility minus realized volatility.</div></div>
+      <div class="sig"><div class="nm">Beta to SPY</div><div class="ds">60-session rolling beta; included primarily as a control.</div></div>
+      <div class="sig"><div class="nm">60-day drawdown</div><div class="ds">Distance below the trailing 60-session high.</div></div>
+    </div>
+
+    <h3>5.3 Statistical procedure</h3>
+    <p>For each signal, each fund, and each decile cutoff from the 10th to the 90th percentile, we compare the
+    breach rate above the cutoff to the breach rate below it and construct a bootstrapped confidence interval
+    on the difference. A signal is treated as a candidate only where the interval excludes zero, and preference
+    is given to signals whose effect is stable across a range of nearby cutoffs rather than significant at a
+    single percentile, to reduce the risk of reporting a cutoff-specific artifact.</p>
+  </section>
+
+  <section id="signal-results">
+    <h2>6. Signal Analysis</h2>
+    <p>Figure 1 reports the estimated breach-rate lift, in percentage points, associated with each candidate
+    signal condition, by fund. Faded bars indicate a 90% confidence interval that includes zero.</p>
+
+    <div class="board">
+      <div class="fund-h">SPY</div>
+      <div class="barrow"><div class="lbl">RSI(14) &lt; 40</div><div class="track"><div class="center"></div><div class="fill pos" style="width:11.5%"></div></div><div class="val">+4.5 pt</div></div>
+      <div class="barrow"><div class="lbl">4mo trend &lt; 0%</div><div class="track"><div class="center"></div><div class="fill pos" style="width:16%"></div></div><div class="val">+6.4 pt</div></div>
+      <div class="barrow"><div class="lbl">Price below MA200</div><div class="track"><div class="center"></div><div class="fill pos" style="width:12%"></div></div><div class="val">+4.9 pt</div></div>
+      <div class="barrow"><div class="lbl">4mo trend, top decile</div><div class="track"><div class="center"></div><div class="fill neg" style="width:10%"></div></div><div class="val">&minus;4.0 pt</div></div>
+      <div class="barrow notsig"><div class="lbl">Sector corr &lt; 0.45</div><div class="track"><div class="center"></div><div class="fill neg" style="width:0.2%"></div></div><div class="val">+0.1 pt</div></div>
+
+      <div class="fund-h">QQQ</div>
+      <div class="barrow"><div class="lbl">4mo trend &lt; 0%</div><div class="track"><div class="center"></div><div class="fill pos" style="width:23%"></div></div><div class="val">+9.1 pt</div></div>
+      <div class="barrow"><div class="lbl">Price below MA200</div><div class="track"><div class="center"></div><div class="fill pos" style="width:21%"></div></div><div class="val">+8.6 pt</div></div>
+      <div class="barrow notsig"><div class="lbl">RSI(14) &lt; 40</div><div class="track"><div class="center"></div><div class="fill pos" style="width:16%"></div></div><div class="val">+6.4 pt</div></div>
+      <div class="barrow notsig"><div class="lbl">Sector corr &lt; 0.45</div><div class="track"><div class="center"></div><div class="fill pos" style="width:1.4%"></div></div><div class="val">+0.6 pt</div></div>
+
+      <div class="fund-h">IWM</div>
+      <div class="barrow"><div class="lbl">RSI(14), bottom tercile</div><div class="track"><div class="center"></div><div class="fill pos" style="width:20%"></div></div><div class="val">+8.1 pt</div></div>
+      <div class="barrow"><div class="lbl">4mo trend &lt; 0%</div><div class="track"><div class="center"></div><div class="fill pos" style="width:13%"></div></div><div class="val">+5.2 pt</div></div>
+      <div class="barrow"><div class="lbl">Vol index, bottom tercile</div><div class="track"><div class="center"></div><div class="fill neg" style="width:10%"></div></div><div class="val">&minus;4.0 pt</div></div>
+      <div class="barrow notsig"><div class="lbl">Sector corr &lt; 0.45</div><div class="track"><div class="center"></div><div class="fill neg" style="width:4.6%"></div></div><div class="val">&minus;1.9 pt</div></div>
+    </div>
+    <p class="tcaption noJustify" style="margin-top:14px;"><b>Figure 1.</b> Breach-rate lift (percentage points, 90% CI) when the stated condition holds, by fund. RSI's
+    oversold-then-rebound association is significant on SPY and IWM but not on QQQ. An established, strong
+    trend consistently <em>lowers</em> breach risk, the reverse of a naive momentum-chasing prior. Sector
+    correlation &mdash; the strongest single signal identified in a related credit-spread study on the same
+    three underlyings &mdash; does not clear a significant breach-rate interval on any fund here, illustrating
+    that a signal's value is specific to the outcome being predicted rather than a general property of the
+    underlying.</p>
+  </section>
+
+  <section id="rule-construction">
+    <h2>7. Rule Construction</h2>
+
+    <h3>7.1 Redundancy screening</h3>
+    <p>Two pairs of candidate signals were found to be materially redundant. Four-month trend and
+    price-relative-to-200-day-MA move together on every fund, with breach-lift estimates of similar sign and
+    magnitude throughout; both are different-window measurements of the same underlying trend state, and
+    including both would double-count a single opinion. Sector correlation and absorption shift are both
+    proxies for cross-sectional market dispersion; only absorption shift produced a significant breach-rate
+    interval in this analysis; sector correlation is not carried forward into the gating rule despite its
+    performance in the unrelated companion analysis referenced above.</p>
+
+    <h3>7.2 Stability and final selection</h3>
+    <p>Each surviving candidate was required to hold across a range of nearby decile cutoffs, not merely a
+    single percentile, before being considered for the final rule. Per fund, the final specification retains
+    one trend leg &mdash; the load-bearing signal on every fund &mdash; plus one fund-specific second leg,
+    selected from the remaining non-redundant candidates on the basis of whether it improved the realized,
+    dollar-denominated backtest, not the abstract breach statistic alone. RSI(14) is a notable case: it is
+    statistically significant on SPY as well as IWM, but did not improve the live SPY backtest once the trend
+    and structure legs were already included, and is therefore retained only for IWM, the small-capitalization
+    fund, where short-horizon mean reversion appears to carry incremental information not captured by the
+    mega-cap indices.</p>
+
+    <h3>7.3 Final specification</h3>
+    <p>Table 4 states the final gating rule for each fund. A call is withheld in the current month if any
+    listed condition holds.</p>
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="tk">SPY <span class="skip">&asymp;30% of months skipped</span></div>
+        <div class="leg"><b>Weak trend</b> &mdash; 4-month return under <b>+1.6%</b></div>
+        <div class="or">OR</div>
+        <div class="leg"><b>Fragmenting structure</b> &mdash; absorption shift up more than <b>+0.8 pt</b> in 20 sessions</div>
+      </div>
+      <div class="rule-card">
+        <div class="tk">QQQ <span class="skip">&asymp;25% of months skipped</span></div>
+        <div class="leg"><b>Fragmenting structure</b> &mdash; absorption shift up more than <b>+1.0 pt</b> in 20 sessions</div>
+        <div class="or">OR</div>
+        <div class="leg"><b>Trend not confirmed</b> &mdash; price less than <b>3.5%</b> above its 200-day MA</div>
+      </div>
+      <div class="rule-card">
+        <div class="tk">IWM <span class="skip">&asymp;30% of months skipped</span></div>
+        <div class="leg"><b>Oversold</b> &mdash; RSI(14) under <b>45.8</b></div>
+        <div class="or">OR</div>
+        <div class="leg"><b>Weak trend</b> &mdash; 4-month return under <b>&minus;0.7%</b></div>
+      </div>
+    </div>
+    <p class="tcaption noJustify" style="margin-top:12px;"><b>Table 4.</b> Final per-fund gating rule. All three rules share a trend-weakness leg (measured as
+    trailing return for SPY and IWM, or distance above the 200-day average for QQQ) and diverge on a second,
+    fund-specific leg. Despite being constructed independently, all three skip a similar share of months
+    (roughly one quarter to one third), a consistency we note but do not treat as more than coincidental.</p>
+  </section>
+
+  <section id="results">
+    <h2>8. Results of the Selective Strategy</h2>
+    <p>The gate is applied within the identical backtest engine used in Section 4 &mdash; same 200-share
+    initialization, same 0.25-delta / ~35-DTE contract selection, same full cash-sweep reinvestment &mdash;
+    with the sole modification that a call is not written in any month the fund's rule flags as elevated
+    breach risk. Figure 2 plots cumulative equity for all three strategies by fund; Tables 5&ndash;7 report the
+    corresponding performance statistics.</p>
+
+    <div class="chart-box">
+      <div class="tabs">
+        <button class="tab active" data-fund="SPY">SPY</button>
+        <button class="tab" data-fund="QQQ">QQQ</button>
+        <button class="tab" data-fund="IWM">IWM</button>
+      </div>
+      <canvas id="eqchart" height="320"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--naive)"></i>Buy &amp; hold</span>
+        <span><i style="background:var(--bad)"></i>Naive covered call</span>
+        <span><i style="background:var(--good)"></i>Rule-gated covered call</span>
+      </div>
+    </div>
+    <p class="tcaption noJustify" style="margin-top:10px;"><b>Figure 2.</b> Cumulative equity by strategy and fund, log scale, 2018-08&ndash;2026-07 ($10,000-equivalent scaled from a 200-share initial position). Select a fund using the tabs above.</p>
+
+    <h3>8.1 SPY</h3>
+    <p class="tcaption noJustify"><b>Table 5.</b> SPY performance, all three strategies.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>SPY</th><th>CAGR</th><th>Sharpe</th><th>Calmar</th><th>Max DD</th><th>Shares 200&rarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel strat-buyhold">Buy &amp; hold</td><td>14.80%</td><td>0.70</td><td>0.43</td><td>&minus;34.7%</td><td>228</td></tr>
+          <tr><td class="rowlabel strat-naive">Naive</td><td>14.01%</td><td>0.70</td><td>0.41</td><td>&minus;34.1%</td><td>215</td></tr>
+          <tr><td class="rowlabel strat-gated">Rule-gated</td><td class="up">15.24%</td><td class="up">0.74</td><td class="up">0.45</td><td class="up">&minus;34.2%</td><td class="up">235</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The gated SPY strategy exceeds buy-and-hold on every reported metric &mdash; CAGR, Sharpe ratio, Calmar
+    ratio, maximum drawdown, and terminal share count. Withholding the call in the approximately 30% of months
+    flagged as elevated-risk removes most of the naive strategy's downside while retaining most of its income;
+    the calls that remain are concentrated in calmer, more persistently trending conditions where the
+    probability of breaching the strike is lower.</p>
+
+    <h3>8.2 QQQ</h3>
+    <p class="tcaption noJustify"><b>Table 6.</b> QQQ performance, all three strategies.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>QQQ</th><th>CAGR</th><th>Sharpe</th><th>Calmar</th><th>Max DD</th><th>Shares 200&rarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel strat-buyhold">Buy &amp; hold</td><td>19.73%</td><td>0.79</td><td>0.57</td><td>&minus;34.9%</td><td>212</td></tr>
+          <tr><td class="rowlabel strat-naive">Naive</td><td>15.79%</td><td>0.70</td><td>0.46</td><td>&minus;34.4%</td><td>162</td></tr>
+          <tr><td class="rowlabel strat-gated">Rule-gated</td><td>19.45%</td><td class="up">0.81</td><td>0.56</td><td>&minus;34.7%</td><td>208</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>QQQ is the one fund on which the gated strategy still trails buy-and-hold on raw CAGR, by 0.28
+    percentage points, although it closes nearly all of the roughly 4-point shortfall left by the naive
+    strategy and posts a higher Sharpe ratio than simply holding. This result should be read against QQQ's
+    buy-and-hold CAGR of 19.7% over the sample window, an unusually strong and concentrated advance that a
+    strategy designed to trade away upside in exchange for downside protection is structurally disadvantaged
+    to match; the gate was still writing calls in roughly 75% of months throughout that run. That the gate
+    nonetheless recovers nearly all of the naive strategy's lost ground &mdash; ending 4 shares short of
+    buy-and-hold rather than 50 &mdash; is evidence the underlying mechanism is functioning even in the
+    least favorable of the three regimes tested.</p>
+
+    <h3>8.3 IWM</h3>
+    <p class="tcaption noJustify"><b>Table 7.</b> IWM performance, all three strategies.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>IWM</th><th>CAGR</th><th>Sharpe</th><th>Calmar</th><th>Max DD</th><th>Shares 200&rarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel strat-buyhold">Buy &amp; hold</td><td>8.78%</td><td>0.37</td><td>0.21</td><td>&minus;42.6%</td><td>222</td></tr>
+          <tr><td class="rowlabel strat-naive">Naive</td><td>7.97%</td><td>0.35</td><td>0.18</td><td>&minus;43.8%</td><td>210</td></tr>
+          <tr><td class="rowlabel strat-gated">Rule-gated</td><td class="up">9.01%</td><td class="up">0.38</td><td>0.21</td><td class="up">&minus;42.3%</td><td class="up">226</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The gated IWM strategy exceeds buy-and-hold on CAGR, Sharpe ratio, and maximum drawdown, and ties it on
+    Calmar ratio, while continuing to write calls in roughly 70% of months. IWM exhibits the choppiest and
+    least persistent trend of the three funds, consistent with a regime in which a filter that avoids selling
+    into short-term rebounds is expected to be most valuable.</p>
+
+    <div class="result-box">
+      <span class="lbl">Finding 2</span>
+      <p>A gating rule constructed from a small number of trend and market-structure signals converts a
+      strategy that underperforms buy-and-hold on every metric and every fund into one that matches or exceeds
+      buy-and-hold on CAGR, Sharpe ratio, and Calmar ratio for two of three funds (SPY, IWM), and materially
+      narrows &mdash; without eliminating &mdash; the shortfall on the third (QQQ), under a regime that is
+      structurally unfavorable to the strategy.</p>
+    </div>
+  </section>
+
+  <section id="discussion">
+    <h2>9. Discussion</h2>
+    <p>The central pattern across all three funds is that the naive strategy's underperformance is concentrated
+    in a minority of months during which the underlying advances sharply enough to breach the written strike;
+    removing those months from the call-writing schedule, while continuing to write in the remainder, recovers
+    most or all of the shortfall without materially altering the strategy's exposure profile. This is
+    consistent with the economic mechanism under test: covered-call premium is compensation for assuming a
+    capped upside, and that compensation is adequate in trendless-to-moderately-positive months but
+    systematically insufficient in months where the underlying's realized move substantially exceeds what the
+    option's premium priced in.</p>
+    <p>The QQQ result is informative precisely because it is the weakest of the three. QQQ's sample-period
+    return was driven by a sustained, concentrated advance in a small number of large technology holdings, a
+    regime in which withholding calls more often &mdash; rather than the roughly 25% achieved here &mdash;
+    might further close the gap, at the cost of forgoing a larger share of the strategy's income. The gate as
+    constructed was not tuned to QQQ's specific regime; it was derived from the same procedure applied to all
+    three funds. That it still substantially outperforms the naive alternative on QQQ, despite QQQ representing
+    the most adverse test case among the three, supports the more general claim that selective gating improves
+    on unconditional writing rather than merely fitting a particular fund's history.</p>
+  </section>
+
+  <section id="limitations">
+    <h2>10. Limitations</h2>
+    <div class="note">
+      <p style="margin-bottom:10px;"><b>In-sample construction.</b> The signal-selection procedure described in
+      Section 7 &mdash; redundancy screening, cutoff-stability checks, and comparison against the realized
+      backtest &mdash; was performed once on the same 2018&ndash;2026 options sample on which the final rule is
+      evaluated. This is a legitimate description of in-sample research and is disclosed as such; it is not
+      equivalent to an out-of-sample test. The mechanistic story is coherent (trend strength and structural
+      fragmentation are each independently plausible predictors of breach risk) and replicates in the same
+      direction across three fairly distinct underlyings, which is evidence against the rule being a pure
+      artifact of one fund's history, but it does not substitute for evaluation on data the rule has not
+      touched.</p>
+      <p style="margin-bottom:10px;"><b>Signal evidence base.</b> The breach-probability signal board (Section
+      6) draws on a substantially longer, independent 2005&ndash;2026 weekly history, which provides stronger
+      statistical grounding than the 8-year options sample alone could offer. This mitigates, but does not
+      eliminate, the in-sample concern above, since the final rule's cutoffs and leg selection were still
+      confirmed against the same options-era backtest being reported.</p>
+      <p style="margin-bottom:0;"><b>Recommended next step.</b> The three rules specified in Table 4 should be
+      frozen exactly as stated and evaluated, without modification, on a forward or otherwise unmined sample
+      before any capital allocation decision is informed by this analysis.</p>
+    </div>
+  </section>
+
+  <section id="conclusion">
+    <h2>11. Conclusion</h2>
+    <p>This paper tested, mechanically and across three distinct equity index ETFs, the common claim that
+    selling monthly covered calls against an existing position generates income at negligible cost. Under a
+    fully reinvesting, unconditional implementation, the claim does not hold: the covered-call program
+    underperforms simple buy-and-hold on total return, Sharpe ratio, and Calmar ratio on all three funds
+    tested, and results in a smaller terminal share count in every case. A signal-gated variant, in which the
+    call is withheld during months a small set of trend and market-structure indicators flag as carrying
+    elevated breach risk, reverses this result on two of three funds and substantially narrows it on the
+    third, under a sample period that includes an unusually adverse regime for the strategy. These findings
+    support a conditional answer to the paper's title question: selectively selling covered calls can improve
+    both total return and risk-adjusted return relative to holding the ETF, but only when the timing of the
+    sale is informed by a regime signal with a documented, non-redundant association with breach risk &mdash;
+    not when the call is written unconditionally, and not yet in a setting stronger than the in-sample evidence
+    presented here.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="page" style="padding:0;">
+  Data: SPY / QQQ / IWM adjusted closes and options-implied volatility proxies, 2018-08-01&ndash;2026-07-22
+  (backtest engine) and 2005-01-01&ndash;2026 (signal and breach-probability research).<br>
+  Engine parameters: 0.25&Delta; target strike, 25&ndash;45 DTE (target 35), monthly cadence, full cash-sweep
+  reinvestment, base execution scenario.
+  </div>
+</footer>
+
+<script>
+(function(){
+  var data = {"SPY":{"buyhold_drip":[["2018-08-01",56765.03],["2018-08-29",58907.24],["2018-09-27",58987.4],["2018-10-25",55093.47],["2018-11-26",54214.73],["2018-12-26",49557.53],["2019-01-28",53815.12],["2019-02-26",57159.12],["2019-03-26",57421.54],["2019-04-24",60036.52],["2019-05-22",58651.79],["2019-06-20",60500.48],["2019-07-22",61402.14],["2019-08-19",60294.41],["2019-09-17",61920.92],["2019-10-15",61976.03],["2019-11-12",63902.4],["2019-12-12",65659.21],["2020-01-14",68059.76],["2020-02-12",70139.94],["2020-03-12",52231.09],["2020-04-09",58241.18],["2020-05-08",61077.31],["2020-06-09",67401.4],["2020-07-08",66329.64],["2020-08-05",69714.84],["2020-09-02",75145.97],["2020-10-01",70931.54],["2020-10-29",70054.85],["2020-11-30",76248.91],["2020-12-29",78807.13],["2021-01-28",80403.95],["2021-02-26",81036.01],["2021-03-26",83514.34],["2021-04-26",88689.79],["2021-05-24",89242.58],["2021-06-22",90369.33],["2021-07-21",92546.29],["2021-08-18",94129.95],["2021-09-16",95222.49],["2021-10-14",94560.74],["2021-11-11",99287.19],["2021-12-10",100401.37],["2022-01-10",99264.96],["2022-02-08",96630.02],["2022-03-09",92055.33],["2022-04-06",95967.06],["2022-05-05",88247.41],["2022-06-03",88450.76],["2022-07-05",82409.08],["2022-08-02",88512.48],["2022-08-30",86112.1],["2022-09-28",80589.91],["2022-10-26",83034.01],["2022-11-23",87363.87],["2022-12-23",83352.29],["2023-01-25",87253.63],["2023-02-23",87548.7],["2023-03-23",85785.56],["2023-04-21",90190.2],["2023-05-19",91594.54],["2023-06-20",96166.56],["2023-07-20",99282.25],["2023-08-17",96037.04],["2023-09-15",97906.23],["2023-10-13",95136.42],["2023-11-10",97156.01],["2023-12-12",102363.56],["2024-01-11",105416.14],["2024-02-09",110949.8],["2024-03-11",113158.59],["2024-04-09",115162.35],["2024-05-07",114881.78],["2024-06-05",118556.16],["2024-07-05",123525.94],["2024-08-02",118658.22],["2024-08-30",125179.11],["2024-09-30",127587.85],["2024-10-28",129943.2],["2024-11-25",133439.16],["2024-12-26",134912.2],["2025-01-28",135655.27],["2025-02-26",133087.56],["2025-03-26",127696.65],["2025-04-24",122624.76],["2025-05-22",131957.21],["2025-06-23",135218.99],["2025-07-22",141964.13],["2025-08-19",144242.45],["2025-09-17",148928.86],["2025-10-15",150508.43],["2025-11-12",154579.16],["2025-12-12",154115.21],["2026-01-14",156391.17],["2026-02-12",155008.67],["2026-03-13",150357.09],["2026-04-13",155580.93],["2026-05-11",168013.6],["2026-06-09",167107.8],["2026-07-09",171294.38],["2026-07-16",170836.14]],"naive_cc_reinvest":[["2018-08-01",56765.03],["2018-08-29",58398.04],["2018-09-27",58837.75],["2018-10-25",55135.76],["2018-11-26",54516.07],["2018-12-26",49841.99],["2019-01-28",53390.34],["2019-02-26",56256.43],["2019-03-26",56647.28],["2019-04-24",59019.23],["2019-05-22",57879.91],["2019-06-20",59834.63],["2019-07-22",60893.78],["2019-08-19",59764.98],["2019-09-17",61389.41],["2019-10-15",61555.8],["2019-11-12",63418.37],["2019-12-12",64962.72],["2020-01-14",67193.53],["2020-02-12",69235.41],["2020-03-12",51984.62],["2020-04-09",57987.53],["2020-05-08",60920.91],["2020-06-09",66337.0],["2020-07-08",66595.49],["2020-08-05",69838.12],["2020-09-02",73572.47],["2020-10-01",71761.51],["2020-10-29",71190.64],["2020-11-30",77526.2],["2020-12-29",79877.08],["2021-01-28",81552.06],["2021-02-26",82267.78],["2021-03-26",85025.09],["2021-04-26",89522.56],["2021-05-24",90330.97],["2021-06-22",91666.06],["2021-07-21",93931.74],["2021-08-18",95733.78],["2021-09-16",97145.47],["2021-10-14",96542.93],["2021-11-11",100642.88],["2021-12-10",101413.2],["2022-01-10",100470.24],["2022-02-08",97934.65],["2022-03-09",93165.88],["2022-04-06",97098.71],["2022-05-05",90195.38],["2022-06-03",90626.4],["2022-07-05",84701.1],["2022-08-02",90548.61],["2022-08-30",88392.65],["2022-09-28",83073.04],["2022-10-26",84611.97],["2022-11-23",88131.14],["2022-12-23",84323.74],["2023-01-25",88130.7],["2023-02-23",88395.18],["2023-03-23",86617.37],["2023-04-21",90502.83],["2023-05-19",92037.67],["2023-06-20",95645.02],["2023-07-20",98813.51],["2023-08-17",95807.87],["2023-09-15",97821.98],["2023-10-13",95119.41],["2023-11-10",97361.77],["2023-12-12",101507.53],["2024-01-11",104367.1],["2024-02-09",108858.77],["2024-03-11",110625.96],["2024-04-09",112658.42],["2024-05-07",112493.95],["2024-06-05",115884.95],["2024-07-05",120100.46],["2024-08-02",115015.77],["2024-08-30",121434.41],["2024-09-30",123994.45],["2024-10-28",126528.02],["2024-11-25",130148.19],["2024-12-26",131481.91],["2025-01-28",132214.85],["2025-02-26",130296.06],["2025-03-26",125244.57],["2025-04-24",119271.74],["2025-05-22",125731.03],["2025-06-23",128732.63],["2025-07-22",134278.41],["2025-08-19",136773.74],["2025-09-17",140961.41],["2025-10-15",142718.02],["2025-11-12",146708.38],["2025-12-12",146710.1],["2026-01-14",149080.63],["2026-02-12",148358.58],["2026-03-13",144035.78],["2026-04-13",149365.67],["2026-05-11",158790.71],["2026-06-09",157787.99],["2026-07-09",161847.28],["2026-07-16",161563.65]],"sweep_gated_cc_reinvest":[["2018-08-01",56765.03],["2018-08-29",58398.04],["2018-09-27",58837.75],["2018-10-25",55151.19],["2018-11-26",54344.2],["2018-12-26",49687.25],["2019-01-28",53945.11],["2019-02-26",57294.21],["2019-03-26",57676.91],["2019-04-24",60272.54],["2019-05-22",59106.35],["2019-06-20",61097.29],["2019-07-22",62174.14],["2019-08-19",61023.96],["2019-09-17",62669.0],["2019-10-15",62860.17],["2019-11-12",64823.8],["2019-12-12",66525.77],["2020-01-14",68450.78],["2020-02-12",70395.54],["2020-03-12",52728.7],["2020-04-09",58796.65],["2020-05-08",61659.92],["2020-06-09",68044.53],["2020-07-08",66620.92],["2020-08-05",69460.77],["2020-09-02",73736.55],["2020-10-01",71245.7],["2020-10-29",70661.18],["2020-11-30",76936.59],["2020-12-29",79770.65],["2021-01-28",81445.62],["2021-02-26",81946.8],["2021-03-26",84713.92],["2021-04-26",89109.37],["2021-05-24",90359.01],["2021-06-22",91878.65],["2021-07-21",94307.54],["2021-08-18",95991.45],["2021-09-16",97210.11],["2021-10-14",96587.06],["2021-11-11",101504.52],["2021-12-10",102803.85],["2022-01-10",101834.45],["2022-02-08",99149.12],["2022-03-09",94446.16],["2022-04-06",98465.82],["2022-05-05",90566.71],["2022-06-03",90790.83],["2022-07-05",84567.01],["2022-08-02",90812.06],["2022-08-30",88356.53],["2022-09-28",82707.33],["2022-10-26",85208.35],["2022-11-23",89745.72],["2022-12-23",85865.43],["2023-01-25",89874.97],["2023-02-23",90434.46],["2023-03-23",88616.3],["2023-04-21",92602.45],["2023-05-19",94169.51],["2023-06-20",97881.43],["2023-07-20",101121.23],["2023-08-17",98041.66],["2023-09-15",100098.62],["2023-10-13",97333.31],["2023-11-10",99712.61],["2023-12-12",105061.75],["2024-01-11",108324.11],["2024-02-09",113477.24],["2024-03-11",115155.57],["2024-04-09",117375.77],["2024-05-07",117343.24],["2024-06-05",120940.31],["2024-07-05",125154.77],["2024-08-02",120648.98],["2024-08-30",127318.4],["2024-09-30",129870.8],["2024-10-28",132510.56],["2024-11-25",136288.04],["2024-12-26",137676.3],["2025-01-28",138443.1],["2025-02-26",136179.37],["2025-03-26",130681.54],["2025-04-24",125438.43],["2025-05-22",134978.56],["2025-06-23",138313.14],["2025-07-22",144764.59],["2025-08-19",148344.17],["2025-09-17",152906.79],["2025-10-15",154795.23],["2025-11-12",159110.07],["2025-12-12",159075.13],["2026-01-14",161627.93],["2026-02-12",160798.27],["2026-03-13",156105.25],["2026-04-13",161535.5],["2026-05-11",173671.56],["2026-06-09",171971.96],["2026-07-09",176408.6],["2026-07-16",176070.9]]},"QQQ":{"buyhold_drip":[["2018-08-01",35761.45],["2018-08-29",37725.61],["2018-09-27",37605.72],["2018-10-25",34775.35],["2018-11-23",32202.52],["2018-12-24",29047.55],["2019-01-24",33099.34],["2019-02-22",35037.59],["2019-03-22",36442.73],["2019-04-22",38192.3],["2019-05-20",36617.32],["2019-06-18",37967.58],["2019-07-17",39281.54],["2019-08-14",37282.26],["2019-09-12",39508.75],["2019-10-10",38533.4],["2019-11-07",40886.67],["2019-12-09",41762.22],["2020-01-09",44764.28],["2020-02-07",46856.8],["2020-03-09",40189.83],["2020-04-06",39939.89],["2020-05-05",44807.07],["2020-06-03",48634.95],["2020-07-02",52012.5],["2020-07-31",54341.83],["2020-08-28",60063.9],["2020-09-28",56926.77],["2020-10-26",57511.32],["2020-11-23",59823.72],["2020-12-23",63744.82],["2021-01-27",65622.45],["2021-02-25",64486.99],["2021-03-25",64237.25],["2021-04-23",70228.28],["2021-05-21",67634.22],["2021-06-23",71940.04],["2021-07-23",75978.67],["2021-08-24",77372.21],["2021-09-23",77182.45],["2021-10-22",77296.38],["2021-11-23",81874.61],["2021-12-22",81277.05],["2022-01-21",73034.9],["2022-02-22",70397.72],["2022-03-23",73227.73],["2022-04-21",69457.32],["2022-05-19",60147.41],["2022-06-17",57205.0],["2022-07-19",61878.06],["2022-08-17",68299.63],["2022-09-15",60180.72],["2022-10-13",55969.01],["2022-11-10",58559.46],["2022-12-12",59249.08],["2023-01-11",57701.95],["2023-02-09",62768.34],["2023-03-10",60274.47],["2023-04-10",66242.75],["2023-05-08",67531.08],["2023-06-06",74094.07],["2023-07-07",76905.13],["2023-08-04",77872.82],["2023-09-05",79107.5],["2023-10-03",74018.2],["2023-10-31",73416.23],["2023-12-01",81637.77],["2024-01-02",84108.39],["2024-01-31",87744.82],["2024-02-29",92024.97],["2024-03-28",93456.65],["2024-04-26",90766.62],["2024-05-24",96133.76],["2024-06-25",100879.12],["2024-07-24",97553.99],["2024-08-21",101329.46],["2024-09-19",101785.36],["2024-10-17",103586.54],["2024-11-14",107203.88],["2024-12-13",111797.73],["2025-01-16",108700.88],["2025-02-14",113467.48],["2025-03-17",102330.59],["2025-04-14",97174.81],["2025-05-13",109209.7],["2025-06-11",112320.36],["2025-07-11",117340.01],["2025-08-08",121460.7],["2025-09-08",122266.15],["2025-10-06",128842.32],["2025-11-03",133731.44],["2025-12-03",132119.72],["2026-01-05",131054.56],["2026-02-03",130155.84],["2026-03-04",129599.35],["2026-04-01",124196.22],["2026-04-30",141734.92],["2026-05-29",156602.41],["2026-06-29",153685.58],["2026-07-21",150521.68]],"naive_cc_reinvest":[["2018-08-01",35761.45],["2018-08-29",37529.05],["2018-09-27",37666.7],["2018-10-25",35013.25],["2018-11-23",32614.74],["2018-12-24",29476.72],["2019-01-24",32793.7],["2019-02-22",34509.44],["2019-03-22",35650.41],["2019-04-22",37093.01],["2019-05-20",35692.1],["2019-06-18",37054.27],["2019-07-17",38275.72],["2019-08-14",36468.43],["2019-09-12",38439.51],["2019-10-10",37858.54],["2019-11-07",39792.23],["2019-12-09",40639.89],["2020-01-09",42826.63],["2020-02-07",44730.37],["2020-03-09",38679.32],["2020-04-06",38725.29],["2020-05-05",43149.98],["2020-06-03",46100.95],["2020-07-02",48836.83],["2020-07-31",50902.17],["2020-08-28",54804.96],["2020-09-28",53294.44],["2020-10-26",54165.78],["2020-11-23",56558.39],["2020-12-23",59842.58],["2021-01-27",61567.5],["2021-02-25",60311.24],["2021-03-25",60139.47],["2021-04-23",64934.66],["2021-05-21",63249.41],["2021-06-23",67248.8],["2021-07-23",71060.35],["2021-08-24",72564.71],["2021-09-23",72021.42],["2021-10-22",71949.78],["2021-11-23",74251.2],["2021-12-22",73922.7],["2022-01-21",66573.2],["2022-02-22",64441.57],["2022-03-23",65665.77],["2022-04-21",64160.3],["2022-05-19",55670.06],["2022-06-17",53274.68],["2022-07-19",57439.23],["2022-08-17",61604.69],["2022-09-15",54864.88],["2022-10-13",51109.36],["2022-11-10",53663.31],["2022-12-12",54620.95],["2023-01-11",53122.45],["2023-02-09",56369.8],["2023-03-10",54317.68],["2023-04-10",59675.78],["2023-05-08",61098.52],["2023-06-06",65028.34],["2023-07-07",67464.59],["2023-08-04",68660.64],["2023-09-05",69623.49],["2023-10-03",65819.73],["2023-10-31",65450.74],["2023-12-01",70682.06],["2024-01-02",73109.62],["2024-01-31",75621.49],["2024-02-29",78401.46],["2024-03-28",79876.87],["2024-04-26",77933.12],["2024-05-24",82277.4],["2024-06-25",84426.21],["2024-07-24",81769.98],["2024-08-21",84913.97],["2024-09-19",85073.53],["2024-10-17",85928.49],["2024-11-14",89048.89],["2024-12-13",92453.55],["2025-01-16",90950.33],["2025-02-14",95113.08],["2025-03-17",86204.1],["2025-04-14",82309.3],["2025-05-13",87498.24],["2025-06-11",89766.76],["2025-07-11",93540.1],["2025-08-08",96806.41],["2025-09-08",97802.16],["2025-10-06",102258.81],["2025-11-03",105627.4],["2025-12-03",106164.56],["2026-01-05",105574.35],["2026-02-03",105076.84],["2026-03-04",104962.3],["2026-04-01",101114.61],["2026-04-30",110533.26],["2026-05-29",117255.99],["2026-06-29",116921.27],["2026-07-21",115237.58]],"sweep_gated_cc_reinvest":[["2018-08-01",35761.45],["2018-08-29",37529.05],["2018-09-27",37666.7],["2018-10-25",35068.94],["2018-11-23",32512.12],["2018-12-24",29326.39],["2019-01-24",33418.09],["2019-02-22",35375.42],["2019-03-22",36727.8],["2019-04-22",38208.35],["2019-05-20",36724.39],["2019-06-18",38011.78],["2019-07-17",39265.63],["2019-08-14",37409.14],["2019-09-12",39647.0],["2019-10-10",38781.01],["2019-11-07",41116.16],["2019-12-09",42096.25],["2020-01-09",44358.27],["2020-02-07",46021.34],["2020-03-09",40435.44],["2020-04-06",40163.97],["2020-05-05",45120.47],["2020-06-03",48580.13],["2020-07-02",51306.73],["2020-07-31",53751.37],["2020-08-28",58595.73],["2020-09-28",56886.27],["2020-10-26",57794.68],["2020-11-23",60333.93],["2020-12-23",63866.72],["2021-01-27",65875.86],["2021-02-25",64444.82],["2021-03-25",64517.39],["2021-04-23",70553.03],["2021-05-21",68318.59],["2021-06-23",72545.54],["2021-07-23",75661.49],["2021-08-24",77208.29],["2021-09-23",77240.84],["2021-10-22",77362.27],["2021-11-23",82140.71],["2021-12-22",81676.75],["2022-01-21",73559.35],["2022-02-22",70911.94],["2022-03-23",73755.63],["2022-04-21",69967.04],["2022-05-19",60612.22],["2022-06-17",57655.71],["2022-07-19",62367.32],["2022-08-17",68850.75],["2022-09-15",60653.2],["2022-10-13",56423.11],["2022-11-10",59026.51],["2022-12-12",59720.06],["2023-01-11",58173.05],["2023-02-09",63317.66],["2023-03-10",61064.02],["2023-04-10",67156.28],["2023-05-08",68692.94],["2023-06-06",73492.1],["2023-07-07",76468.27],["2023-08-04",77640.3],["2023-09-05",79052.97],["2023-10-03",74403.05],["2023-10-31",74025.87],["2023-12-01",80712.06],["2024-01-02",83313.69],["2024-01-31",86754.86],["2024-02-29",91039.05],["2024-03-28",92338.41],["2024-04-26",90002.85],["2024-05-24",95062.62],["2024-06-25",97876.57],["2024-07-24",94973.15],["2024-08-21",98762.62],["2024-09-19",99208.6],["2024-10-17",101263.93],["2024-11-14",104960.55],["2024-12-13",109465.9],["2025-01-16",107170.91],["2025-02-14",111806.16],["2025-03-17",101216.77],["2025-04-14",96103.56],["2025-05-13",108023.88],["2025-06-11",110956.24],["2025-07-11",115077.95],["2025-08-08",119272.75],["2025-09-08",120515.29],["2025-10-06",126793.67],["2025-11-03",131796.97],["2025-12-03",130818.03],["2026-01-05",130486.67],["2026-02-03",130147.91],["2026-03-04",130049.33],["2026-04-01",124655.52],["2026-04-30",142323.72],["2026-05-29",153036.14],["2026-06-29",150222.27],["2026-07-21",147730.2]]},"IWM":{"buyhold_drip":[["2018-08-01",33477.47],["2018-08-29",34874.06],["2018-09-27",34012.09],["2018-10-25",30327.38],["2018-11-26",30264.48],["2018-12-26",26645.65],["2019-01-25",29934.24],["2019-02-26",32017.06],["2019-03-26",30837.69],["2019-04-24",32293.82],["2019-05-22",31127.07],["2019-06-20",31783.53],["2019-07-19",31576.92],["2019-08-16",30427.01],["2019-09-16",32304.86],["2019-10-14",30734.85],["2019-11-11",32547.53],["2019-12-11",33400.99],["2020-01-10",33941.53],["2020-02-11",34401.25],["2020-03-11",25693.25],["2020-04-08",24545.79],["2020-05-07",26361.19],["2020-06-05",31146.65],["2020-07-06",29731.05],["2020-08-03",31063.17],["2020-08-31",32380.76],["2020-09-29",31156.78],["2020-10-27",32982.86],["2020-11-24",38392.91],["2020-12-28",41499.76],["2021-01-27",43538.35],["2021-02-25",45823.3],["2021-03-25",45219.2],["2021-04-26",47638.82],["2021-05-24",46426.67],["2021-06-24",48476.32],["2021-07-23",45944.35],["2021-08-23",45999.54],["2021-09-21",45655.23],["2021-10-19",47411.54],["2021-11-16",50143.1],["2021-12-17",45405.79],["2022-01-19",43300.55],["2022-02-16",43529.98],["2022-03-18",43597.72],["2022-04-20",42859.5],["2022-05-19",37361.76],["2022-06-21",35752.87],["2022-07-21",38359.86],["2022-08-19",41165.37],["2022-09-20",37689.5],["2022-10-18",36923.38],["2022-11-15",39967.81],["2022-12-16",37247.61],["2023-01-20",39481.44],["2023-02-17",41197.63],["2023-03-20",37126.66],["2023-04-18",38102.65],["2023-05-17",37766.69],["2023-06-15",40239.98],["2023-07-19",42337.04],["2023-08-17",39608.95],["2023-09-20",38958.55],["2023-10-19",36487.68],["2023-11-17",38559.14],["2023-12-21",43214.82],["2024-01-23",42575.59],["2024-02-21",42714.67],["2024-03-20",44800.04],["2024-04-19",41867.14],["2024-05-20",45450.33],["2024-06-18",43813.21],["2024-07-23",48729.84],["2024-08-20",46509.11],["2024-09-18",48364.99],["2024-10-18",49417.95],["2024-11-18",50199.72],["2024-12-23",48544.68],["2025-01-28",49903.54],["2025-02-26",47242.57],["2025-03-26",45096.03],["2025-04-24",42628.26],["2025-05-22",44965.83],["2025-06-23",46584.8],["2025-07-23",49920.52],["2025-08-20",49719.16],["2025-09-18",54093.49],["2025-10-16",54060.54],["2025-11-13",52305.98],["2025-12-15",55816.22],["2026-01-16",59044.77],["2026-02-17",58393.21],["2026-03-17",55600.34],["2026-04-15",59835.84],["2026-05-13",62991.29],["2026-06-11",64566.66],["2026-07-13",65287.83],["2026-07-20",65258.59]],"naive_cc_reinvest":[["2018-08-01",33477.47],["2018-08-29",34784.47],["2018-09-27",34170.95],["2018-10-25",30543.06],["2018-11-26",30530.06],["2018-12-26",26801.9],["2019-01-25",29108.2],["2019-02-26",30772.75],["2019-03-26",29824.32],["2019-04-24",31246.33],["2019-05-22",30189.01],["2019-06-20",30922.26],["2019-07-19",30808.78],["2019-08-16",29780.87],["2019-09-16",31228.67],["2019-10-14",30148.72],["2019-11-11",31661.1],["2019-12-11",32462.48],["2020-01-10",32850.91],["2020-02-11",33300.93],["2020-03-11",25081.91],["2020-04-08",23682.88],["2020-05-07",25395.84],["2020-06-05",28798.23],["2020-07-06",28558.3],["2020-08-03",29915.75],["2020-08-31",31338.12],["2020-09-29",30327.26],["2020-10-27",32053.1],["2020-11-24",36226.48],["2020-12-28",38519.37],["2021-01-27",39819.46],["2021-02-25",41974.66],["2021-03-25",41629.51],["2021-04-26",43898.71],["2021-05-24",43063.49],["2021-06-24",44991.66],["2021-07-23",42923.3],["2021-08-23",43164.3],["2021-09-21",43067.33],["2021-10-19",44759.07],["2021-11-16",46912.43],["2021-12-17",43247.72],["2022-01-19",41425.99],["2022-02-16",41674.61],["2022-03-18",41729.22],["2022-04-20",41254.65],["2022-05-19",36282.63],["2022-06-21",34858.19],["2022-07-21",37397.77],["2022-08-19",39648.79],["2022-09-20",36547.89],["2022-10-18",35782.01],["2022-11-15",38526.61],["2022-12-16",36524.24],["2023-01-20",38435.42],["2023-02-17",39586.78],["2023-03-20",35788.16],["2023-04-18",36895.39],["2023-05-17",36673.72],["2023-06-15",38882.32],["2023-07-19",40571.39],["2023-08-17",38019.45],["2023-09-20",37451.55],["2023-10-19",35153.52],["2023-11-17",37222.65],["2023-12-21",40562.69],["2024-01-23",40133.66],["2024-02-21",40426.75],["2024-03-20",42553.04],["2024-04-19",39976.89],["2024-05-20",43374.93],["2024-06-18",42016.63],["2024-07-23",45636.4],["2024-08-20",43853.58],["2024-09-18",45756.95],["2024-10-18",46794.72],["2024-11-18",47299.26],["2024-12-23",45928.72],["2025-01-28",47324.05],["2025-02-26",44900.84],["2025-03-26",43052.68],["2025-04-24",40612.03],["2025-05-22",42116.73],["2025-06-23",43703.6],["2025-07-23",46692.85],["2025-08-20",46834.53],["2025-09-18",50654.21],["2025-10-16",51009.57],["2025-11-13",49656.16],["2025-12-15",53063.32],["2026-01-16",55923.59],["2026-02-17",55834.72],["2026-03-17",53435.61],["2026-04-15",56965.33],["2026-05-13",58960.6],["2026-06-11",60586.41],["2026-07-13",61522.98],["2026-07-20",61496.46]],"sweep_gated_cc_reinvest":[["2018-08-01",33477.47],["2018-08-29",34659.31],["2018-09-27",34112.32],["2018-10-25",30417.78],["2018-11-26",30354.45],["2018-12-26",26724.02],["2019-01-25",30012.75],["2019-02-26",32017.78],["2019-03-26",31015.01],["2019-04-24",32341.54],["2019-05-22",31188.34],["2019-06-20",31744.22],["2019-07-19",31744.12],["2019-08-16",30672.91],["2019-09-16",32551.66],["2019-10-14",31100.88],["2019-11-11",32908.15],["2019-12-11",33845.71],["2020-01-10",34473.79],["2020-02-11",34987.32],["2020-03-11",26199.9],["2020-04-08",25030.66],["2020-05-07",26881.31],["2020-06-05",31759.7],["2020-07-06",30316.54],["2020-08-03",31463.22],["2020-08-31",32311.69],["2020-09-29",31156.02],["2020-10-27",32832.85],["2020-11-24",36950.56],["2020-12-28",39299.39],["2021-01-27",40638.69],["2021-02-25",42837.83],["2021-03-25",42517.14],["2021-04-26",44699.66],["2021-05-24",43887.61],["2021-06-24",45733.69],["2021-07-23",43775.99],["2021-08-23",43980.34],["2021-09-21",43818.95],["2021-10-19",45553.05],["2021-11-16",47744.06],["2021-12-17",43790.18],["2022-01-19",41936.45],["2022-02-16",42160.32],["2022-03-18",42226.11],["2022-04-20",41511.1],["2022-05-19",36195.78],["2022-06-21",34624.63],["2022-07-21",37157.36],["2022-08-19",40018.78],["2022-09-20",36676.45],["2022-10-18",35773.62],["2022-11-15",38317.94],["2022-12-16",36434.9],["2023-01-20",38699.91],["2023-02-17",40488.99],["2023-03-20",36642.04],["2023-04-18",37629.7],["2023-05-17",37425.92],["2023-06-15",39863.47],["2023-07-19",41874.31],["2023-08-17",39541.86],["2023-09-20",38943.64],["2023-10-19",36479.24],["2023-11-17",38550.67],["2023-12-21",43217.23],["2024-01-23",42713.36],["2024-02-21",42975.8],["2024-03-20",45135.87],["2024-04-19",42380.88],["2024-05-20",45993.11],["2024-06-18",44537.32],["2024-07-23",48234.25],["2024-08-20",46448.54],["2024-09-18",48160.5],["2024-10-18",49539.03],["2024-11-18",50602.56],["2024-12-23",49122.57],["2025-01-28",50494.34],["2025-02-26",47981.84],["2025-03-26",45794.28],["2025-04-24",43293.14],["2025-05-22",45662.86],["2025-06-23",47304.85],["2025-07-23",50504.1],["2025-08-20",50722.04],["2025-09-18",54778.21],["2025-10-16",55091.35],["2025-11-13",53517.26],["2025-12-15",57136.32],["2026-01-16",60285.71],["2026-02-17",60256.73],["2026-03-17",57661.42],["2026-04-15",61479.15],["2026-05-13",63682.53],["2026-06-11",65428.69],["2026-07-13",66422.59],["2026-07-20",66396.3]]}};
+
+  var colors = {
+    buyhold_drip: getComputedStyle(document.documentElement).getPropertyValue('--naive').trim(),
+    naive_cc_reinvest: getComputedStyle(document.documentElement).getPropertyValue('--bad').trim(),
+    sweep_gated_cc_reinvest: getComputedStyle(document.documentElement).getPropertyValue('--good').trim()
+  };
+  var order = ['buyhold_drip','naive_cc_reinvest','sweep_gated_cc_reinvest'];
+
+  var canvas = document.getElementById('eqchart');
+  var ctx = canvas.getContext('2d');
+  var current = 'SPY';
+
+  function draw(fund){
+    var series = data[fund];
+    var dpr = window.devicePixelRatio || 1;
+    var cssW = canvas.clientWidth || 640;
+    var cssH = 320;
+    canvas.width = cssW * dpr;
+    canvas.height = cssH * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,cssW,cssH);
+
+    var padL = 50, padR = 12, padT = 14, padB = 24;
+    var w = cssW - padL - padR, h = cssH - padT - padB;
+
+    var all = [];
+    order.forEach(function(k){ series[k].forEach(function(p){ all.push(p[1]); }); });
+    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    var logLo = Math.log(lo), logHi = Math.log(hi);
+
+    var n = series.buyhold_drip.length;
+    function xAt(i){ return padL + (i/(n-1)) * w; }
+    function yAt(v){ return padT + h - ((Math.log(v)-logLo)/(logHi-logLo)) * h; }
+
+    var lineCol = getComputedStyle(document.documentElement).getPropertyValue('--line').trim();
+    var dimCol = getComputedStyle(document.documentElement).getPropertyValue('--ink-dim').trim();
+
+    ctx.strokeStyle = lineCol; ctx.lineWidth = 1;
+    ctx.font = '10.5px ui-monospace, SFMono-Regular, monospace';
+    ctx.fillStyle = dimCol;
+    for(var g=0; g<=3; g++){
+      var v = Math.exp(logLo + (g/3)*(logHi-logLo));
+      var y = yAt(v);
+      ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(padL+w,y); ctx.stroke();
+      ctx.fillText('$'+Math.round(v/1000)+'k', 2, y+4);
+    }
+
+    var lastYear = null;
+    series.buyhold_drip.forEach(function(p,i){
+      var yr = p[0].slice(0,4);
+      if(yr !== lastYear){
+        lastYear = yr;
+        var x = xAt(i);
+        ctx.fillText(yr, x, cssH-6);
+      }
+    });
+
+    order.forEach(function(key){
+      var pts = series[key];
+      ctx.beginPath();
+      pts.forEach(function(p,i){
+        var x = xAt(i), y = yAt(p[1]);
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      });
+      ctx.strokeStyle = colors[key];
+      ctx.lineWidth = key === 'sweep_gated_cc_reinvest' ? 2.2 : 1.4;
+      ctx.globalAlpha = key === 'buyhold_drip' ? 0.75 : 1;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      var last = pts[pts.length-1];
+      var ex = xAt(pts.length-1), ey = yAt(last[1]);
+      ctx.beginPath(); ctx.arc(ex,ey,2.8,0,7); ctx.fillStyle = colors[key]; ctx.fill();
+    });
+  }
+
+  document.querySelectorAll('.tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      current = btn.getAttribute('data-fund');
+      draw(current);
+    });
+  });
+
+  window.addEventListener('resize', function(){ draw(current); });
+  draw(current);
+})();
+</script>
+</body>
+</html>

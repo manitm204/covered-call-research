@@ -4,8 +4,8 @@ import math
 
 import pytest
 
-from xsp_research.domain import OptionType
-from xsp_research.options.black_scholes import (
+from covered_call.domain import OptionType
+from covered_call.options.black_scholes import (
     black76_price,
     bs_greeks,
     bs_price,

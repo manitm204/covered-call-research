@@ -18,11 +18,11 @@ from pathlib import Path
 
 import pandas as pd
 
-from level2_research.engine import Engine
-from level2_research.market import ChainStore, DailyData
-from level2_research.metrics import equity_metrics, trade_metrics, yearly_returns
-from level2_research.signals import build_signals
-from level2_research.strategies import DripBuyHoldShares, ReinvestingCoveredCallStrategy
+from covered_call.engine import Engine
+from covered_call.market import ChainStore, DailyData
+from covered_call.metrics import equity_metrics, trade_metrics, yearly_returns
+from covered_call.signals import build_signals
+from covered_call.strategies import DripBuyHoldShares, ReinvestingCoveredCallStrategy
 
 SYMBOLS = ["SPY", "QQQ", "IWM"]
 OUT = Path("results/covered_call_sweep_rule")

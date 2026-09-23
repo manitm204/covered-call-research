@@ -2,9 +2,9 @@
 
 import pytest
 
-from xsp_research.domain import OptionType
-from xsp_research.options.black_scholes import bs_price
-from xsp_research.options.implied_vol import implied_vol
+from covered_call.domain import OptionType
+from covered_call.options.black_scholes import bs_price
+from covered_call.options.implied_vol import implied_vol
 
 
 @pytest.mark.parametrize("vol", [0.08, 0.15, 0.23, 0.60, 1.50])

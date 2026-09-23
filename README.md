@@ -1,153 +1,103 @@
-# xsp-research
+# Does Selectively Selling Covered Calls Improve Total Return or Risk-Adjusted Return Compared with Simply Holding the ETF?
 
-Research and backtesting framework for an **XSP bear call credit spread** overlay strategy
-(European-style, cash-settled, $100 multiplier), designed for correctness, reproducibility,
-realistic execution, and protection against data leakage and overfitting.
+This repo is the paper and everything needed to reproduce it: an empirical study of
+covered-call writing on SPY, QQQ, and IWM (Aug 2018 – Jul 2026), testing (1) whether an
+unconditional monthly covered-call program beats buy-and-hold, and (2) whether a small,
+signal-gated rule that skips writing the call in high-breach-risk months can fix it.
 
-The two research questions this framework exists to answer:
+**Read the paper:** `reports/covered_call_writeup.html` — see [Viewing the report](#viewing-the-report) below.
 
-1. Does the spread have positive standalone expected value **after all costs**?
-2. Does adding the spread to a long stock portfolio improve **total-portfolio**
-   risk-adjusted performance?
+## Repo layout
 
-See `docs/PLAN.md` for the architecture, data dictionary, material assumptions, and the
-authoritative definitions of every P&L and performance calculation.
-
-## Status
-
-**Phase 1 complete**: configuration system, validated domain models, provider interfaces,
-Black-Scholes/IV/Greeks, deterministic audited contract selection, execution-cost model,
-double-entry ledger with collateral and interest accrual, daily backtest engine, metrics,
-CLI.
-
-**Phase 2 complete**: vendor-file ingestion (declarative column mappings, Cboe DataShop
-preset, explicit opt-in SPX→XSP `/10` proxy transform labeled `*_PROXY`, SHA-256
-manifests), full data-quality validation suite (duplicates, crossed/locked, zero-bid,
-below-intrinsic, abnormal spreads, stale quotes, underlying misalignment, strike/session
-gaps, put-call-parity dispersion), portfolio overlay (stock-only vs overlay vs combined,
-margin-overlay and carve-out capital models, downside beta/capture/CVaR), stress-window
-reporting (Q4-2018, COVID, rebounds, 2022 bear — uncovered windows reported, never
-skipped), and Markdown/JSON/chart report generation.
-
-**Phase 3 complete**: feature registry (39 daily features across volatility/trend/
-breadth/cross-asset/PCA-regime families, each with definition, sources, mandatory
-lag >= 1 session, missing-value policy), snapshot-exact options-surface features,
-empirical leakage validation (prefix-consistency: removing future data must never
-change past feature values — enforced in CI for every registered feature),
-declarative entry filters, and a tracked experiment runner (`xsp run-experiment`)
-producing config snapshots, feature manifests, git/data provenance, and per-scenario
-trade-level research datasets.
-
-**Phase 4 complete**: economically meaningful labels (expiration-ITM, close-based
-touch, net P&L, max adverse excursion — each with a `label_end` purge window);
-purged/embargoed forward-chaining walk-forward splits with an untouched final-test
-guard; the mandated benchmark-model ladder (base rate first, then logistic, L1,
-shallow tree — fold-local preprocessing only); calibration diagnostics (Brier, log
-loss, reliability tables, calibration slope/intercept, ECE) plus realized-P&L-by-
-predicted-decile tables; and the required feature-family ablation grid
-(`xsp evaluate-model [--ablation]`).
-
-**Phase 5 complete**: raw-SVI surface fitting with butterfly/calendar arbitrage
-diagnostics (`xsp fit-surface`); nested-tuned XGBoost with per-fold inner purged
-splits and an explicit admission rule against simpler benchmarks
-(`xsp evaluate-model --nested-boosting`); robustness suite (block-bootstrap CIs for
-trade expectancy and Sharpe, short-delta × width grid re-runs); a single-use
-final-test evaluator with an on-disk usage guard; and pre-registered research
-conclusions / go-no-go gates in `docs/CONCLUSIONS.md`. 285 tests.
-
-All five phases of the framework are built and verified. The single remaining
-blocker for real research results is licensed XSP/SPX options history.
-
-**No real market data is bundled.** Runs against synthetic data are for software
-validation only and are labeled as such in every output. Historical XSP/SPX options data
-must be licensed separately (ThetaData, Polygon, Cboe DataShop, ORATS, or user-supplied
-files) and placed under `data/` (git-ignored).
-
-## Install
-
-```bash
-pip install -e ".[dev]"       # add [ml,viz] for later phases
-pytest                        # run the full test suite
+```
+reports/covered_call_writeup.html   the paper (self-contained HTML, no build step)
+results/covered_call/               signal-research outputs (breach-probability study)
+results/covered_call_sweep_rule/    the three-strategy backtest bundle the paper's
+                                     tables and figures are sourced from
+scripts/                            the three scripts that produced everything above
+src/covered_call/                   the backtest engine + strategies those scripts use
+tests/                              unit tests for the engine and option-pricing math
+data/normalized/                    input price/options data (not committed — see below)
 ```
 
-## Usage
+## Setup
+
+Requires Python 3.11+.
 
 ```bash
-# Download the free auxiliary bundle (ETFs/VIX family/rates; FRED+Yahoo+Cboe):
-xsp ingest-aux -o data/normalized/aux --start 2016-01-01
-# Build all 39 daily features from it:
-xsp build-features --bundle-dir data/normalized/aux -o data/features/daily_features.parquet
-
-# Software-validation run on labeled synthetic data:
-xsp run-backtest -c configs/strategy_baseline.yaml --synthetic --scenario base -o reports/dev
-
-# Real data (canonical Parquet schemas documented in docs/PLAN.md):
-xsp run-backtest -c configs/strategy_baseline.yaml \
-  --options-data data/normalized/options \
-  --underlying-data data/normalized/underlying/xsp.parquet \
-  --rates-data data/normalized/rates/tbill_4w.parquet \
-  --scenario conservative -o reports/run1
-
-# Schema/quality check of an options dataset:
-xsp validate-data --options data/normalized/options/2023-01-03.parquet
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+pytest        # 58 tests, should all pass
 ```
 
-Execution scenarios (`--scenario`): `optimistic` (midpoint), `base` (halfway between
-natural and midpoint), `conservative` (natural + slippage). Results should always be
-compared across all three; gross and net P&L are reported separately.
+## Data
 
-## Data licensing
+`data/normalized/` is not committed (176 MB of licensed options-chain data). To
+reproduce the scripts below, populate it with:
 
-Options quote data is licensed by its vendor and must not be committed to this
-repository (`.gitignore` enforces this). Record vendor, license terms, and file hashes
-in `data/manifests/`.
+```
+data/normalized/options/{spy,qqq,iwm}/chain_YYYY-MM.parquet   monthly 15:30 ET NBBO snapshots
+data/normalized/prices_long/{SPY,QQQ,IWM}.parquet              daily adjusted OHLC
+data/normalized/prices_long/{SPY,QQQ,IWM}_dividends.parquet    ex-dividend history
+data/normalized/prices_long/{VIX,VXN,RVX}.parquet               each fund's own vol index
+data/normalized/prices_long/eigen_features_long.parquet         market absorption-ratio series
+data/normalized/prices_long/sectors/{XLB,XLE,XLF,XLI,XLK,XLP,XLU,XLV,XLY}.parquet
+data/normalized/rates/tbill_4w.parquet                           annualized decimal T-bill rate
+```
 
-## Honesty guarantees baked into the code
+`results/` and `reports/covered_call_writeup.html` are already checked in, so you don't
+need the data just to read the paper — only to regenerate the numbers behind it.
 
-- Every `BacktestResult` carries `data_source`; synthetic runs print a warning banner
-  and embed a warning in the summary JSON.
-- Every candidate contract at entry gets an accept/reject audit record.
-- Every cash movement is a balanced double-entry posting; the engine hard-fails the run
-  if ledger equity stops reconciling with position marks.
-- Providers are queried strictly as-of; a regression test asserts the engine's query
-  stream never moves backward or beyond the simulation clock.
-- Interest income is ledgered separately from trading P&L and never mixed into it.
+## Reproducing the paper's numbers
 
----
-
-## Level-2 research program (2026-07: long options / CSP wheel, $10k account)
-
-A second, self-contained research program lives alongside the (retired) spread
-framework: `src/level2_research/` + `scripts/l2_*.py`. It targets a $10,000
-Fidelity account with options Level 1–2 only (no spreads). Start here:
-
-- `research_plan.md` — partitions, hypotheses, execution model, decision gates
-- `data_audit.md` — what the data is and is not (incl. new XLF/SLV/EWZ chains)
-- `strategy_spec.md` — the frozen TG-CER rule (trend-gated QQQ calls)
-- `final_report.md` — full results; holdout verdict; recommendation
-- `fidelity_execution_checklist.md` — operational checklist + paper-trade protocol
-- `experiment_log.csv`, `candidate_results.csv` — complete run ledger
-
-### Reproduce
+Three scripts, run from the repo root, in any order (none depend on each other):
 
 ```bash
-pip install -e ".[dev]"; pytest tests/test_level2_engine.py    # engine unit tests
-# price history (needs FMP_API_KEY in .env):
-python -m level2_research.fmp
-# G1 signal pre-validation on 2000-2017:
-python scripts/l2_signal_prevalidation.py
-# coarse train grid (H1/H2/H4/BENCH x SPY/QQQ/IWM, ~25 min on 10 cores):
-python scripts/l2_run_experiments.py --all --partition train
-# H2 robustness suite:
-python scripts/l2_robustness.py QQQ
-# wheel grid (needs XLF/SLV/EWZ chains under data/normalized/options/):
-python scripts/l2_run_experiments.py --wheel --partition train
-# validation/holdout of the frozen spec: see scripts/l2_run_experiments.py
-#   (holdout is guarded by results/level2/HOLDOUT_UNLOCKED)
-# daily paper-trading signal:
-python scripts/tg_cer_signal.py --equity 10000
+# Breach-probability + 10-signal IC study, 2005-2026 weekly sample (Sections 5-6)
+python scripts/covered_call_signal_research.py      # -> results/covered_call/signal_research.json
+
+# Decile-cutoff breach-rate sweep for every signal (used to pick cutoffs, Section 7)
+python scripts/covered_call_threshold_sweep.py       # -> results/covered_call/threshold_sweep.json
+
+# The three-strategy backtest: buy-and-hold, naive covered call, rule-gated
+# covered call, for SPY/QQQ/IWM (Sections 4, 8 — this is the paper's main result)
+python scripts/covered_call_sweep_rule_backtest.py   # -> results/covered_call_sweep_rule/
 ```
 
-Chain pulls for new underlyings use the existing adapter:
-`python -m xsp_research.cli pull-thetadata --symbol XLF --start 2018-08-01
---end 2026-07-28 --snapshot 15:30:00 --max-dte 70 -o data/normalized/options/xlf`.
+The third script is the one that matters most: it writes
+`results/covered_call_sweep_rule/artifact_bundle.json`, which is where every number and
+every chart series in the paper comes from. The per-fund gating rule (Table 4 in the
+paper) is hardcoded near the top of that script, with the reasoning for each leg in
+comments.
+
+## Viewing the report
+
+The report is a single static HTML file with no external dependencies — open it
+directly in a browser, or serve it locally:
+
+```bash
+cd reports && python3 -m http.server 8935
+# then open http://localhost:8935/covered_call_writeup.html
+```
+
+## Code
+
+- `src/covered_call/engine.py` — the event-driven backtest engine (orders, fills, a
+  double-entry-ish account, assignment/expiry handling)
+- `src/covered_call/market.py` — loads option chains and daily price/dividend/rate data
+- `src/covered_call/selection.py` — deterministic contract selection (Black-Scholes delta
+  computed locally from the quote midpoint, never trusted from vendor fields)
+- `src/covered_call/options/` — Black-Scholes pricing and implied-vol solving
+- `src/covered_call/signals.py` — builds the regime-signal panel (RSI, trend, MA200,
+  sector correlation, absorption shift, vol index, etc.) used by the gate
+- `src/covered_call/strategies.py` — `BuyHoldShares` / `DripBuyHoldShares` (baselines)
+  and `CoveredCallStrategy` / `ReinvestingCoveredCallStrategy` (naive vs. gated covered
+  call; the paper uses the reinvesting variant throughout)
+- `src/covered_call/metrics.py` — CAGR, Sharpe, Sortino, Calmar, drawdown, yearly returns
+
+## Caveats
+
+The paper's own Section 10 (Limitations) states these plainly: the gating rule was
+constructed and evaluated on the same 2018–2026 sample, which is honest in-sample
+research, not an out-of-sample test. Read that section before drawing conclusions beyond
+what the paper claims.

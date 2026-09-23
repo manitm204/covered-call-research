@@ -1,9 +1,7 @@
-# Data is never committed; it is licensed and large. Manifests describe it instead.
-data/raw/
+# Options-chain and price data is not committed; it is licensed and large.
+# See README.md for what's expected under data/normalized/ and how to get it.
 data/normalized/
-data/features/
 *.parquet
-*.duckdb
 
 # Python
 __pycache__/
@@ -19,15 +17,5 @@ dist/
 # Secrets
 .env
 
-# Notebook checkpoints
-.ipynb_checkpoints/
-
-# Reports are regenerated from configs + manifests
-reports/*.html
-reports/*.png
-
 # Local tool caches / local settings
-.pytest_cache/
-.ruff_cache/
 .claude/settings.local.json
-reports/dev/
