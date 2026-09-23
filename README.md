@@ -5,12 +5,13 @@ covered-call writing on SPY, QQQ, and IWM (Aug 2018 – Jul 2026), testing (1) w
 unconditional monthly covered-call program beats buy-and-hold, and (2) whether a small,
 signal-gated rule that skips writing the call in high-breach-risk months can fix it.
 
-**Read the paper:** `reports/covered_call_writeup.html` — see [Viewing the report](#viewing-the-report) below.
+**Read the paper:** [`reports/covered_call_writeup.html`](reports/covered_call_writeup.html) (interactive, with the equity-curve chart — see [Viewing the report](#viewing-the-report) below) or [`reports/covered_call_writeup.pdf`](reports/covered_call_writeup.pdf) (static, for quick reading/printing).
 
 ## Repo layout
 
 ```
 reports/covered_call_writeup.html   the paper (self-contained HTML, no build step)
+reports/covered_call_writeup.pdf    the same paper, as a static PDF
 results/covered_call/               signal-research outputs (breach-probability study)
 results/covered_call_sweep_rule/    the three-strategy backtest bundle the paper's
                                      tables and figures are sourced from
